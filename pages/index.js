@@ -40,7 +40,7 @@ const Home=() => {
     setValidationError('');
 
     const matchedResults=
-      cardData?.data&&
+      cardData.data&&
       cardData.data.filter((card) => {
         const cardName=card.name.toLowerCase();
         const cardSets=(card.card_sets||[]).map((set) => set.set_name.toLowerCase());
