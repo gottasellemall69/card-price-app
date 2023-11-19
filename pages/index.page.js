@@ -11,7 +11,7 @@ const Home=() => {
   useEffect(() => {
     const fetchCardData=async () => {
       try {
-        const response=await fetch('/pages/api/cards.page/');
+        const response=await fetch('/pages/api/cards/');
         const data=await response.json();
         console.log('Card Data:',data);
         setCardData(data.cardData);
