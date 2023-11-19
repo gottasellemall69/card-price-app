@@ -1,4 +1,4 @@
-'use client'
+'use server'
 // components/CardTable.js
 import React from 'react';
 

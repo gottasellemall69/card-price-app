@@ -1,4 +1,4 @@
-'use client'
+'use server'
 // pages/index.js
 import React,{ useState,useEffect } from 'react';
 import CardTable from '../components/CardTable.page'; // Import the CardTable component
