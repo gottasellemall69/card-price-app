@@ -30,18 +30,18 @@ const CardTable=({ matchedCards }) => {
                 </td>
                 <td className="border border-gray-800 p-2">{card.name}</td>
                 <td className="border border-gray-800 p-2">{card.desc}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets?.[0].set_code}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets?.[0].set_name}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets?.[0].set_rarity}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets?.[0].set_edition}</td>
+                <td className="border border-gray-800 p-2">{card.card_sets[0].set_code}</td>
+                <td className="border border-gray-800 p-2">{card.card_sets[0].set_name}</td>
+                <td className="border border-gray-800 p-2">{card.card_sets[0].set_rarity}</td>
+                <td className="border border-gray-800 p-2">{card.card_sets[0].set_edition}</td>
                 <td className="border border-gray-800 p-2">
-                  Set Price: {card.card_sets?.[0].set_price}
+                  Set Price: {card.card_sets[0].set_price}
                   <br />
                   <br />
-                  Ebay Price: {card.card_prices?.[0].ebay_price}
+                  Ebay Price: {card.card_prices[0].ebay_price}
                   <br />
                   <br />
-                  TCG Player Price: {card.card_prices?.[0].tcgplayer_price}
+                  TCG Player Price: {card.card_prices[0].tcgplayer_price}
                 </td>
               </tr>
             ))}
