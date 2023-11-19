@@ -1,6 +1,0 @@
-{
-  "name": "card-price-app",
-  "short_name": "PriceApp",
-  "start_url": "./",
-  "display": "standalone"
-}
