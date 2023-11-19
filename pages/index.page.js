@@ -1,6 +1,6 @@
 // pages/index.js
 import React,{ useState,useEffect } from 'react';
-import CardTable from '../components/CardTable';
+import CardTable from '../components/CardTable.page';
 
 const Home=() => {
   const [userInput,setUserInput]=useState('');
