@@ -11,7 +11,7 @@ const Home=() => {
   useEffect(() => {
     const fetchCardData=async () => {
       try {
-        const response=await fetch('./pages/api/cards');
+        const response=await fetch('https://card-price-app.vercel.app/pages/api/cards.js');
         const data=await response.json();
         setCardData(data.cardData);
       } catch(error) {
