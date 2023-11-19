@@ -1,7 +1,6 @@
-'use client'
 // pages/index.js
 import React,{ useState,useEffect } from 'react';
-import CardTable from '../components/CardTable.page';
+import CardTable from '../components/CardTable.page'; // Import the CardTable component
 
 const Home=() => {
   const [userInput,setUserInput]=useState('');
@@ -12,8 +11,9 @@ const Home=() => {
   useEffect(() => {
     const fetchCardData=async () => {
       try {
-        const response=await fetch('api/cards');
+        const response=await fetch('/api/cards');
         const data=await response.json();
+        console.log('Card Data:',data);
         setCardData(data.cardData);
       } catch(error) {
         console.error('Error fetching card data:',error);
@@ -41,18 +41,18 @@ const Home=() => {
     setValidationError('');
 
     const matchedResults=
-      cardData.data&&
+      cardData?.data&&
       cardData.data.filter((card) => {
         const cardName=card.name.toLowerCase();
         const cardSets=(card.card_sets||[]).map((set) => set.set_name.toLowerCase());
 
         return userCardList.some((entry) => {
-          const [name,numberOrSet]=entry.split(',').map((item) => item.trim().toLowerCase());
+          const [name, numberOrSet]=entry.split(',').map((item) => item.trim().toLowerCase());
 
           // Check if the name or set of the card matches the user's input
           return (
-            name.includes(cardName)||
-            (numberOrSet==='set'&&cardSets.some((set) => set.includes(name)))
+            name.includes(cardName) ||
+            cardSets.some((set) => set.includes(name))
           );
         });
       });
@@ -68,8 +68,8 @@ const Home=() => {
       </p>
       <textarea
         className="w-full h-24 p-2 border border-gray-300 mb-2 text-black"
-        placeholder="Example: Valkyrie Erste SHVA-EN003"
-        defaultValue={userInput}
+        placeholder="Example: Card One, ABC-123"
+        value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
       ></textarea>
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
@@ -80,8 +80,7 @@ const Home=() => {
         Match Cards
       </button>
       {/* Display the matched cards in a table */}
-      {matchedCards.length>0&&<CardTable matchedCards={matchedCards} />}
-        
+      <CardTable matchedCards={matchedCards} /> {/* Pass matchedCards to CardTable component */}
     </div>
   );
 };
