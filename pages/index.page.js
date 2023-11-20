@@ -1,7 +1,6 @@
-'use server'
 // pages/index.js
 import React,{ useState,useEffect } from 'react';
-import CardTable from '../components/CardTable.page'; // Import the CardTable component
+import CardTable from '../components/CardTable.page';
 
 const Home=() => {
   const [userInput,setUserInput]=useState('');
@@ -12,9 +11,8 @@ const Home=() => {
   useEffect(() => {
     const fetchCardData=async () => {
       try {
-        const response=await fetch('/api/cards');
+        const response=await fetch('api/cards');
         const data=await response.json();
-        console.log('Card Data:',data);
         setCardData(data.cardData);
       } catch(error) {
         console.error('Error fetching card data:',error);
@@ -42,18 +40,18 @@ const Home=() => {
     setValidationError('');
 
     const matchedResults=
-      cardData?.data&&
+      cardData.data&&
       cardData.data.filter((card) => {
         const cardName=card.name.toLowerCase();
         const cardSets=(card.card_sets||[]).map((set) => set.set_name.toLowerCase());
 
         return userCardList.some((entry) => {
-          const [name]=entry.split(',').map((item) => item.trim().toLowerCase());
+          const [name,numberOrSet]=entry.split(',').map((item) => item.trim().toLowerCase());
 
           // Check if the name or set of the card matches the user's input
           return (
-            name.includes(cardName) ||
-            cardSets.some((set) => set.includes(name))
+            name.includes(cardName)||
+            (numberOrSet==='set'&&cardSets.some((set) => set.includes(name)))
           );
         });
       });
@@ -81,7 +79,8 @@ const Home=() => {
         Match Cards
       </button>
       {/* Display the matched cards in a table */}
-      <CardTable matchedCards={matchedCards} /> {/* Pass matchedCards to CardTable component */}
+      {matchedCards.length>0&&<CardTable matchedCards={matchedCards} />}
+
     </div>
   );
 };

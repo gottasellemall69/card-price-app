@@ -1,4 +1,3 @@
-'use server'
 // components/CardTable.js
 import React from 'react';
 
@@ -6,7 +5,7 @@ const CardTable=({ matchedCards }) => {
   return (
     <div className="mt-4">
       {matchedCards.length>0? (
-        <table className="border-collapse w-full break-words mx-auto">
+        <table className="border-collapse w-full">
           <thead>
             <tr>
               <th className="border border-gray-800 p-2"></th>
@@ -35,15 +34,7 @@ const CardTable=({ matchedCards }) => {
                 <td className="border border-gray-800 p-2">{card.card_sets[0].set_name}</td>
                 <td className="border border-gray-800 p-2">{card.card_sets[0].set_rarity}</td>
                 <td className="border border-gray-800 p-2">{card.card_sets[0].set_edition}</td>
-                <td className="border border-gray-800 p-2">
-                  Set Price: {card.card_sets[0].set_price}
-                  <br />
-                  <br />
-                  Ebay Price: {card.card_prices[0].ebay_price}
-                  <br />
-                  <br />
-                  TCG Player Price: {card.card_prices[0].tcgplayer_price}
-                </td>
+                <td className="border border-gray-800 p-2">Set Price: {card.card_sets[0].set_price}</td>
               </tr>
             ))}
           </tbody>
