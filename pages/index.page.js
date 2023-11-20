@@ -6,20 +6,20 @@ const Home=() => {
   const [userInput,setUserInput]=useState('');
   const [validationError,setValidationError]=useState('');
   const [matchedCards,setMatchedCards]=useState([]);
-  const [cardData,setCardData]=useState(null);
+  const [data,setdata]=useState(null);
 
   useEffect(() => {
-    const fetchCardData=async () => {
+    const fetchdata=async () => {
       try {
         const response=await fetch('api/cards');
         const data=await response.json();
-        setCardData(data.cardData);
+        setdata(data.data);
       } catch(error) {
         console.error('Error fetching card data:',error);
       }
     };
 
-    fetchCardData();
+    fetchdata();
   },[]);
 
   const matchCards=() => {
@@ -40,8 +40,8 @@ const Home=() => {
     setValidationError('');
 
     const matchedResults=
-      cardData.data&&
-      cardData.data.filter((card) => {
+      data.data&&
+      data.data.filter((card) => {
         const cardName=card.name.toLowerCase();
         const cardSets=(card.card_sets||[]).map((set) => set.set_name.toLowerCase());
 

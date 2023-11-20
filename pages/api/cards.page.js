@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import cardData from 'data/cardData.json'
+import data from 'data/cardData.json'
 export default function handler(req,res) {
 
-  res.status(200).json({ cardData })
+  res.status(200).json({ data })
 }
 export const config={
   api: {
