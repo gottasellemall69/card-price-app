@@ -1,7 +1,7 @@
 import '@/styles/globals.css'
 import { Html,Head,Main,NextScript } from 'next/document'
 
-export default function Document() {
+export function Document() {
   return (
     <Html lang="en">
       <Head />

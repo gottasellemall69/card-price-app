@@ -9,17 +9,23 @@ const Home=() => {
   const [data,setdata]=useState(null);
 
   useEffect(() => {
-    const fetchdata=async () => {
+    const fetchData=async () => {
       try {
         const response=await fetch('api/cards');
-        const data=await response.json();
-        setdata(data.data);
+        const contentType=response.headers.get('content-type');
+
+        if(contentType&&contentType.includes('application/json')) {
+          const jsonData=await response.json();
+          setdata(jsonData);
+        } else {
+          console.error('Invalid response format. Expected JSON.');
+        }
       } catch(error) {
         console.error('Error fetching card data:',error);
       }
     };
 
-    fetchdata();
+    fetchData();
   },[]);
 
   const matchCards=() => {

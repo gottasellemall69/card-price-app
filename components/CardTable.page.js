@@ -30,7 +30,7 @@ const CardTable=({ matchedCards }) => {
                 </td>
                 <td className="border border-gray-800 p-2">{card.name}</td>
                 <td className="border border-gray-800 p-2">{card.desc}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets[0].set_code}</td>
+                <td className="border border-gray-800 p-2">{card.card_sets.set_code}</td>
                 <td className="border border-gray-800 p-2">{card.card_sets[0].set_name}</td>
                 <td className="border border-gray-800 p-2">{card.card_sets[0].set_rarity}</td>
                 <td className="border border-gray-800 p-2">{card.card_sets[0].set_edition}</td>
