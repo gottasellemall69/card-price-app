@@ -16,7 +16,7 @@ export default function UploadPage() {
 
           const newBlob=await upload(file.name,file,{
             access: 'public',
-            handleUploadUrl: 'https://card-price-app-bjp.vercel.app/pages/api/cards',
+            handleUploadUrl: 'https://card-price-app-bjp.vercel.app/api/cards',
           });
 
           setBlob(newBlob);
