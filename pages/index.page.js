@@ -11,7 +11,7 @@ const Home=() => {
   useEffect(() => {
     const fetchData=async () => {
       try {
-        const response=await fetch('api/cards');
+        const response=await fetch('pages/api/cards.page');
         const contentType=response.headers.get('content-type');
 
         if(contentType&&contentType.includes('application/json')) {
