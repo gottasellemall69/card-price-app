@@ -13,8 +13,8 @@ const Home=() => {
   useEffect(() => {
     const fetchCardData=async () => {
       try {
-        const response=await fetch('api/cards');
-        const data=await response.json();
+        const response=await fetch('api/serverless-example');
+        const data=await response.json(cardData);
         setCardData(data.cardData);
       } catch(error) {
         console.error('Error fetching card data:',error);
