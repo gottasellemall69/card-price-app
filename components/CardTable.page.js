@@ -1,6 +1,4 @@
 // components/CardTable.js
-import React from 'react';
-
 const CardTable=({ matchedCards,userCardList }) => {
   return (
     <div className="mt-4">
