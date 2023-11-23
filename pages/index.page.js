@@ -1,7 +1,7 @@
 'use server'
 // pages/index.js
 import React,{ useState,useEffect } from 'react';
-import CardTable from '../components/CardTable.page';
+import CardTable from 'components/CardTable.page.js';
 
 const Home=() => {
   const [userInput,setUserInput]=useState('');
