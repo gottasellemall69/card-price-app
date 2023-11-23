@@ -1,7 +1,7 @@
 // components/CardTable.js
 import React from 'react';
 
-const CardTable=({ matchedCards }) => {
+const CardTable=({ matchedCards,userCardList }) => {
   return (
     <div className="mt-4">
       {matchedCards.length>0? (
@@ -19,24 +19,49 @@ const CardTable=({ matchedCards }) => {
             </tr>
           </thead>
           <tbody>
-            {matchedCards.map((card,index) => (
-              <tr key={index}>
-                <td>
-                  <img
-                    src={card.card_images[0].image_url}
-                    alt={`Card Image - ${card.name}`}
-                    className="w-full h-full mx-auto place-content-center object-contain"
-                  />
-                </td>
-                <td className="border border-gray-800 p-2">{card.name}</td>
-                <td className="border border-gray-800 p-2">{card.desc}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets.set_code}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets[0].set_name}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets[0].set_rarity}</td>
-                <td className="border border-gray-800 p-2">{card.card_sets[0].set_edition}</td>
-                <td className="border border-gray-800 p-2">Set Price: {card.card_sets[0].set_price}</td>
-              </tr>
-            ))}
+            {matchedCards.map((card,index) => {
+              const userCard=userCardList.find((entry) =>
+                entry.toLowerCase().includes(card.name.toLowerCase())
+              );
+
+              const relevantSet=
+                userCard&&
+                card.card_sets.find(
+                  (set) =>
+                    userCard.toLowerCase().includes(set.set_code.toLowerCase())||
+                    userCard.toLowerCase().includes(set.set_name.toLowerCase())
+                );
+
+              return (
+                <tr key={index}>
+                  <td>
+                    <img
+                      src={card.card_images[0]['image_url']}
+                      alt={`Card Image - ${card.name}`}
+                      className="w-full h-full mx-auto place-content-center object-scale-down object-center"
+                    />
+                  </td>
+                  <td className="border border-gray-800 p-2">{card.name}</td>
+                  <td className="border border-gray-800 p-2">{card.desc}</td>
+                  <td className="border border-gray-800 p-2">
+                    {relevantSet&&relevantSet.set_code}
+                  </td>
+                  <td className="border border-gray-800 p-2">
+                    {relevantSet&&relevantSet.set_name}
+                  </td>
+                  <td className="border border-gray-800 p-2">
+                    {relevantSet&&relevantSet.set_rarity}
+                  </td>
+                  <td className="border border-gray-800 p-2">
+                    {relevantSet&&relevantSet.set_edition}
+                  </td>
+                  <td className="border border-gray-800 p-2">
+                    Set Price: {relevantSet&&relevantSet.set_price}
+                  </td>
+                </tr>
+              );
+            })}
+
           </tbody>
         </table>
       ):(

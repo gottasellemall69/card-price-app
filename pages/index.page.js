@@ -6,30 +6,26 @@ const Home=() => {
   const [userInput,setUserInput]=useState('');
   const [validationError,setValidationError]=useState('');
   const [matchedCards,setMatchedCards]=useState([]);
-  const [data,setdata]=useState(null);
+  const [cardData,setCardData]=useState(null);
+  const [userCardList,setUserCardList]=useState([]); // Add this line
 
   useEffect(() => {
-    const fetchData=async () => {
+    const fetchCardData=async () => {
       try {
-        const response=await fetch('https://card-price-app-bjp.vercel.app/api/cards');
-        const contentType=response.headers.get('content-type');
-
-        if(contentType&&contentType.includes('application/json')) {
-          const jsonData=await response.json();
-          setdata(jsonData);
-        } else {
-          console.error('Invalid response format. Expected JSON.');
-        }
+        const response=await fetch('api/cards');
+        const data=await response.json();
+        setCardData(data.cardData);
       } catch(error) {
         console.error('Error fetching card data:',error);
       }
     };
 
-    fetchData();
+    fetchCardData();
   },[]);
 
   const matchCards=() => {
     const userCardList=userInput.split('\n');
+    setUserCardList(userCardList);
 
     const isValid=userCardList.every((entry) => {
       const [name,numberOrSet]=entry.split(',').map((item) => item.trim());
@@ -46,18 +42,22 @@ const Home=() => {
     setValidationError('');
 
     const matchedResults=
-      data.data&&
-      data.data.filter((card) => {
+      cardData&&
+      cardData.data.filter((card) => {
         const cardName=card.name.toLowerCase();
-        const cardSets=(card.card_sets||[]).map((set) => set.set_name.toLowerCase());
+        const cardSets=(card.card_sets||[]).map((set) => ({
+          name: set.set_name.toLowerCase(),
+          code: set.set_code.toLowerCase(),
+        }));
 
         return userCardList.some((entry) => {
           const [name,numberOrSet]=entry.split(',').map((item) => item.trim().toLowerCase());
 
-          // Check if the name or set of the card matches the user's input
+          // Check if the name, set name, or set code of the card matches the user's input
           return (
             name.includes(cardName)||
-            (numberOrSet==='set'&&cardSets.some((set) => set.includes(name)))
+            (numberOrSet==='set'&&
+              cardSets.some((set) => set.name.includes(name)||set.code.includes(name)))
           );
         });
       });
@@ -84,9 +84,7 @@ const Home=() => {
       >
         Match Cards
       </button>
-      {/* Display the matched cards in a table */}
-      {matchedCards.length>0&&<CardTable matchedCards={matchedCards} />}
-
+      {matchedCards.length>0&&<CardTable matchedCards={matchedCards} userCardList={userCardList} />}
     </div>
   );
 };

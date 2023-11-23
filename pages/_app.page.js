@@ -1,18 +1,5 @@
 import '@/styles/globals.css'
-import { Html,Head,Main,NextScript } from 'next/document'
 
-export function Document() {
-  return (
-    <Html lang="en">
-      <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  )
-}
-
-export default function App({ Component, pageProps }) {
+export default function App({ Component,pageProps }) {
   return <Component {...pageProps} />
 }
