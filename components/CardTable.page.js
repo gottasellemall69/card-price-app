@@ -1,4 +1,5 @@
-// components/CardTable.js
+import React from 'react';
+
 const CardTable=({ matchedCards,userCardList }) => {
   return (
     <div className="mt-4">
@@ -22,8 +23,8 @@ const CardTable=({ matchedCards,userCardList }) => {
                 entry.toLowerCase().includes(card.name.toLowerCase())
               );
 
-              const relevantSet=
-                userCard&&
+              const relevantSet=userCard
+                &&
                 card.card_sets.find(
                   (set) =>
                     userCard.toLowerCase().includes(set.set_code.toLowerCase())||
@@ -41,25 +42,14 @@ const CardTable=({ matchedCards,userCardList }) => {
                   </td>
                   <td className="border border-gray-800 p-2">{card.name}</td>
                   <td className="border border-gray-800 p-2">{card.desc}</td>
-                  <td className="border border-gray-800 p-2">
-                    {relevantSet&&relevantSet.set_code}
-                  </td>
-                  <td className="border border-gray-800 p-2">
-                    {relevantSet&&relevantSet.set_name}
-                  </td>
-                  <td className="border border-gray-800 p-2">
-                    {relevantSet&&relevantSet.set_rarity}
-                  </td>
-                  <td className="border border-gray-800 p-2">
-                    {relevantSet&&relevantSet.set_edition}
-                  </td>
-                  <td className="border border-gray-800 p-2">
-                    Set Price: {relevantSet&&relevantSet.set_price}
-                  </td>
+                  <td className="border border-gray-800 p-2">{relevantSet.set_code}</td>
+                  <td className="border border-gray-800 p-2">{relevantSet.set_name}</td>
+                  <td className="border border-gray-800 p-2">{relevantSet.set_rarity}</td>
+                  <td className="border border-gray-800 p-2">{relevantSet.set_edition}</td>
+                  <td className="border border-gray-800 p-2">Set Price: {relevantSet.set_price}</td>
                 </tr>
               );
             })}
-
           </tbody>
         </table>
       ):(
