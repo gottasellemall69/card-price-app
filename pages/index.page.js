@@ -3,19 +3,19 @@ import Link from 'next/link';
 
 const Home=() => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-black text-white p-5">
-      <h1 className="text-7xl font-bold text-center align-middle place-content-evenly mx-auto -mt-48">Welcome...</h1>
+    <div className='min-h-screen flex flex-col flex-wrap text-white'>
+
+      
+      <h1 className="text-7xl font-bold text-center align-middle place-content-evenly mx-auto mt-24 lg:mt-32">Welcome...</h1>
       <p className="text-md font-semibold w-fit mx-auto p-5 italic">To begin, please choose which type of card you want to get current prices for:</p>
-      <div className="flex gap-10 lg:gap-15 p-5 mx-auto flex-wrap">
+      <div className="relative flex gap-24 lg:gap-32 p-5 flex-wrap mx-auto">
         <Link href="/Yugioh"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-wrap m-2 text-center align-middle place-content-evenly mx-auto hover:cursor-pointer"
+              className="justify-center mx-auto absolute yugioh-button font-bold py-48 px-48 rounded-full flex-wrap m-2 text-center hover:cursor-pointer"
               title="Check Yu-Gi-Oh! card prices here!">
-            Yu-Gi-Oh! Prices
         </Link>
         <Link href="/SportsPage"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-wrap m-2 text-center align-middle place-content-evenly mx-auto hover:cursor-pointer"
+              className="text-black justify-center mx-auto absolute sports-button font-bold py-48 px-48 rounded-full flex-wrap m-2 text-center hover:cursor-pointer"
               title="Check sports card prices here!">
-            Sports Card Prices
         </Link>
       </div>
     </div>

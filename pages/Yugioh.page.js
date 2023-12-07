@@ -1,6 +1,6 @@
 // yugioh.page.js
 import React,{ useState } from 'react';
-import CardTable from '@/components/Yugioh/CardTable.page.js';
+import CardTable from '@/components/Yugioh/CardTable.js';
 import cardData from '@/data/Yugioh/cardData.json'; // import the JSON file
 
 const Yugioh=() => {

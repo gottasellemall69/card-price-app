@@ -1,0 +1,79 @@
+.bg-image{
+
+  background-position: left, right;
+}
+.yugioh-button {
+  color: orange;
+  position: relative; 
+  display: block;
+  text-align: center;
+  line-height: 63px;
+  background: none;
+  border-radius: 100%;
+  font-size: 30px;
+  transition: .5s;
+  background-image: url(https://iili.io/JIu3fWX.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.sports-button {
+  position: relative; 
+  color: orange;
+  display: block;
+  text-align: center;
+  line-height: 63px;
+  background: none;
+  border-radius: 100%;
+  font-size: 30px;
+background-repeat: no-repeat;
+background-size: cover;
+  transition: .5s;
+ background-image:url(https://www.seekpng.com/png/full/92-927430_basketball-vector-basketball-ball-3d-png.png);
+}
+
+.yugioh-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  background: white;
+  transition: .5s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+.sports-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  background: white;
+  transition: .5s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+.yugioh-button:hover::before {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px white;
+}
+
+.sports-button:hover::before {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px white;
+}
+
+.yugioh-button:hover {
+  color: white;
+  box-shadow: 0 0 10px white;
+  text-shadow: 0 0 2px #ff1010;
+}
+
+.sports-button:hover {
+  color: white;
+  box-shadow: 0 0 10px white;
+  text-shadow: 0 0 2px #ff1010;
+}

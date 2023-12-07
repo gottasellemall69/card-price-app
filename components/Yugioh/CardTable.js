@@ -1,3 +1,5 @@
+// @/components/Yugioh/CardTable.page.js
+
 import React from 'react';
 
 const CardTable=({ matchedCards,userCardList }) => {
