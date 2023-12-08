@@ -1,6 +1,7 @@
 // @/pages/SportsPage.page.js
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ ssr: false });
 
 
@@ -14,6 +15,7 @@ const SportsPage=() => {
           </p>
       </div>
       <SportsTable />
+      <SpeedInsights />
     </div>
   );
 };
