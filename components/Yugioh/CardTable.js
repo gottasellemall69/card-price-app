@@ -1,9 +1,13 @@
 // @/components/Yugioh/CardTable.page.js
 
-import Image from 'next/image';
 import React from 'react';
 
 const CardTable=({ matchedCards,userCardList }) => {
+  const getLocalImagePath=(cardId) => {
+    const idString=String(cardId);
+    return `/yugiohImages/${idString}.jpg`;
+  };
+
   return (
     <div className="mt-4">
       {matchedCards.length>0? (
@@ -41,13 +45,13 @@ const CardTable=({ matchedCards,userCardList }) => {
                     userCard.toLowerCase().includes(set.set_name?.toLowerCase())||
                     userCard.toLowerCase().includes(set.set_code?.toLowerCase())
                 );
-
               return (
                 <tr key={index}>
                   <td className="border border-gray-800 whitespace-pre-wrap hidden text-sm text-white lg:table-cell">
                     <img
-                      src={card.card_images[0]['image_url']}
+                      src={getLocalImagePath(card.id)}
                       alt={`Card Image - ${card.name}`}
+                      loading='lazy'
                       className="w-full h-full max-h-96 max-w-96 mx-auto place-content-center object-center object-scale-down sm:object-fill overflow-clip"
                     />
                   </td>
