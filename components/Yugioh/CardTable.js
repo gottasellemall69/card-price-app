@@ -1,6 +1,7 @@
 // @/components/Yugioh/CardTable.page.js
 
 import React from 'react';
+import Image from 'next/image';
 
 const CardTable=({ matchedCards,userCardList }) => {
   const getLocalImagePath=(cardId) => {
@@ -21,15 +22,15 @@ const CardTable=({ matchedCards,userCardList }) => {
               <th scope="col"
                 className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell">Desc</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 py-3.5 pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 py-3.5 text-left text-sm pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
               <th scope="col"
                 className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter">Set</th>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 py-3.5 pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 sm:table-cell">Rarity</th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 py-3.5 text-left text-sm pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 sm:table-cell">Rarity</th>
               <th scope="col"
                 className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter sm:table-cell">Edition</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 py-3.5 pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Set Price</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 py-3.5 text-left text-sm pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 whitespace-nowrap">Set Price</th>
             </tr>
           </thead>
           <tbody>
@@ -48,11 +49,13 @@ const CardTable=({ matchedCards,userCardList }) => {
               return (
                 <tr key={index}>
                   <td className="border border-gray-800 whitespace-pre-wrap hidden text-sm text-white lg:table-cell">
-                    <img
+                    <Image
                       src={getLocalImagePath(card.id)}
                       alt={`Card Image - ${card.name}`}
                       loading='lazy'
-                      className="w-full h-full max-h-96 max-w-96 mx-auto place-content-center object-center object-scale-down sm:object-fill overflow-clip"
+                      width={200}
+                      height={300}
+                      className="w-full h-full mx-auto object-center object-cover overflow-clip"
                     />
                   </td>
                   <td className="border border-gray-800 p-2 whitespace-pre-wrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>

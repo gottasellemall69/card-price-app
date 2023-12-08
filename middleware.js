@@ -10,6 +10,7 @@ export function middleware(req,res) {
   const origin=req.headers.get('origin');
 
   if(allowedOrigins.includes(origin)) {
+    res.headers.set('Content-Security-Policy','script-src ...; object-src \'none\'');
     res.headers.set('Access-Control-Allow-Origin',origin);
     res.headers.set('Content-Type','application/json');
     res.headers.set('Content-Encoding','*');

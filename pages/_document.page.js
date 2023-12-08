@@ -1,10 +1,13 @@
 // pages/_document.page.js
-import { Html,Head,Main,NextScript } from 'next/document';
+import { Html,Main,NextScript } from 'next/document';
+import Head from 'next/document';
 
 export default function RootLayout() {
   return (
     <Html lang="en">
-      <Head />
+        <Head>
+          <title>Card Price App</title>
+      </Head>
       <body>
         <Main />
         <NextScript />

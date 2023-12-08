@@ -1,7 +1,10 @@
 // @/components/Yugioh/CardMatcher.js
+
 import React,{ useState } from 'react';
-import CardTable from './CardTable';
+import dynamic from 'next/dynamic';
+const CardTable=dynamic(() => import('./CardTable'),{ ssr: false });
 import cardData from '@/data/Yugioh/cardData.json';
+
 
 const CardMatcher=() => {
   const [userInput,setUserInput]=useState('');

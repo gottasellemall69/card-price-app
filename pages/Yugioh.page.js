@@ -1,6 +1,7 @@
 // @/pages/Yugioh.page.js
 import React from 'react';
-import CardMatcher from '@/components/Yugioh/CardMatcher';
+import dynamic from 'next/dynamic';
+const CardMatcher=dynamic(() => import('@/components/Yugioh/CardMatcher'),{ ssr: false });
 
 const Yugioh=() => {
   return (

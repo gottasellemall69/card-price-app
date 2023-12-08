@@ -1,4 +1,4 @@
-// utils/parseData.js
+// @/utils/parseData.js
 const parseData=async (url) => {
   try {
     const response=await fetch(url);

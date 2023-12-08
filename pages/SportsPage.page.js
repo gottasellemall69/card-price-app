@@ -1,7 +1,8 @@
 // @/pages/SportsPage.page.js
-
 import React from 'react';
-import SportsTable from '@/components/Sports/SportsTable.js';
+import dynamic from 'next/dynamic';
+const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ ssr: false });
+
 
 const SportsPage=() => {
   return (
