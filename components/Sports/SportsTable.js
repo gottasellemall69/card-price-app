@@ -1,7 +1,7 @@
 // @/components/Sports/SportsTable.page.js
 import dynamic from 'next/dynamic';
 import React, { useEffect,useState } from 'react';
-const SportsTableComponent=dynamic(() => import('./SportsTableComponent'),{ ssr: false });
+const SportsTableComponent=dynamic(() => import('./SportsTableComponent'),{ ssr: true });
 import CardSetButtons from './CardSetButtons';
 
 function SportsTable() {

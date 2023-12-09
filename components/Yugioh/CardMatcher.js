@@ -2,7 +2,7 @@
 
 import React,{ useState } from 'react';
 import dynamic from 'next/dynamic';
-const CardTable=dynamic(() => import('./CardTable'),{ ssr: false });
+const CardTable=dynamic(() => import('./CardTable'),{ ssr: true });
 import cardData from '@/data/Yugioh/cardData.json';
 
 
@@ -64,6 +64,7 @@ const CardMatcher=() => {
         Example: Blue-Eyes White Dragon LOB-EN001 OR Omega Summon Shadows in Valhalla OR Strike Ninja IOC-007 Invasion of Chaos
       </p>
       <textarea
+        name='userInput'
         className="w-full h-48 p-2 border border-gray-300 mb-2 text-black resize-none"
         placeholder="Paste card list here..."
         value={userInput}

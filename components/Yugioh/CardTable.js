@@ -16,21 +16,21 @@ const CardTable=({ matchedCards,userCardList }) => {
           <thead>
             <tr>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell"></th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell"></th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell">Desc</th>
+                className="sticky top-0 z-10 max-w-prose whitespace-pre hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell">Desc</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 py-3.5 text-left text-sm pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter">Set</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter">Set</th>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 py-3.5 text-left text-sm pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 sm:table-cell">Rarity</th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 sm:table-cell">Rarity</th>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter sm:table-cell">Edition</th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter sm:table-cell">Edition</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 py-3.5 text-left text-sm pl-3 pr-4 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 whitespace-nowrap">Set Price</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 whitespace-nowrap">Set Price</th>
             </tr>
           </thead>
           <tbody>
@@ -58,13 +58,13 @@ const CardTable=({ matchedCards,userCardList }) => {
                       className="w-full h-full mx-auto object-center object-cover overflow-clip"
                     />
                   </td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden px-3 py-4 text-sm text-white lg:table-cell">{card?.desc}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_code}</td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_name}</td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden px-3 py-4 text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden px-3 py-4 text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_price}</td>
+                  <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>
+                  <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden text-sm text-white lg:table-cell">{card?.desc}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_code}</td>
+                  <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_name}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_price}</td>
                 </tr>
               );
             })}
