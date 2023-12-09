@@ -25,3 +25,116 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@layer components{
+  .bg-image {
+    background-image: url('https://iili.io/HOAPiua.webp');
+  }
+      html {
+        font-size: 16px;
+      }
+
+      #slogo {
+        content: url('https://iili.io/HCZg7XR.webp');
+        max-height: 90px;
+        max-width: 100%;
+      }
+
+      .brandname {
+        content: url('https://iili.io/HHoNXWB.webp');
+        max-height: 60px;
+        max-width: 100%;
+      }
+
+      .link-underline {
+        border-bottom-width: 0px;
+        background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+        background-size: 0% 3px;
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        transition: background-size 0.5s ease-in-out;
+      }
+
+      .link-underline-black {
+        background-image: linear-gradient(transparent, transparent), linear-gradient(#efe, #efe);
+      }
+
+      .link-underline:hover {
+        background-size: 100% 3px;
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        transition: background-size 0.5s ease-in-out;
+      }
+
+      .from-red {
+        --tw-gradient-from: #8c2a25;
+        --tw-gradient-to: rgb(140, 42, 37, /0);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+      }
+
+      .from-indigo {
+        --tw-gradient-from: #2f2b47;
+        --tw-gradient-to: rgb(47 43 71 / 0);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+      }
+
+      .via-indigo {
+        --tw-gradient-to: rgb(47, 43, 71, /0);
+        --tw-gradient-stops: var(--tw-gradient-from), #2f2b47, var(--tw-gradient-to);
+      }
+
+      .via-red {
+        --tw-gradient-to: rgb(140, 42, 37, /0);
+        --tw-gradient-stops: var(--tw-gradient-from), #8c2a25, var(--tw-gradient-to);
+      }
+
+      .to-indigo {
+        --tw-gradient-to: #2f2b47;
+      }
+
+      .backdrop {
+        backdrop-filter: blur(24px);
+      }
+
+      .text-shadow {
+        text-shadow: 3px 1px 7px rgba(0, 0, 0, 1.2);
+      }
+      
+      /* Mobile menu animation */
+      #mobile-menu {
+        animation-name: slide-down;
+        animation-duration: 0.29s;
+        animation-timing-function: ease-linear;
+
+      }
+
+      @keyframes slide-down {
+        0% {
+          transform: translateY(-30%);
+          opacity: 0;
+        }
+
+        100% {
+          transform: translateX(0%);
+          opacity: 1;
+        }
+      }
+
+      .mobile-menu.hidden {
+        transform: translateY(-70%);
+        transition: transform 0.28s ease-linear;
+      }
+
+      /* Fading background when mobile menu is open */
+      .sm\:hidden.bg-red-500 {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        top: 50;
+        left: 0;
+        width: 100%;
+        height: 0%;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+}
