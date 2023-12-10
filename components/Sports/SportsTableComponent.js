@@ -1,6 +1,6 @@
 // @/components/Sports/SportsTableComponent.js
 
-import React,{ useEffect,useState } from 'react';
+import React,{ useEffect,useState,Suspense } from 'react';
 
 function SportsTableComponent({ data }) {
   const [sportsData,setSportsData]=useState(data);
@@ -31,6 +31,7 @@ function SportsTableComponent({ data }) {
             </tr>
           </thead>
           <tbody>
+            <Suspense fallback={<p>Loading card data...</p>}>
             {sportsData.map((item,index) => (
               item.products.map((product,productIndex) => (
               <tr key={`${index}-${productIndex}`}>
@@ -42,6 +43,7 @@ function SportsTableComponent({ data }) {
                 </tr>
               ))
             ))}
+            </Suspense>
           </tbody>
         </table>
       ):(

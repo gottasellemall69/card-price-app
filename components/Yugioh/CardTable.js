@@ -1,4 +1,4 @@
-// @/components/Yugioh/CardTable.page.js
+// @/components/Yugioh/CardTable.js
 
 import React from 'react';
 import Image from 'next/image';
@@ -16,21 +16,21 @@ const CardTable=({ matchedCards,userCardList }) => {
           <thead>
             <tr>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell"></th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell"></th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
               <th scope="col"
-                className="sticky top-0 z-10 max-w-prose whitespace-pre hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell">Desc</th>
+                className="sticky top-0 z-10 max-w-sm whitespace-pre hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit  text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell">Desc</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter">Set</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Set</th>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 sm:table-cell">Rarity</th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 sm:table-cell">Rarity</th>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm font-semibold text-white backdrop-blur backdrop-filter sm:table-cell">Edition</th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter sm:table-cell">Edition</th>
               <th scope="col"
-                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-left text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 whitespace-nowrap">Set Price</th>
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 whitespace-nowrap">Set Price</th>
             </tr>
           </thead>
           <tbody>

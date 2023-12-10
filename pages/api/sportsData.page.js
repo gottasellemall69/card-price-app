@@ -76,6 +76,6 @@ function getSportsUrls(cardSet) {
         "https://www.sportscardspro.com/console/basketball-cards-1990-skybox?sort=model-number&exclude-variants=true&rookies-only=false&cursor=450&format=json"
       ];
     default:
-      return [];
+        return [];
   }
 }

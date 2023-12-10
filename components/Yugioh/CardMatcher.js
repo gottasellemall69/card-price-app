@@ -1,8 +1,9 @@
 // @/components/Yugioh/CardMatcher.js
 
 import React,{ useState } from 'react';
+import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-const CardTable=dynamic(() => import('./CardTable'),{ ssr: true });
+const CardTable=dynamic(() => import('./CardTable'),{ ssr: false });
 import cardData from '@/data/Yugioh/cardData.json';
 
 
@@ -12,7 +13,7 @@ const CardMatcher=() => {
   const [matchedCards,setMatchedCards]=useState([]);
   const [userCardList,setUserCardList]=useState([]);
 
-  const matchCards=() => {
+  const matchCards= async () => {
     const userCardList=userInput.split('\n');
     setUserCardList(userCardList);
 
@@ -55,6 +56,7 @@ const CardMatcher=() => {
 
   return (
     <div className="container mx-auto p-4">
+      <Suspense fallback={<p>Loading card data...</p>}>
       <h1 className="text-3xl font-bold mb-4">Card Prices: Yu-Gi-Oh!</h1>
       <p className="mt-4">
         Enter a list of cards, each containing at least the name of the card and either the card number or the name of
@@ -74,7 +76,9 @@ const CardMatcher=() => {
       <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={matchCards}>
         Search Cards
       </button>
-      {matchedCards.length>0&&<CardTable matchedCards={matchedCards} userCardList={userCardList} />}
+      
+        {matchedCards.length>0&&<CardTable matchedCards={matchedCards} userCardList={userCardList} />}
+      </Suspense>
     </div>
   );
 };
