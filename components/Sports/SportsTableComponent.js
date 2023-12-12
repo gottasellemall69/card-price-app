@@ -16,6 +16,7 @@ function SportsTableComponent({ data }) {
     <div>
       {sportsData? (
         <table className='max-w-full w-11/12 min-h-screen mx-auto'>
+          <Suspense fallback={<p>Loading card data...</p>}>
           <thead>
             <tr>
               <th scope="col"
@@ -30,6 +31,7 @@ function SportsTableComponent({ data }) {
                 className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter">PSA 10</th>
             </tr>
           </thead>
+          </Suspense>
           <tbody>
             <Suspense fallback={<p>Loading card data...</p>}>
             {sportsData.map((item,index) => (

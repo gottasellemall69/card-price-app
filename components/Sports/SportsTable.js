@@ -1,6 +1,6 @@
 // @/components/Sports/SportsTable.page.js
 import dynamic from 'next/dynamic';
-import React, { useEffect,useState } from 'react';
+import React, { Suspense, useEffect,useState } from 'react';
 const SportsTableComponent=dynamic(() => import('./SportsTableComponent'),{ ssr: true });
 import CardSetButtons from './CardSetButtons';
 
@@ -76,17 +76,21 @@ function SportsTable() {
   
   return (
     <div>
+      <Suspense>
     <span>
     <CardSetButtons
       cardSets={['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox']} // Add more card sets as needed
       onSelectCardSet={setSelectedCardSet}
       />
-      </span>
+        </span>
+      </Suspense>
+      <Suspense fallback={<p>Loading card data...</p>}>
     <div>
       <div id="table-container" className="inline-block min-w-full py-1 align-middle">
         {sportsData&&displayParsedData(sportsData)}
       </div>
-      </div>
+        </div>
+      </Suspense>
     </div>
   );
 }

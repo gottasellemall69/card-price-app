@@ -5,12 +5,14 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const Home=() => {
   return (
     <>
-      <div className='min-h-screen flex flex-col flex-wrap text-white'>
-        <h1 className="text-7xl font-bold text-center align-middle place-content-evenly mx-auto mt-24 lg:mt-32">Welcome...</h1>
-        <p className="text-md font-semibold w-fit mx-auto p-5 italic">To begin, please choose which type of card you want to get current prices for:</p>
+        <div className="mx-auto max-w-full p-5 text-center place-content-center align-middle justify-center">
+          <h2 className="text-4xl font-bold tracking-tight mt-24 text-white sm:text-6xl">Welcome...</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-300 italic">
+            To begin, please choose which type of card you want to get current prices for:</p>
+        </div>
         <div className="container relative flex gap-24 lg:gap-32 p-5 flex-wrap mx-auto flex-col sm:flex-row w-fit max-w-full">
           <Link href="/Yugioh"
-            className="justify-center mx-auto absolute yugioh-button font-bold py-48 px-48 rounded-full flex-wrap m-2 text-center will-change-auto hover:scale-105 hover:cursor-pointer"
+            className="justify-center bg-clip mx-auto absolute yugioh-button font-bold py-48 px-48 rounded-full flex-wrap m-2 text-center will-change-auto hover:drop-shadow-sm hover:scale-105 hover:cursor-pointer"
             title="Check Yu-Gi-Oh! card prices here!">
           </Link>
           <Link href="/SportsPage"
@@ -18,10 +20,9 @@ const Home=() => {
             title="Check sports card prices here!">
           </Link>
         </div>
-      </div>
-      <SpeedInsights />
+        <SpeedInsights />
     </>
   );
 };
 
-export default Home
+export default Home;

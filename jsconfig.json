@@ -5,5 +5,5 @@
       "@/*": ["./*"]
     }
   },
-  "exclude": ["node_modules","data","cardData.json",".next",".vercel",".github","yugiohImages"]
+  "exclude": ["/node_modules","/data","/.next","/.vercel","/.github","/public"]
 }

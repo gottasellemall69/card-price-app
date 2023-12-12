@@ -35,7 +35,8 @@ const CardMatcher=() => {
       const cardName = card.name.toLowerCase();
       const cardSets = (card.card_sets || []).map((set) => ({
         name: set.set_name.toLowerCase(),
-        code: set.set_code.toLowerCase()
+        code: set.set_code.toLowerCase(),
+        edition: set.set_edition.toLowerCase(),
       }));
 
       return userCardList.some((entry) => {
@@ -45,7 +46,8 @@ const CardMatcher=() => {
           (numberOrSet === 'set' &&
             cardSets.some((set) =>
               set.name.includes(name) ||
-              set.code.includes(numberOrSet) 
+              set.code.includes( numberOrSet ) ||
+              set.edition.includes( numberOrSet )
             ))
         );
       });
