@@ -3,7 +3,8 @@
 import React,{ useState,useEffect } from 'react';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-const CardTable=dynamic(() => import('./CardTable'),{ ssr: true });
+import { Loading } from "@/components/loading.js";
+const CardTable = dynamic( () => import( './CardTable' ),{ ssr: true } );
 
 
 const CardMatcher=() => {
@@ -46,18 +47,18 @@ const CardMatcher=() => {
       const cardSets = (card.card_sets || []).map((set) => ({
         name: set.set_name.toLowerCase(),
         code: set.set_code.toLowerCase(),
-        edition: set.set_edition.toLowerCase(),
+        edition: set.set_edition.toLowerCase()
       }));
 
       return userCardList.some((entry) => {
-        const [name, numberOrSet] = entry.split(',').map((item) => item.trim().toLowerCase());
+        const [name, numberOrSet, edition] = entry.split(',').map((item) => item.trim().toLowerCase());
         return (
           name.includes(cardName) ||
           (numberOrSet === 'set' &&
             cardSets.some((set) =>
               set.name.includes(name) ||
               set.code.includes( numberOrSet ) ||
-              set.edition.includes( numberOrSet )
+              (edition && set.set_edition.includes( edition ))
             ))
         );
       });
@@ -68,7 +69,7 @@ const CardMatcher=() => {
 
   return (
     <div className="container mx-auto p-4">
-      <Suspense fallback={<p>Loading card data...</p>}>
+      <Suspense fallback={Loading}>
       <h1 className="text-3xl font-bold mb-4">Card Prices: Yu-Gi-Oh!</h1>
       <p className="mt-4">
         Enter a list of cards, each containing at least the name of the card and either the card number or the name of
@@ -85,7 +86,10 @@ const CardMatcher=() => {
         onChange={(e) => setUserInput(e.target.value)}
       ></textarea>
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
-      <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={matchCards}>
+        <button
+          name="yugiohCardButton"
+          className="bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
+          onClick={matchCards}>
         Search Cards
       </button>
       

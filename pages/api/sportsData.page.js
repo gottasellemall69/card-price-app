@@ -74,8 +74,29 @@ function getSportsUrls(cardSet) {
         "https://www.sportscardspro.com/console/basketball-cards-1990-skybox?sort=model-number&exclude-variants=true&rookies-only=false&cursor=350&format=json",
         "https://www.sportscardspro.com/console/basketball-cards-1990-skybox?sort=model-number&exclude-variants=true&rookies-only=false&cursor=400&format=json",
         "https://www.sportscardspro.com/console/basketball-cards-1990-skybox?sort=model-number&exclude-variants=true&rookies-only=false&cursor=450&format=json"
-      ];
+        ];
+      case '1990 Fleer':
+        return [
+          "https://www.sportscardspro.com/console/basketball-cards-1990-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=0&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1990-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=50&format=json",          
+          "https://www.sportscardspro.com/console/basketball-cards-1990-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=100&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1990-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=150&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1990-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=200&format=json",
+        ];
+      case '1991 Fleer':
+        return [
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=0&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=50&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=100&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=150&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=200&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=250&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=300&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=350&format=json",
+          "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=400&format=json",
+        ];
     default:
         return [];
   }
 }
+

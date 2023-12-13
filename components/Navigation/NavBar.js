@@ -40,15 +40,15 @@ export default function NavBar() {
           <div id="slogo" className="mx-auto h-16 w-16 overflow-hidden rounded-full border border-zinc-50 text-center align-middle sm:inline-block"></div>
           <blockquote className="brandname inline flex-wrap align-middle text-3xl font-extrabold -tracking-wider antialiased"></blockquote>
         </div>
-      <nav className="text-center font-semibold hidden sm:hidden" id="mobile-menu" style={{ display: 'none' }}>
-          <div className="grid grid-cols-auto flex-wrap w-full gap-y-5 py-3">
+      <nav className="mx-auto text-center font-semibold hidden sm:hidden" id="mobile-menu" style={{ display: 'none' }}>
+          <div className="mx-auto grid grid-cols-auto flex-wrap w-full gap-y-5 py-3">
           <Link href="/" title="Home" rel="noopener" className="w-fit rounded-md py-1 px-4 text-xl whitespace-nowrap text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Home</Link>
           <Link href="/Yugioh" title="Check Yu-Gi-Oh! prices" rel="noopener" className="w-fit rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Yu-Gi-Oh! TCG Prices</Link>
           <Link href="/SportsPage" title="Check sports cards prices" rel="noopener" className="w-fit rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Sports Card Prices</Link>
         </div>
       </nav>
 
-      <nav className="place-content-evenly text-justify font-semibold hidden sm:flex sm:flex-wrap">
+      <nav className="mx-auto place-content-evenly text-justify font-semibold hidden sm:flex sm:flex-wrap">
         <Link href="/" title="Home" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Home</Link>
         <Link href="/Yugioh" title="Check Yu-Gi-Oh! prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Yu-Gi-Oh! TCG Prices</Link>
         <Link href="/SportsPage" title="Check sports cards prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Sports Card Prices</Link>

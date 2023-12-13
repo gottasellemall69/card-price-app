@@ -1,9 +1,9 @@
 // @/components/Sports/SportsTable.page.js
 import dynamic from 'next/dynamic';
 import React, { Suspense, useEffect,useState } from 'react';
-const SportsTableComponent=dynamic(() => import('./SportsTableComponent'),{ ssr: true });
+import { Loading } from '@/components/loading';
 import CardSetButtons from './CardSetButtons';
-
+const SportsTableComponent=dynamic(() => import('./SportsTableComponent'),{ ssr: true });
 function SportsTable() {
   const [sportsData,setSportsData]=useState(null);
   const [selectedCardSet,setSelectedCardSet]=useState('');
@@ -76,15 +76,15 @@ function SportsTable() {
   
   return (
     <div>
-      <Suspense>
+      <Suspense fallback={Loading}>
     <span>
     <CardSetButtons
-      cardSets={['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox']} // Add more card sets as needed
+      cardSets={['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox','1990 Fleer','1991 Fleer']} // Add more card sets as needed
       onSelectCardSet={setSelectedCardSet}
       />
         </span>
       </Suspense>
-      <Suspense fallback={<p>Loading card data...</p>}>
+      <Suspense fallback={Loading}>
     <div>
       <div id="table-container" className="inline-block min-w-full py-1 align-middle">
         {sportsData&&displayParsedData(sportsData)}
