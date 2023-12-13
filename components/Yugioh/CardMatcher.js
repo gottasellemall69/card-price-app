@@ -1,19 +1,29 @@
 // @/components/Yugioh/CardMatcher.js
 
-import React,{ useState } from 'react';
+import React,{ useState,useEffect } from 'react';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-const CardTable=dynamic(() => import('./CardTable'),{ ssr: false });
-import cardData from '@/data/Yugioh/cardData.json';
+const CardTable=dynamic(() => import('./CardTable'),{ ssr: true });
 
 
 const CardMatcher=() => {
   const [userInput,setUserInput]=useState('');
   const [validationError,setValidationError]=useState('');
   const [matchedCards,setMatchedCards]=useState([]);
-  const [userCardList,setUserCardList]=useState([]);
+  const [userCardList,setUserCardList] = useState( [] );
+  const [cardData,setCardData] = useState( [] );
 
-  const matchCards= async () => {
+  useEffect( () =>
+  {
+    // Fetch card data from the API endpoint
+    fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true')
+      .then( ( response ) => response.json() )
+      .then( ( data ) => setCardData( data ) )
+      .catch( ( error ) => console.error( 'Error fetching card data:',error ) );
+  },[] );
+
+  const matchCards = () =>
+  {
     const userCardList=userInput.split('\n');
     setUserCardList(userCardList);
 
@@ -62,7 +72,7 @@ const CardMatcher=() => {
       <h1 className="text-3xl font-bold mb-4">Card Prices: Yu-Gi-Oh!</h1>
       <p className="mt-4">
         Enter a list of cards, each containing at least the name of the card and either the card number or the name of
-        the set. Separate each entry by a newline, please remove all commas (',') from the name of the card.
+        the set. Separate each entry by a newline, please remove all commas from the name of the card.
       </p>
       <p className="mb-4 italic max-w-fit">
         Example: Blue-Eyes White Dragon LOB-EN001 OR Omega Summon Shadows in Valhalla OR Strike Ninja IOC-007 Invasion of Chaos

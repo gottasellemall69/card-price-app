@@ -46,8 +46,9 @@ const CardTable=({ matchedCards,userCardList }) => {
                 &&
                 card.card_sets?.find(
                   (set) =>
-                    userCard.toLowerCase().includes(set.set_name?.toLowerCase())||
-                    userCard.toLowerCase().includes(set.set_code?.toLowerCase())
+                    userCard.toLowerCase().includes(set.set_name.toLowerCase())||
+                    userCard.toLowerCase().includes( set.set_code.toLowerCase()) ||
+                    userCard.toLowerCase().includes(set.set_edition.toLowerCase())
                 );
               return (
                 <tr key={index}>
