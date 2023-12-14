@@ -1,21 +1,22 @@
 // @/components/Yugioh/CardTable.js
-
-import React, { Suspense } from 'react';
+import React,{ Suspense } from 'react';
 import Image from 'next/image';
 
-const CardTable=({ matchedCards,userCardList }) => {
-  const getLocalImagePath=(cardId) => {
-    const idString=String(cardId);
-    return `/yugiohImages/${idString}.jpg`;
+const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
+{
+  const getLocalImagePath = ( cardId ) =>
+  {
+    const idString = String( cardId );
+    return `/yugiohImages/${ idString }.jpg`;
   };
 
   return (
     <div className="mt-4">
       <Suspense fallback={['Loading...']}>
-      {matchedCards.length>0? (
-        <table className="border-collapse w-full">
-          <thead>
-            <tr>
+        {matchedCards.length > 0 ? (
+          <table className="border-collapse w-full">
+            <thead>
+              <tr>
               <th scope="col"
                 className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell"></th>
               <th scope="col"
@@ -35,21 +36,22 @@ const CardTable=({ matchedCards,userCardList }) => {
             </tr>
             </thead>
           
-            <Suspense fallback={['Loading...']}>
-          <tbody>
-            {matchedCards.map((card,index) => {
-              const userCard=userCardList.find((entry) =>
-                entry.toLowerCase().includes(card.name.toLowerCase())
-              );
 
-              const relevantSet=userCard
-                &&
-                card.card_sets?.find(
-                  (set) =>
-                    userCard.toLowerCase().includes(set.set_name.toLowerCase())||
-                    userCard.toLowerCase().includes( set.set_code.toLowerCase()) ||
-                    userCard.toLowerCase().includes(set.set_edition.toLowerCase())
-                );
+              <tbody>
+                {matchedCards.map( ( card,index ) =>
+                {
+                  const userCard = userCardList.find( ( entry ) =>
+                    entry.toLowerCase().includes( card.name.toLowerCase() )
+                  );
+
+                  const relevantSet =
+                    userCard &&
+                    card.card_sets?.find( ( set ) =>
+                      userCard.toLowerCase().includes( set.set_name.toLowerCase() ) ||
+                      userCard.toLowerCase().includes( set.set_code.toLowerCase() ) ||
+                      ( selectedSetEdition && userCard.toLowerCase().includes( set.set_edition.toLowerCase() ) )
+                    );
+
               return (
                 <tr key={index}>
                   <td className="border border-gray-800 whitespace-pre-wrap hidden text-sm text-white lg:table-cell">
@@ -67,14 +69,18 @@ const CardTable=({ matchedCards,userCardList }) => {
                   <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_code}</td>
                   <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_name}</td>
                   <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_price}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">
+                    {relevantSet?.set_edition}
+                  </td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
+                    {relevantSet?.set_price}
+                  </td>
                 </tr>
-              );
-            })}
-            </tbody>
-          </Suspense>
-        </table>
+                  );
+                } )}
+              </tbody>
+
+          </table>
       ):(
         <p>No matched cards found.</p>
       )}
