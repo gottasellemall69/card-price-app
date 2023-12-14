@@ -2,7 +2,6 @@
 
 import React, { Suspense } from 'react';
 import Image from 'next/image';
-import { Loading } from "@/components/loading";
 
 const CardTable=({ matchedCards,userCardList }) => {
   const getLocalImagePath=(cardId) => {
@@ -12,7 +11,7 @@ const CardTable=({ matchedCards,userCardList }) => {
 
   return (
     <div className="mt-4">
-      <Suspense fallback={Loading}>
+      <Suspense fallback={['Loading...']}>
       {matchedCards.length>0? (
         <table className="border-collapse w-full">
           <thead>
@@ -36,7 +35,7 @@ const CardTable=({ matchedCards,userCardList }) => {
             </tr>
             </thead>
           
-          <Suspense fallback={Loading}>
+            <Suspense fallback={['Loading...']}>
           <tbody>
             {matchedCards.map((card,index) => {
               const userCard=userCardList.find((entry) =>

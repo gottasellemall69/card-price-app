@@ -3,7 +3,7 @@
 import React,{ useState,useEffect } from 'react';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import { Loading } from "@/components/loading.js";
+
 const CardTable = dynamic( () => import( './CardTable' ),{ ssr: true } );
 
 
@@ -69,7 +69,7 @@ const CardMatcher=() => {
 
   return (
     <div className="container mx-auto p-4">
-      <Suspense fallback={Loading}>
+      <Suspense fallback={['Loading...']}>
       <h1 className="text-3xl font-bold mb-4">Card Prices: Yu-Gi-Oh!</h1>
       <p className="mt-4">
         Enter a list of cards, each containing at least the name of the card and either the card number or the name of

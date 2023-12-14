@@ -1,12 +1,11 @@
 // @/components/Sports/CardSetButtons.js
 
 import React,{ Suspense } from 'react';
-import { Loading } from '@/components/loading';
 
 const CardSetButtons=({ cardSets,onSelectCardSet }) => {
   return (
     <div className="flex-wrap space-x-4 space-y-4 p-4 align-middle justify-start place-content-start">
-      <Suspense fallback={Loading}>
+      <Suspense fallback={['Loading']}>
       {cardSets.map((cardSet) => (
         <button
           name="getPriceButton"

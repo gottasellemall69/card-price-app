@@ -1,7 +1,5 @@
 // @/components/Sports/SportsTableComponent.js
 import React,{ useEffect,useState,Suspense } from 'react';
-import { Loading } from '@/components/loading';
-
 function SportsTableComponent({ data }) {
   const [sportsData,setSportsData]=useState(data);
 
@@ -16,7 +14,7 @@ function SportsTableComponent({ data }) {
     <div>
       {sportsData? (
         <table className='max-w-full w-11/12 min-h-screen mx-auto'>
-          <Suspense fallback={Loading}>
+          <Suspense fallback={['Loading...']}>
           <thead>
             <tr>
               <th scope="col"
@@ -33,7 +31,7 @@ function SportsTableComponent({ data }) {
           </thead>
           </Suspense>
           <tbody>
-            <Suspense fallback={Loading}>
+            <Suspense fallback={['Loading...']}>
             {sportsData.map((item,index) => (
               item.products.map((product,productIndex) => (
               <tr key={`${index}-${productIndex}`}>
