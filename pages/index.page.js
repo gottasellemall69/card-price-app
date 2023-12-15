@@ -1,10 +1,14 @@
 import React from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const Home=() => {
   return (
     <>
+      <Head>
+        <title>Card Price App</title>
+      </Head>
         <div className="mx-auto max-w-full p-5 text-center place-content-center align-middle justify-center">
           <h2 className="text-4xl font-bold tracking-tight mt-24 text-white sm:text-6xl">Welcome...</h2>
           <p className="mt-6 text-lg leading-8 text-gray-300 italic">
