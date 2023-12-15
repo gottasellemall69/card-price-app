@@ -68,9 +68,9 @@ const CardMatcher = () =>
     setMatchedCards( matchedResults || [] );
   };
 
-  const handleSetEditionSelection = ( set_edition ) =>
+  const handleSetEditionSelection = ( edition ) =>
   {
-    setSelectedSetEdition( set_edition );
+    setSelectedSetEdition( edition );
   };
 
   return (

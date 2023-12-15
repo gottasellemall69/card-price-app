@@ -18,11 +18,11 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
             <thead>
               <tr>
               <th scope="col"
-                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell"></th>
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter xl:table-cell"></th>
               <th scope="col"
                 className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
               <th scope="col"
-                className="sticky top-0 z-10 max-w-sm whitespace-pre hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit  text-sm font-semibold text-white backdrop-blur backdrop-filter lg:table-cell">Desc</th>
+                className="sticky top-0 z-10 max-w-sm whitespace-pre hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter xl:table-cell">Desc</th>
               <th scope="col"
                 className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
               <th scope="col"
@@ -54,26 +54,27 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
 
               return (
                 <tr key={index}>
-                  <td className="border border-gray-800 whitespace-pre-wrap hidden text-sm text-white lg:table-cell">
+                  <td className="hidden xl:table-cell">
                     <Image
                       src={getLocalImagePath(card.id)}
                       alt={`Card Image - ${card.name}`}
                       loading='lazy'
-                      width={200}
-                      height={300}
-                      className="w-full h-full mx-auto object-center object-cover overflow-clip"
+                      width={500}
+                      height={500}
+                      className="w-full h-full max-w-96 mx-auto object-center sm:object-fill overflow-clip object-scale-down"
                     />
                   </td>
                   <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden text-sm text-white lg:table-cell">{card?.desc}</td>
+                  <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden text-sm text-white xl:table-cell">{card?.desc}</td>
                   <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_code}</td>
                   <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_name}</td>
                   <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
                   <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">
                     {relevantSet?.set_edition}
                   </td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
-                    {relevantSet?.set_price}
+                  <td className="border flex-col border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
+                    <p>Set Price: {relevantSet?.set_price}</p>
+                    <p>eBay Price: {card?.card_prices[0]?.ebay_price}</p>
                   </td>
                 </tr>
                   );
