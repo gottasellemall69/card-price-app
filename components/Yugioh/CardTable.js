@@ -74,7 +74,7 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
                   </td>
                   <td className="border flex-col border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
                     <p>Set Price: {relevantSet?.set_price}</p>
-                    <p>eBay Price: {card.card_prices[0]?.ebay_price}</p>
+                    <p>eBay Price: {card.card_prices[0]['ebay_price']}</p>
                   </td>
                 </tr>
                   );

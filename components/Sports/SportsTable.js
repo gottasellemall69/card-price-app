@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 import React, { Suspense, useEffect,useState } from 'react';
 import CardSetButtons from './CardSetButtons';
-const SportsTableComponent=dynamic(() => import('./SportsTableComponent'),{ ssr: true });
+const SportsTableComponent=dynamic(() => import('./SportsTableComponent'),{ ssr: false });
 function SportsTable() {
   const [sportsData,setSportsData]=useState(null);
   const [selectedCardSet,setSelectedCardSet]=useState('');
