@@ -1,71 +1,72 @@
-// @/components/Yugioh/CardMatcher.js
-import React,{ useState,useEffect } from 'react';
-import CardTable from './CardTable'; // Import the CardTable component
+import React,{useState,useEffect,useMemo,useCallback} from 'react';
+import useSWR from 'swr';
+import CardTable from './CardTable';
 
-const CardMatcher = () =>
-{
-  const [userInput,setUserInput] = useState( '' );
-  const [validationError,setValidationError] = useState( '' );
-  const [matchedCards,setMatchedCards] = useState( [] );
-  const [userCardList,setUserCardList] = useState( [] );
-  const [cardData,setCardData] = useState( [] );
+const CardMatcher=() => {
+  const [userInput,setUserInput]=useState( '' );
+  const [validationError,setValidationError]=useState( '' );
+  const [matchedCards,setMatchedCards]=useState( [] );
+  const [userCardList,setUserCardList]=useState( [] );
+  const {data: cardData,error: cardError}=useSWR(
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true'
+  ); // Use SWR for fetching and caching card data
 
-  useEffect( () =>
-    {
-      // Fetch card data from the API endpoint
-      fetch( 'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true' )
-        .then( ( response ) => response.json() )
-        .then( ( data ) => setCardData( data ) )
-        .catch( ( error ) => console.error( 'Error fetching card data:',error ) );
-    },[] )
+  useEffect( () => {
+    if( cardError ) {
+      console.error( 'Error fetching card data:',cardError );
+    }
+  },[cardError] );
 
-  const matchCards = () =>
-{
-    const userCardList = userInput.split( '\n' );
+  const matchCards=useCallback( () => {
+    const userCardList=userInput.split( '\n' ).map( ( entry ) => entry.trim().toLowerCase() );
     setUserCardList( userCardList );
 
-    const isValid = userCardList.every( ( entry ) =>
-    {
-      const [name,numberOrSet,edition] = entry.split( ',' ).map( ( item ) => item.trim() );
-      return name && ( numberOrSet === undefined || numberOrSet.toLowerCase() === 'set' ) && ( edition === undefined || edition.toLowerCase() === 'edition' );
+    const isValid=userCardList.every( ( entry ) => {
+      const [name,numberOrSet,edition]=entry.split( ',' ).map( ( item ) => item.trim() );
+      return name&&( numberOrSet===undefined||numberOrSet.toLowerCase()==='set' )&&
+        ( edition===undefined||edition.toLowerCase()==='edition' );
     } );
 
-    if( !isValid )
-    {
-      setValidationError(
-        'Each entry must contain at least the name of the card and either the card number or the name of the set.'
-      );
+    if( !isValid ) {
+      setValidationError( 'Each entry must contain at least the name of the card and either the card number or the name of the set.' );
       return;
     }
 
     setValidationError( '' );
 
-    const matchedResults = cardData.data.filter( ( card ) =>
-    {
-      const cardName = card.name.toLowerCase();
-      const cardSets = ( card.card_sets || [] ).map( ( set ) => ( {
+    const matchedResults=cardData.filter( ( card ) => {
+      const cardName=card.name.toLowerCase();
+      const cardSets=( card.card_sets||[] ).map( ( set ) => ( {
         set_name: set.set_name?.toLowerCase(),
         set_code: set.set_code?.toLowerCase(),
         set_edition: set.set_edition?.toLowerCase(),
       } ) );
 
-      return userCardList.some( ( entry ) =>
-      {
-        const [name,numberOrSet,edition] = entry.split( ',' ).map( ( item ) => item.trim().toLowerCase() );
+      return userCardList.some( ( entry ) => {
+        const [name,numberOrSet,edition]=entry.split( ',' ).map( ( item ) => item.trim().toLowerCase() );
         return (
-          name.includes( cardName ) ||
-          ( numberOrSet === 'set' &&
+          name.includes( cardName )||
+          ( numberOrSet==='set'&&
             cardSets.some( ( set ) =>
-              set.name.includes( name ) ||
-              set.set_code.includes( numberOrSet ) ||
-              set.set_edition.includes( edition ) 
+              set.set_name.includes( name )||
+              set.set_code.includes( numberOrSet )||
+              set.set_edition.includes( edition )
             ) )
         );
       } );
     } );
 
-    setMatchedCards( matchedResults || [] );
-  };
+    setMatchedCards( matchedResults||[] );
+  },[userInput,cardData] );
+
+  // Use SWR to fetch and cache card data
+  const {data: cachedCardData}=useSWR(
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
+    fetchCardData
+  );
+
+
+  const memoizedMatchCards=useMemo( () => matchCards,[matchCards] );
 
   return (
     <div className="container mx-auto p-4">
@@ -94,7 +95,7 @@ const CardMatcher = () =>
       <button
         name="yugiohCardButton"
         className="bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
-        onClick={matchCards}
+        onClick={memoizedMatchCards}
       >
         Search Cards
       </button>
@@ -110,3 +111,9 @@ const CardMatcher = () =>
 };
 
 export default CardMatcher;
+
+async function fetchCardData( url ) {
+  const response=await fetch( url );
+  const data=await response.json();
+  return data.data;
+}

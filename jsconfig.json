@@ -5,5 +5,5 @@
       "@/*": ["./*"]
     }
   },
-  "exclude": ["/node_modules","/data","/.next","/.vercel","/.github","/public"]
+  "exclude": ["./node_modules/*","./.next/*","./.vercel/*","./.github/*","./public/*"]
 }

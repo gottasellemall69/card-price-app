@@ -6,12 +6,13 @@ const allowedOrigins=[
   'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true'
 ]
 
-export function middleware ( req, res )
-{
-  const nonce = Buffer.from( crypto.randomUUID() ).toString( 'base64' )
-  const res=next();
-  const origin = req.headers.get( 'origin' );
-  const cspHeader = `
+// Your existing imports here
+
+export function middleware( req,res ) {
+  const nonce=Buffer.from( crypto.randomUUID() ).toString( 'base64' );
+  const origin=req.headers.get( 'origin' );
+
+  const cspHeader=`
     default-src 'self';
     script-src 'self' 'nonce-${ nonce }' 'strict-dynamic';
     style-src 'self' 'nonce-${ nonce }';
@@ -23,34 +24,29 @@ export function middleware ( req, res )
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-`
-  // Replace newline characters and spaces
-  const contentSecurityPolicyHeaderValue = cspHeader
-    .replace( /\s{2,}/g, ' ' )
-    .trim();
+  `;
 
-  const requestHeaders = new Headers( request.headers );
-  requestHeaders.set( 'x-nonce', nonce );
-  requestHeaders.set(
-    'Content-Security-Policy',
-    contentSecurityPolicyHeaderValue
-  )
+  const contentSecurityPolicyHeaderValue=cspHeader.replace( /\s{2,}/g,' ' ).trim();
 
-  if(allowedOrigins.includes(origin,)) {
-    res.headers.set('Content-Security-Policy','script-src ...; object-src \'none\'');
-    res.headers.set('Access-Control-Allow-Origin',origin);
-    res.headers.set('Content-Type','application/json');
-    res.headers.set('Content-Encoding','*');
-    res.headers.set('Access-Control-Allow-Credentials','false');
-    res.headers.set('Accept-Encoding','gzip, deflate, br');
-    res.headers.set('Access-Control-Allow-Methods','GET');
+  const requestHeaders=new Headers( req.headers );
+  requestHeaders.set( 'x-nonce',nonce );
+  requestHeaders.set( 'Content-Security-Policy',contentSecurityPolicyHeaderValue );
+
+  if( allowedOrigins.includes( origin ) ) {
+    res.headers.set( 'Content-Security-Policy','script-src ...; object-src \'none\'' );
+    res.headers.set( 'Access-Control-Allow-Origin',origin );
+    res.headers.set( 'Content-Type','application/json' );
+    res.headers.set( 'Content-Encoding','*' );
+    res.headers.set( 'Access-Control-Allow-Credentials','false' );
+    res.headers.set( 'Accept-Encoding','gzip, deflate, br' );
+    res.headers.set( 'Access-Control-Allow-Methods','GET' );
     res.headers.set(
       'Access-Control-Allow-Headers',
       'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
     );
   }
 
-  return res;
+  return NextResponse.next();
 }
 
 export const config={

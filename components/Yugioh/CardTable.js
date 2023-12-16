@@ -1,14 +1,13 @@
 // @/components/Yugioh/CardTable.js
-import React,{ Suspense } from 'react';
+import React,{ Suspense,useCallback } from 'react';
 import Image from 'next/image';
 
 const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
 {
-  const getLocalImagePath = ( cardId ) =>
-  {
-    const idString = String( cardId );
+  const getLocalImagePath=useCallback( ( cardId ) => {
+    const idString=String( cardId );
     return `/yugiohImages/${ idString }.jpg`;
-  };
+  },[] );
 
   return (
     <div className="mt-4">
@@ -71,7 +70,7 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
                   <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
                   <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
                   <td className="border flex-col border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
-                    {card.card_prices?.[0]['ebay_price']}
+                    {relevantSet?.set_price}
 
                   </td>
                 </tr>
