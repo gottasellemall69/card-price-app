@@ -26,8 +26,8 @@ const CardMatcher = () =>
 
     const isValid = userCardList.every( ( entry ) =>
     {
-      const [name,numberOrSet] = entry.split( ',' ).map( ( item ) => item.trim() );
-      return name && ( numberOrSet === undefined || numberOrSet.toLowerCase() === 'set' );
+      const [name,numberOrSet,edition] = entry.split( ',' ).map( ( item ) => item.trim() );
+      return name && ( numberOrSet === undefined || numberOrSet.toLowerCase() === 'set' ) && ( edition === undefined || edition.toLowerCase() === 'edition' );
     } );
 
     if( !isValid )
@@ -44,9 +44,9 @@ const CardMatcher = () =>
     {
       const cardName = card.name.toLowerCase();
       const cardSets = ( card.card_sets || [] ).map( ( set ) => ( {
-        name: set.set_name.toLowerCase(),
-        code: set.set_code.toLowerCase(),
-        edition: set.set_edition.toLowerCase(),
+        set_name: set.set_name?.toLowerCase(),
+        set_code: set.set_code?.toLowerCase(),
+        set_edition: set.set_edition?.toLowerCase(),
       } ) );
 
       return userCardList.some( ( entry ) =>
@@ -58,7 +58,7 @@ const CardMatcher = () =>
             cardSets.some( ( set ) =>
               set.name.includes( name ) ||
               set.set_code.includes( numberOrSet ) ||
-              ( edition && set.set_edition.includes( edition === '1st Edition','Unlimited','Limited' ) )
+              set.set_edition.includes( edition ) 
             ) )
         );
       } );
@@ -69,16 +69,19 @@ const CardMatcher = () =>
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Card Prices: Yu-Gi-Oh!</h1>
-      <p className="mt-4 w-9/12 whitespace-pre-wrap">
+      <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
+      <p className="mt-4 w-9/12 whitespace-pre-wrap text-center sm:text-left mx-auto sm:mx-6">
         Enter a list of cards, each containing at least the name of the card and either the card number or the name of
         the set.
         <br />
         Separate each entry by a newline, please remove all commas from the name of the card.
       </p>
-      <p className="mb-4 italic max-w-fit">
-        Example: Blue-Eyes White Dragon LOB-EN001 OR Omega Summon Shadows in Valhalla OR Strike Ninja IOC-007 Invasion of Chaos
-      </p>
+      <span className="my-2 italic max-w-fit flex flex-col space-x-5 text-center sm:text-left mx-auto sm:mx-0">
+        Example:<br />
+        <p>Blue-Eyes White Dragon LOB-EN001</p> 
+        <p>Omega Summon Shadows in Valhalla</p>
+        <p>Strike Ninja IOC-007 Invasion of Chaos</p>
+      </span>
       <textarea
         name="userInput"
         className="w-full h-48 p-2 border border-gray-300 mb-2 text-black resize-none"

@@ -71,23 +71,23 @@ body {
 
       .from-red {
         --tw-gradient-from: #8c2a25;
-        --tw-gradient-to: rgb(140, 42, 37, /0);
+        --tw-gradient-to: rgb(140, 42, 37, 0);
         --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
       }
 
       .from-indigo {
         --tw-gradient-from: #2f2b47;
-        --tw-gradient-to: rgb(47 43 71 / 0);
+        --tw-gradient-to: rgb(47, 43, 71, 0);
         --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
       }
 
       .via-indigo {
-        --tw-gradient-to: rgb(47, 43, 71, /0);
+        --tw-gradient-to: rgb(47, 43, 71, 0);
         --tw-gradient-stops: var(--tw-gradient-from), #2f2b47, var(--tw-gradient-to);
       }
 
       .via-red {
-        --tw-gradient-to: rgb(140, 42, 37, /0);
+        --tw-gradient-to: rgb(140, 42, 37, 0);
         --tw-gradient-stops: var(--tw-gradient-from), #8c2a25, var(--tw-gradient-to);
       }
 
@@ -100,7 +100,7 @@ body {
       }
 
       .text-shadow {
-        text-shadow: 3px 1px 7px rgba(0, 0, 0, 1.2);
+        text-shadow: 3px 1px 7px rgba(0, 0, 0, 1);
       }
       
       /* Mobile menu animation */
@@ -139,5 +139,20 @@ body {
         height: 0%;
         background-color: rgba(0, 0, 0, 0.3);
       }
+      .pulse {
+      animation: pulse 9s infinite linear;
+      background: linear-gradient( to top, #0b0a0f, #8c2a25);
+    }
 
+    @keyframes pulse {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
 }

@@ -4,7 +4,7 @@ const allowedOrigins=[
   'http://localhost:3000',
   'https://sportscardspro.com',
   'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true'
-];
+]
 
 export function middleware ( req, res )
 {

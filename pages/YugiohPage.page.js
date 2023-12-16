@@ -1,4 +1,4 @@
-// @/pages/Yugioh.page.js
+// @/pages/YugiohPage.page.js
 import React from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
@@ -7,7 +7,7 @@ import NavBar from '@/components/Navigation/NavBar.js';
 
 const CardMatcher = dynamic( () => import( '@/components/Yugioh/CardMatcher' ),{ ssr: false } );
 
-const Yugioh=() => {
+const YugiohPage=() => {
   return (
     <>
       <Head>
@@ -31,4 +31,4 @@ const Yugioh=() => {
   );
 };
 
-export default Yugioh;
+export default YugiohPage;

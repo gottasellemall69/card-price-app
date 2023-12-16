@@ -27,7 +27,7 @@ const Home=() => {
             To begin, please choose which type of card you want to get current prices for:</p>
         </div>
         <div className="container relative flex gap-24 lg:gap-32 p-5 flex-wrap mx-auto flex-col sm:flex-row w-fit max-w-full">
-          <Link href="/Yugioh"
+          <Link href="/YugiohPage"
             className="justify-center bg-clip mx-auto absolute yugioh-button font-bold py-48 px-48 rounded-full flex-wrap m-2 text-center will-change-auto hover:drop-shadow-sm hover:scale-105 hover:cursor-pointer"
             title="Check Yu-Gi-Oh! card prices here!">
           </Link>
