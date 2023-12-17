@@ -110,7 +110,7 @@ const CardMatcher=() => {
   );
 };
 
-export default CardMatcher;
+export default CardMatcher
 
 async function fetchCardData( url ) {
   const response=await fetch( url );

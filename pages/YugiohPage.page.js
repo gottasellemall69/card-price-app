@@ -12,6 +12,8 @@ const YugiohPage=() => {
       <Head>
         <title>Yu-Gi-Oh! Prices</title>
         <meta name="description" content="Get Yu-Gi-Oh! card prices" />
+        <meta name="charset" content="UTF-8" />
+        <meta name="keywords" content="javascript,nextjs,price-tracker,trading-card-game,tailwindcss" />
         <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
       </Head>
         <NavBar />

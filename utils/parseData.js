@@ -22,4 +22,4 @@ const parseData=async ( url ) => {
   }
 };
 
-export default parseData;
+export default parseData

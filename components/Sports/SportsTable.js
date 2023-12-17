@@ -34,20 +34,37 @@ function SportsTable() {
   const memoizedFetchData=useCallback( fetchData,[fetchData] );
 
   return (
-    <div>
+<>
       <Suspense fallback={['Loading']}>
         <span>
           <CardSetButtons cardSets={memoizedCardSets} onSelectCardSet={setSelectedCardSet} />
         </span>
+
+
+
+            <table className='max-w-full w-11/12 min-h-screen mx-auto'>
+              <thead>
+                <tr>
+                  <th scope="col"
+                    className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">Product Name</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter md:table-cell">Set</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter sm:table-cell">Ungraded</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">PSA 9</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter">PSA 10</th>
+                </tr>
+              </thead>
+
+                {sportsData&&<SportsTableComponent data={sportsData} />}
+
+            </table>
+
+
       </Suspense>
-      <Suspense fallback={['Loading']}>
-        <div>
-          <div id="table-container" className="inline-block min-w-full py-1 align-middle">
-            {sportsData&&<SportsTableComponent data={sportsData} />}
-          </div>
-        </div>
-      </Suspense>
-    </div>
+    </>
   );
 }
 

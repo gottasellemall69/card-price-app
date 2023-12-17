@@ -5,8 +5,9 @@ const CardSetButtons=( {cardSets,onSelectCardSet} ) => {
   const memoizedCardSets=useMemo( () => cardSets,[cardSets] );
 
   return (
+    <>
+      <Suspense fallback={<p>Loading...</p>}>
     <div className="flex-wrap space-x-4 space-y-4 p-4 align-middle justify-start place-content-start">
-      <Suspense fallback={['Loading']}>
         {memoizedCardSets.map( ( cardSet ) => (
           <button
             key={cardSet}
@@ -16,8 +17,9 @@ const CardSetButtons=( {cardSets,onSelectCardSet} ) => {
             {cardSet}
           </button>
         ) )}
-      </Suspense>
-    </div>
+      </div>
+    </Suspense>
+    </>
   );
 };
 
