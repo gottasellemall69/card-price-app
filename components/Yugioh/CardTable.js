@@ -11,7 +11,7 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
 
   return (
     <div className="mt-4">
-      <Suspense fallback={['Loading...']}>
+      <Suspense fallback={<p>Loading...</p>}>
         {matchedCards.length > 0 ? (
           <table className="border-collapse w-full">
             <thead>
@@ -37,43 +37,43 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
           
 
               <tbody>
-                {matchedCards.map( ( card,index ) =>
-                {
-                  const userCard = userCardList.find( ( entry ) =>
+              {
+                matchedCards.map( ( card,index ) => {
+                  const userCard=userCardList.find( entry =>
                     entry.toLowerCase().includes( card.name.toLowerCase() )
                   );
 
-                  const relevantSet =
-                    userCard &&
-                    card.card_sets?.find( ( set ) =>
-                      userCard.toLowerCase().includes( set.set_name.toLowerCase() ) ||
-                      userCard.toLowerCase().includes( set.set_code.toLowerCase() ) ||
-                      ( selectedSetEdition && userCard.toLowerCase().includes( set.set_edition.toLowerCase() ) )
+                  const relevantSet=
+                    userCard&&
+                    card.card_sets?.find( set =>
+                      userCard.toLowerCase().includes( set.set_name.toLowerCase() )||
+                      userCard.toLowerCase().includes( set.set_code.toLowerCase() )||
+                      ( selectedSetEdition&&
+                        userCard.toLowerCase().includes( set.set_edition.toLowerCase() ) )
                     );
 
-              return (
-                <tr key={index}>
-                  <td className="hidden xl:table-cell">
-                    <Image
-                      src={getLocalImagePath(card.id)}
-                      alt={`Card Image - ${card.name}`}
-                      loading='lazy'
-                      width={300}
-                      height={250}
-                      className="w-full h-full max-w-96 mx-auto object-center sm:object-fill overflow-clip object-scale-down"
-                    />
-                  </td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden text-sm text-white xl:table-cell">{card?.desc}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_code}</td>
-                  <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_name}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
-                  <td className="border flex-col border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
-                    {relevantSet?.set_price}
-
-                  </td>
-                </tr>
+                  return (
+                    <tr key={index}>
+                      <td className="hidden xl:table-cell">
+                        <Image
+                          src={getLocalImagePath( card.id )}
+                          alt={`Card Image - ${ card.name }`}
+                          loading="lazy"
+                          width={300}
+                          height={250}
+                          className="w-full h-full max-w-96 mx-auto object-center sm:object-fill overflow-clip object-scale-down"
+                        />
+                      </td>
+                      <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>
+                      <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden text-sm text-white xl:table-cell">{card?.desc}</td>
+                      <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_code}</td>
+                      <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_name}</td>
+                      <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
+                      <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
+                      <td className="border flex-col border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
+                        {relevantSet?.set_price}
+                      </td>
+                    </tr>
                   );
                 } )}
               </tbody>
@@ -88,3 +88,4 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
 };
 
 export default CardTable;
+

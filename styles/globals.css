@@ -140,7 +140,7 @@ body {
         background-color: rgba(0, 0, 0, 0.3);
       }
       .pulse {
-      animation: pulse 4s infinite ease-in-out;
+      animation: pulse 4s infinite linear;
       background: linear-gradient( to left, #8c2a25,#8c2a25,#8c2a25,#8c2a25,#2f2b47,#2f2b47,#2f2b47,#2f2b47);
     }
 

@@ -34,12 +34,15 @@ const CardMatcher=() => {
 
     setValidationError( '' );
 
+    // Updated code to return card details and price
     const matchedResults=cardData.filter( ( card ) => {
       const cardName=card.name.toLowerCase();
       const cardSets=( card.card_sets||[] ).map( ( set ) => ( {
         set_name: set.set_name?.toLowerCase(),
         set_code: set.set_code?.toLowerCase(),
         set_edition: set.set_edition?.toLowerCase(),
+        set_rarity: set.set_rarity?.toLowerCase(),
+        price: set.set_price?.toLocaleString() // Assuming price is a number field
       } ) );
 
       return userCardList.some( ( entry ) => {
@@ -47,11 +50,15 @@ const CardMatcher=() => {
         return (
           name.includes( cardName )||
           ( numberOrSet==='set'&&
-            cardSets.some( ( set ) =>
-              set.set_name.includes( name )||
-              set.set_code.includes( numberOrSet )||
-              set.set_edition.includes( edition )
-            ) )
+            cardSets.some( ( set ) => {
+              return (
+                set.set_name.includes( name )||
+                set.set_code.includes( numberOrSet )||
+                set.set_edition.includes( edition )||
+                set.set_rarity.includes( edition )||
+                set.price.includes( edition )
+              );
+            } ) )
         );
       } );
     } );
@@ -117,3 +124,5 @@ async function fetchCardData( url ) {
   const data=await response.json();
   return data.data;
 }
+
+

@@ -42,7 +42,7 @@ function SportsTable() {
 
 
 
-            <table className='max-w-full w-11/12 min-h-screen mx-auto'>
+            <table className='max-w-full w-11/12 mx-auto'>
               <thead>
                 <tr>
                   <th scope="col"
