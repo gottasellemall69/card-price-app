@@ -61,7 +61,7 @@ const CardTable = ({ matchedCards,userCardList,selectedSetEdition }) =>
                           loading="lazy"
                           width={300}
                           height={250}
-                          className="w-full h-full max-w-96 mx-auto object-center sm:object-fill overflow-clip object-scale-down"
+                          className="w-full h-full max-w-96 mx-auto object-center place-self-center object-cover sm:object-scale-down"
                         />
                       </td>
                       <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>

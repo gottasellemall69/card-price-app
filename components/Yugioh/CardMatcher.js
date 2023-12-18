@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
 import CardTable from './CardTable';
+import DownloadCSVButton from './DownloadCSVButton'; // Import the new component
 
 const CardMatcher=() => {
   const [userInput,setUserInput]=useState( '' );
@@ -78,7 +79,7 @@ const CardMatcher=() => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
-      <p className="mt-4 w-9/12 whitespace-pre-wrap text-center sm:text-left mx-auto sm:mx-6">
+      <p className="mt-4 w-9/12 whitespace-pre-wrap text-center sm:text-left mx-auto sm:mx-0">
         Enter a list of cards, each containing at least the name of the card and either the card number or the name of
         the set.
         <br />
@@ -107,11 +108,14 @@ const CardMatcher=() => {
         Search Cards
       </button>
 
-      {matchedCards.length > 0 && (
+      {matchedCards.length>0&&(
+        <>
+        <DownloadCSVButton data={matchedCards} />
         <CardTable
           matchedCards={matchedCards}
           userCardList={userCardList}
-        />
+          />
+          </>
       )}
     </div>
   );

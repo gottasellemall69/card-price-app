@@ -140,19 +140,19 @@ body {
         background-color: rgba(0, 0, 0, 0.3);
       }
       .pulse {
-      animation: pulse 4s infinite linear;
-      background: linear-gradient( to left, #8c2a25,#8c2a25,#8c2a25,#8c2a25,#2f2b47,#2f2b47,#2f2b47,#2f2b47);
-    }
-
+      animation: pulse 3s infinite linear;
+      background: 
+        linear-gradient( to right, #8c2a25,#8c2a25,#8c2a25,#8c2a25,#2f2b47,#2f2b47,#2f2b47,#2f2b47);
+      }
     @keyframes pulse {
       0% {
-        background-position: 50% 0%;
+        background-position: 0% 100%;
       }
       50% {
-        background-position: 100% 100%;
+        background-position: 50% 0%;
       }
       100% {
-        background-position: 0% 50%;
+        background-position: 0% 100%;
       }
     }
 }
