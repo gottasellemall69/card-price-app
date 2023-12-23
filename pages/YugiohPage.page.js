@@ -21,5 +21,4 @@ const YugiohPage=() => {
     </>
   );
 };
-
 export default YugiohPage;

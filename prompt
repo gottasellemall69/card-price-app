@@ -1,0 +1,692 @@
+You are an expert programmer, and specalize in creating Next.js apps using vanilla JavaScript.
+Please go step by step, including a visual tree and file names as to where code should be placed in which file and folder.
+If you do not know something, solve the problem yourself and do not make things up.
+If you get stuck, please slow down, take your time, and do things one step at a time.
+Please remember this code for the entirety of this conversation, and after it as well.
+Feel free to clean up and improve any code here as well, but if you do please give in-depth code snippets of your work.
+The following is a Next.js project that is using the Pages Routing strategy.
+The project file structure is set up like so:
+
+|--components
+  |--Navigation
+    --NavBar.js
+  |--Sports
+    --CardSetButtons.js
+    --SportsTable.js
+    --SportsTableComponent.js
+  |--Yugioh
+    --CardMatcher.js
+    --CardTable.js
+  --pagination.js
+|--pages
+  |--api
+    --sportsData.page.js
+  --_app.page.js
+  --index.page.js
+  --layout.js
+  --SportsPage.page.js
+  --YugiohPage.page.js
+|--public
+  |--yugiohImages
+|--utils
+  --parseData.js
+--middleware.js
+
+////////////////////////////////////////////////////////////////////////////////
+
+The task to complete is to optimize the code, re-write any confusing code, and remove any code/files that are not needed.
+All code should function well, and Next.js best practices should be used. Please assume npm is already installed and just focus on the code aspect.
+The following is the code that is found in the files:
+
+// @/pages/_app.page.js
+import '@/styles/globals.css'
+import '@/styles/index.css'
+export default function MyApp({ Component,pageProps }) {
+  return <Component {...pageProps} />
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/pages/layout.js
+import { Html,Head,Main,NextScript } from 'next/document';
+
+export default function Document() {
+  return (
+    <Html lang="en">
+        <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+import React from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const Home=() => {
+  return (
+    <>
+      <Head>
+        <title>Card Price App</title>
+        <meta name="description" content="Enter list of TCG cards, get data back" />
+        <meta name="keywords" content="javascript,nextjs,price-tracker,trading-card-game,tailwindcss" />
+        <meta name="charset" content="UTF-8" />
+        <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
+
+      </Head>
+        <div className="mx-auto max-w-full p-5 text-center place-content-center align-middle justify-center">
+          <h2 className="text-4xl font-bold tracking-tight mt-24 text-white sm:text-6xl">Welcome...</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-300 italic">
+            To begin, please choose which type of card you want to get current prices for:</p>
+        </div>
+        <div className="container relative flex gap-24 lg:gap-32 p-5 flex-wrap mx-auto flex-col sm:flex-row w-fit max-w-full">
+          <Link href="/YugiohPage"
+            className="justify-center bg-clip mx-auto absolute yugioh-button font-bold py-48 px-48 rounded-full flex-wrap m-2 text-center will-change-auto hover:drop-shadow-sm hover:scale-105 hover:cursor-pointer"
+            title="Check Yu-Gi-Oh! card prices here!">
+          </Link>
+          <Link href="/SportsPage"
+            className="text-black justify-center mx-auto absolute sports-button font-bold py-48 px-48 rounded-full flex-wrap m-2 text-center will-change-auto hover:scale-105 hover:cursor-pointer"
+            title="Check sports card prices here!">
+          </Link>
+        </div>
+        <SpeedInsights />
+    </>
+  );
+};
+
+export default Home;
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/pages/SportsPage.page.js
+import React from 'react';
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import NavBar from '@/components/Navigation/NavBar.js';
+import Link from 'next/link';
+
+const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ ssr: false });
+
+const SportsPage=() => {
+  return (
+    <>
+      <Head>
+        <title>Sports Cards Prices</title>
+        <meta name="description" content="Get sports card prices" />
+        <meta name="charset" content="UTF-8" />
+        <meta name="keywords" content="javascript,nextjs,price-tracker,trading-card-game,tailwindcss" />
+        <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
+      </Head>
+      <NavBar />
+      <h1 className="text-3xl font-bold mb-4 p-2">Sports Card Prices</h1>
+      <p className='w-fit whitespace-pre-wrap text-sm italic text-white p-4'>
+        All prices are supplied by: 
+        <Link href="https://www.sportscardspro.com"
+          title='https://www.sportscardspro.com'
+          className='underline hover:cursor-pointer'> https://www.sportscardspro.com
+        </Link>
+      </p>
+      <SportsTable />
+      <SpeedInsights />
+    </>
+  );
+};
+
+export default SportsPage;
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/pages/YugiohPage.page.js
+import React from 'react';
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import NavBar from '@/components/Navigation/NavBar.js';
+
+const CardMatcher = dynamic( () => import( '@/components/Yugioh/CardMatcher' ),{ ssr: false } );
+
+const YugiohPage=() => {
+  return (
+    <>
+      <Head>
+        <title>Yu-Gi-Oh! Prices</title>
+        <meta name="description" content="Get Yu-Gi-Oh! card prices" />
+        <meta name="charset" content="UTF-8" />
+        <meta name="keywords" content="javascript,nextjs,price-tracker,trading-card-game,tailwindcss" />
+        <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
+      </Head>
+        <NavBar />
+        <CardMatcher />
+    </>
+  );
+};
+export default YugiohPage;
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/pages/api/sportsData.page.js
+async function fetchSportsData(url) {
+  const response=await fetch(url);
+  if(!response.ok) {
+    throw new Error(`Failed to fetch data from ${url}`);
+  }
+  return response.json();
+}
+
+export default async function handler(req,res) {
+  try {
+    const cardSet=req.query.cardSet||''; // New line to get the card set from query parameters
+    const sportsUrls=getSportsUrls(cardSet); // Use a function to generate URLs based on the card set
+    const dataPromises=sportsUrls.map(fetchSportsData);
+    const sportsData=await Promise.all(dataPromises);
+    res.status(200).json(sportsData);
+  } catch(error) {
+    console.error('Error fetching data:',error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+function getSportsUrls(cardSet) {
+
+    // Modify this function to return the appropriate URLs based on the selected card set
+    // Example: For '1990 Hoops', return URLs for 1990 Hoops cards
+    // You can use a switch statement or an object mapping
+    // Add more cases as needed for additional card sets
+    switch(cardSet) {
+
+    case '1975 Topps':
+      return [
+        "https://www.sportscardspro.com/console/basketball-cards-1975-topps?sort=model-number&exclude-variants=true&rookies-only=false&cursor=0&format=json",
+        // More URLs (removed for brevity)...
+      ];
+    case '1989 NBA Hoops':
+      return [
+        "https://www.sportscardspro.com/console/basketball-cards-1989-hoops?sort=model-number&exclude-variants=true&rookies-only=false&cursor=0&format=json",
+        // More URLs (removed for brevity)...
+      ];
+    case '1990 NBA Hoops':
+      return [
+        "https://www.sportscardspro.com/console/basketball-cards-1990-hoops?sort=model-number&exclude-variants=true&rookies-only=false&cursor=0&format=json",
+        // More URLs (removed for brevity)...
+      ];
+    case '1990 Skybox':
+      return [
+        "https://www.sportscardspro.com/console/basketball-cards-1990-skybox?sort=model-number&exclude-variants=true&rookies-only=false&cursor=0&format=json",
+        // More URLs (removed for brevity)...
+      ];
+    default:
+        return [];
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/components/Navigation/NavBar.js
+
+import React,{ useEffect } from 'react';
+import Link from 'next/link';
+
+export default function NavBar() {
+  useEffect(() => {
+    function hideMenuOnResize() {
+      const x=document.getElementById("mobile-menu");
+      const y=window.innerWidth;
+      if(y>640) {
+        x.style.display="none";
+      }
+    }
+    hideMenuOnResize();
+    window.addEventListener("resize",hideMenuOnResize);
+
+    return () => {
+      window.removeEventListener("resize",hideMenuOnResize);
+    };
+  },[]);
+
+  const MenuToggle=() => {
+    const menu=document.getElementById("mobile-menu");
+    if(menu.style.display==="none") {
+      menu.style.display="block";
+      document.getElementById("menu-icon").style.display="none";
+      document.getElementById("close-icon").style.display="block";
+    } else {
+      menu.style.display="none";
+      document.getElementById("menu-icon").style.display="block";
+      document.getElementById("close-icon").style.display="none";
+    }
+  };
+
+  return (
+    <>
+      <header className="bg-gradient-to-l from-indigo via-indigo to-indigo via-red mx-auto align-middle max-w-full p-2 mb-2 flex-wrap">
+        <div className="h-auto items-center pt-2 pb-4 text-center font-medium text-white sm:mb-0">
+          <div id="slogo" className="mx-auto h-16 w-16 overflow-hidden rounded-full border border-zinc-50 text-center align-middle sm:inline-block"></div>
+          <blockquote id="brandname" className="inline flex-wrap align-middle text-3xl font-extrabold -tracking-wider antialiased"></blockquote>
+        </div>
+      <nav className="mx-auto text-center font-semibold hidden sm:hidden" id="mobile-menu" style={{ display: 'none' }}>
+          <div className="mx-auto place-content-center grid grid-cols-auto flex-wrap w-full gap-y-5 py-3">
+            <Link href="/" title="Home" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 text-xl whitespace-nowrap text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Home</Link>
+            <Link href="/YugiohPage" title="Check Yu-Gi-Oh! prices" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Yu-Gi-Oh! TCG Prices</Link>
+            <Link href="/SportsPage" title="Check sports cards prices" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Sports Card Prices</Link>
+        </div>
+      </nav>
+
+      <nav className="mx-auto text-center place-content-evenly font-semibold hidden sm:flex sm:flex-wrap">
+        <Link href="/" title="Home" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Home</Link>
+        <Link href="/YugiohPage" title="Check Yu-Gi-Oh! prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Yu-Gi-Oh! TCG Prices</Link>
+        <Link href="/SportsPage" title="Check sports cards prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Sports Card Prices</Link>
+      </nav>
+      <button className="sm:hidden block absolute top-2 right-2 p-2 rounded-full bg-white text-indigo-600 z-50" onClick={MenuToggle}>
+        <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24" id="menu-icon">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <svg className="hidden active:visible h-6 w-6 fill-current" viewBox="0 0 24 24" id="close-icon">
+          <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        </button>
+        </header>
+    </>
+  );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/components/Sports/CardSetButtons.js
+import React, { Suspense, useMemo } from 'react';
+
+const CardSetButtons = ({ cardSets, onSelectCardSet }) => {
+  const memoizedCardSets = useMemo(() => cardSets, [cardSets]);
+
+  return (
+    <>
+      <Suspense fallback={<p>Loading...</p>}>
+        <div className="flex-wrap space-x-4 space-y-4 p-4 align-middle justify-start place-content-start">
+          <select
+            onChange={(e) => onSelectCardSet(e.target.value)}
+            className="bg-white border border-zinc-500 font-bold px-2 py-1 m-1 mx-auto rounded cursor-pointer text-black"
+          >
+            {memoizedCardSets.map((cardSet) => (
+              <option key={cardSet} value={cardSet}>
+                {cardSet}
+              </option>
+            ))}
+          </select>
+        </div>
+      </Suspense>
+    </>
+  );
+};
+
+export default CardSetButtons;
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/components/Sports/SportsTable.js
+import dynamic from 'next/dynamic';
+import React,{Suspense,useEffect,useState,useMemo,useCallback} from 'react';
+import CardSetButtons from './CardSetButtons';
+const SportsTableComponent=dynamic( () => import( './SportsTableComponent' ),{ssr: false} );
+
+function SportsTable() {
+  const [sportsData,setSportsData]=useState( null );
+  const [selectedCardSet,setSelectedCardSet]=useState( '' );
+  const fetchData=useCallback( async () => {
+    try {
+      const response=await fetch( `/api/sportsData?cardSet=${ selectedCardSet }` );
+      if( response.ok ) {
+        const data=await response.json();
+        setSportsData( data );
+      } else {
+        console.error( 'Failed to fetch data from the API' );
+      }
+    } catch( error ) {
+      console.error( 'Error fetching data:',error );
+    }
+  },[selectedCardSet] );
+
+  useEffect( () => {
+    fetchData();
+  },[fetchData] );
+
+  const memoizedCardSets=useMemo(
+    () => ['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox','1990 Fleer','1991 Fleer'],
+    []
+  );
+
+  const memoizedFetchData=useCallback( fetchData,[fetchData] );
+
+  return (
+<>
+      <Suspense fallback={['Loading']}>
+        <span>
+          <CardSetButtons cardSets={memoizedCardSets} onSelectCardSet={setSelectedCardSet} />
+        </span>
+            <table className='max-w-full w-11/12 mx-auto'>
+              <thead>
+                <tr>
+                  <th scope="col"
+                    className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">Product Name</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter md:table-cell">Set</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter sm:table-cell">Ungraded</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">PSA 9</th>
+                  <th scope="col"
+                    className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter">PSA 10</th>
+                </tr>
+              </thead>
+                {sportsData&&<SportsTableComponent data={sportsData} />}
+            </table>
+      </Suspense>
+    </>
+  );
+}
+
+export default SportsTable;
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/components/Sports/SportsTableComponent.js
+import React,{useEffect,useState,Suspense,useMemo} from 'react';
+
+function SportsTableComponent( {data} ) {
+  const [sportsData,setSportsData]=useState( data );
+
+  useEffect( () => {
+    if( data ) {
+      setSportsData( data );
+    }
+  },[data] );
+
+  const memoizedSportsData=useMemo( () => sportsData,[sportsData] );
+
+  console.log( 'sportsData:',memoizedSportsData );
+  return (
+    <>
+      <Suspense fallback={<p>Loading...</p>}>
+      {memoizedSportsData? (
+          <tbody className="mx-auto max-w-full">
+            {sportsData.map((item,index) => (
+              item.products.map((product,productIndex) => (
+              <tr key={`${index}-${productIndex}`}>
+                  <td className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white table-cell">{product["productName"]}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white md:table-cell">{product["consoleUri"]}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white sm:table-cell">{product["price1"]}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm text-white table-cell">{product["price3"]}</td>
+                  <td className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm font-medium table-cell">{product["price2"]}</td>
+                </tr>
+              ))
+            ))}
+          </tbody>
+      ):(
+        <p>No data available</p>
+      )}
+      </Suspense>
+      </>
+  );
+}
+
+export default SportsTableComponent;
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/components/Yugioh/CardMatcher.js
+import React,{useState,useEffect,useMemo,useCallback} from 'react';
+import useSWR from 'swr';
+import CardTable from './CardTable';
+import DownloadCSVButton from './DownloadCSVButton'; // Import the new component
+
+const CardMatcher=() => {
+  const [userInput,setUserInput]=useState( '' );
+  const [validationError,setValidationError]=useState( '' );
+  const [matchedCards,setMatchedCards]=useState( [] );
+  const [userCardList,setUserCardList]=useState( [] );
+  const {data: cardData,error: cardError}=useSWR(
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true'
+  ); // Use SWR for fetching and caching card data
+
+  useEffect( () => {
+    if( cardError ) {
+      console.error( 'Error fetching card data:',cardError );
+    }
+  },[cardError] );
+
+  const matchCards=useCallback( () => {
+    const userCardList=userInput.split( '\n' ).map( ( entry ) => entry.trim().toLowerCase() );
+    setUserCardList( userCardList );
+
+    const isValid=userCardList.every( ( entry ) => {
+      const [name,numberOrSet,edition]=entry.split( ',' ).map( ( item ) => item.trim() );
+      return name&&( numberOrSet===undefined||numberOrSet.toLowerCase()==='set' )&&
+        ( edition===undefined||edition.toLowerCase()==='edition' );
+    } );
+
+    if( !isValid ) {
+      setValidationError( 'Each entry must contain at least the name of the card and either the card number or the name of the set.' );
+      return;
+    }
+
+    setValidationError( '' );
+
+    // Updated code to return card details and price
+    const matchedResults=cardData.filter( ( card ) => {
+      const cardName=card.name.toLowerCase();
+      const cardSets=( card.card_sets||[] ).map( ( set ) => ( {
+        set_name: set.set_name.toLowerCase(),
+        set_code: set.set_code.toLowerCase(),
+        set_edition: set.set_edition.toLowerCase(),
+        set_rarity: set.set_rarity.toLowerCase(),
+        price: set.set_price.toLocaleString() // Assuming price is a number field
+      } ) );
+
+      return userCardList.some( ( entry ) => {
+        const [name,numberOrSet,edition]=entry.split( ',' ).map( ( item ) => item.trim().toLowerCase() );
+        return (
+          name.includes( cardName )||
+          ( numberOrSet==='set'&&
+            cardSets.includes( ( set ) => {
+              return (
+                set.set_name.includes( name )||
+                set.set_code.includes( numberOrSet )||
+                set.set_edition.includes( edition )||
+                set.set_rarity.includes( edition )||
+                set.price.includes( edition )
+              );
+            } ) )
+        );
+      } );
+    } );
+
+    setMatchedCards( matchedResults||[] );
+  },[userInput,cardData] );
+
+  // Use SWR to fetch and cache card data
+  const {data: cachedCardData}=useSWR(
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
+    fetchCardData
+  );
+  const memoizedMatchCards=useMemo( () => matchCards,[matchCards] );
+
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
+      <p className="mt-4 w-fit text-center sm:text-left mx-auto sm:mx-0">
+        Enter a list of cards, each containing the name of the card, the card number, the name of
+        the set, and the edition (1st Edition, Unlimited, Limited).
+        <br />
+        Separate each entry by a newline, please remove all commas from the name of the card.
+      </p>
+      <span className="my-2 italic max-w-fit flex flex-col space-x-5 text-center sm:text-left mx-auto sm:mx-0">
+        Example:<br />
+        <p>Blue-Eyes White Dragon The Legend of Blue Eyes White Dragon  LOB-001 Unlimited</p> 
+      </span>
+      <textarea
+        name="userInput"
+        className="w-full h-48 p-2 border border-gray-300 mb-2 text-black resize-none"
+        placeholder="Paste card list here..."
+        value={userInput}
+        onChange={( e ) => setUserInput( e.target.value )}>
+
+      </textarea>
+      {validationError && <p className="text-red-500 mb-2">{validationError}</p>}
+      <button
+        name="yugiohCardButton"
+        className="bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
+        onClick={memoizedMatchCards}
+      >
+        Search Cards
+      </button>
+
+      {matchedCards.length>0&&(
+        <>
+        <DownloadCSVButton data={matchedCards} />
+        <CardTable
+          matchedCards={matchedCards}
+          userCardList={userCardList}
+          />
+          </>
+      )}
+    </div>
+  );
+};
+
+export default CardMatcher
+
+async function fetchCardData( url ) {
+  const response=await fetch( url );
+  const data=await response.json();
+  return data.data;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/components/Yugioh/CardTable.js
+import React,{ Suspense,useCallback } from 'react';
+import Image from 'next/image';
+
+const CardTable = ({ matchedCards,userCardList}) =>
+{
+  const getLocalImagePath=useCallback( ( cardId ) => {
+    const idString=String( cardId );
+    return `/yugiohImages/${ idString }.jpg`;
+  },[] );
+
+  return (
+    <div className="mt-4">
+      <Suspense fallback={<p>Loading...</p>}>
+        {matchedCards.length>0? (
+          <table className="border-collapse w-full">
+            <thead>
+              <tr>
+              <th scope="col"
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter xl:table-cell"></th>
+              <th scope="col"
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
+              <th scope="col"
+                className="sticky top-0 z-10 max-w-sm whitespace-pre hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter xl:table-cell">Desc</th>
+              <th scope="col"
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Number</th>
+              <th scope="col"
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">Set</th>
+              <th scope="col"
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 sm:table-cell">Rarity</th>
+              <th scope="col"
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm font-semibold text-white backdrop-blur backdrop-filter sm:table-cell">Edition</th>
+              <th scope="col"
+                className="sticky top-0 z-10 border-b border-gray-300 bg-opacity-75 p-4 text-center sm:text-left w-fit text-sm backdrop-blur backdrop-filter sm:pr-6 lg:pr-8 whitespace-nowrap">Set Price</th>
+            </tr>
+            </thead>
+            <tbody>
+              {matchedCards.map( ( card,index ) => {
+                const userCard=userCardList.find( ( entry ) =>
+                  entry.toLowerCase().includes( card.name.toLowerCase() )
+                );
+
+                const relevantSet=userCard&&card.card_sets?.find( ( set ) => 
+                  userCard.toLowerCase().includes( set.set_name?.toLowerCase() )&&
+                    userCard.toLowerCase().includes( set.set_code?.toLowerCase() )&&
+                    userCard.toLowerCase().includes( set.set_edition?.toLowerCase() )
+                    )
+              
+                  return (
+                    <tr key={index}>
+                      <td className="hidden xl:table-cell">
+                        <Image
+                          src={getLocalImagePath( card.id )}
+                          alt={`Card Image - ${ card.name }`}
+                          loading="lazy"
+                          width={300}
+                          height={250}
+                          className="w-full h-full max-w-96 mx-auto object-center place-self-center object-cover sm:object-scale-down"
+                        />
+                      </td>
+                      <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{card?.name}</td>
+                      <td className="border border-gray-800 p-2 whitespace-pre-wrap hidden text-sm text-white xl:table-cell">{card?.desc}</td>
+                      <td className="border border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_code}</td>
+                      <td className="border border-gray-800 p-2 whitespace-pre-wrap text-sm font-medium text-white sm:pl-6 lg:pl-8">{relevantSet?.set_name}</td>
+                      <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
+                      <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
+                      <td className="border flex-col border-gray-800 p-2 whitespace-nowrap text-sm font-medium text-white sm:pl-6 lg:pl-8">
+                        {relevantSet?.set_price}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+          </table>
+      ):(
+        <p>No matched cards found.</p>
+      )}
+      </Suspense>
+    </div>
+  );
+};
+
+export default CardTable;
+
+////////////////////////////////////////////////////////////////////////////////
+
+// @/components/DownloadCSVButton.js
+import React from 'react';
+
+const DownloadCSVButton=( {data} ) => {
+  const downloadCSV=() => {
+    // Implement the logic to convert data to CSV and initiate download
+    const csvHeader="Name,Description,Number,Set,Rarity,Edition,Set Price";
+    const csvData=data.map( card => {
+      const {name,desc,card_sets}=card;
+      // Handle undefined or missing properties
+      const number=card_sets?.set_code;
+      const set=card_sets?.set_name;
+      const rarity=card_sets?.set_rarity;
+      const edition=card_sets?.set_edition;
+      const setPrice=card_sets?.set_price;
+
+      return `${ name },${ desc },${ number },${ set },${ rarity },${ edition },${ setPrice }`;
+    } ).join( '\n' );
+
+    const blob=new Blob( [`${ csvHeader }\n${ csvData }`],{type: 'text/csv'} );
+    const link=document.createElement( 'a' );
+    link.href=window.URL.createObjectURL( blob );
+    link.download='card_data.csv';
+    link.click();
+  };
+
+  return (
+    <button
+      className="float-right bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
+      onClick={downloadCSV}
+    >
+      Download CSV
+    </button>
+  );
+};
+
+export default DownloadCSVButton;

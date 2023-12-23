@@ -1,17 +1,26 @@
+// @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
 import CardTable from './CardTable';
 import DownloadCSVButton from './DownloadCSVButton'; // Import the new component
+import Loading from "../loading";
 
 const CardMatcher=() => {
   const [userInput,setUserInput]=useState( '' );
+  async function fetchCardData( url ) {
+  const response=await fetch( url );
+  const data=await response.json();
+  return data.data;
+  }
   const [validationError,setValidationError]=useState( '' );
   const [matchedCards,setMatchedCards]=useState( [] );
   const [userCardList,setUserCardList]=useState( [] );
+  const [resultCount,setResultCount]=useState( 0 );
+  // Use SWR to fetch and cache card data
   const {data: cardData,error: cardError}=useSWR(
-    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true'
-  ); // Use SWR for fetching and caching card data
-
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
+    fetchCardData
+  );
   useEffect( () => {
     if( cardError ) {
       console.error( 'Error fetching card data:',cardError );
@@ -39,11 +48,11 @@ const CardMatcher=() => {
     const matchedResults=cardData.filter( ( card ) => {
       const cardName=card.name.toLowerCase();
       const cardSets=( card.card_sets||[] ).map( ( set ) => ( {
-        set_name: set.set_name?.toLowerCase(),
-        set_code: set.set_code?.toLowerCase(),
-        set_edition: set.set_edition?.toLowerCase(),
-        set_rarity: set.set_rarity?.toLowerCase(),
-        price: set.set_price?.toLocaleString() // Assuming price is a number field
+        set_name: set.set_name.toLowerCase(),
+        set_code: set.set_code.toLowerCase(),
+        set_edition: set.set_edition.toLowerCase(),
+        set_rarity: set.set_rarity.toLowerCase(),
+        price: set.set_price.toLocaleString() // Assuming price is a number field
       } ) );
 
       return userCardList.some( ( entry ) => {
@@ -64,32 +73,25 @@ const CardMatcher=() => {
       } );
     } );
 
-    setMatchedCards( matchedResults||[] );
+    setMatchedCards( matchedResults.length>0? matchedResults:[] );
+    setResultCount( matchedResults.length );
   },[userInput,cardData] );
-
-  // Use SWR to fetch and cache card data
-  const {data: cachedCardData}=useSWR(
-    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
-    fetchCardData
-  );
-
-
   const memoizedMatchCards=useMemo( () => matchCards,[matchCards] );
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
-      <p className="mt-4 w-9/12 whitespace-pre-wrap text-center sm:text-left mx-auto sm:mx-0">
-        Enter a list of cards, each containing at least the name of the card and either the card number or the name of
-        the set.
+      <p className="mt-4 w-fit text-center sm:text-left mx-auto sm:mx-0">
+        Enter a list of cards, each containing the name of the card, the card number, the name of
+        the set, and the edition (1st Edition, Unlimited, Limited).
         <br />
         Separate each entry by a newline, please remove all commas from the name of the card.
       </p>
       <span className="my-2 italic max-w-fit flex flex-col space-x-5 text-center sm:text-left mx-auto sm:mx-0">
         Example:<br />
-        <p>Blue-Eyes White Dragon LOB-EN001</p> 
-        <p>Omega Summon Shadows in Valhalla</p>
-        <p>Strike Ninja IOC-007 Invasion of Chaos</p>
+        <p>Blue-Eyes White Dragon The Legend of Blue Eyes White Dragon  LOB-001 Unlimited</p>
+        <p className="not-italic my-1">OR</p>
+        <p>Time Wizard 1st Edition Metal Raiders MRD-065</p>
       </span>
       <textarea
         name="userInput"
@@ -99,23 +101,25 @@ const CardMatcher=() => {
         onChange={( e ) => setUserInput( e.target.value )}>
 
       </textarea>
-      {validationError && <p className="text-red-500 mb-2">{validationError}</p>}
+
       <button
         name="yugiohCardButton"
-        className="bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
-        onClick={memoizedMatchCards}
-      >
+        className="relative bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
+        onClick={memoizedMatchCards}>
         Search Cards
       </button>
+      <DownloadCSVButton data={matchedCards} />
+      {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
+      {resultCount>0&&(
+        <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">
+          {resultCount} result(s) found
+        </p>
+      )}
 
-      {matchedCards.length>0&&(
-        <>
-        <DownloadCSVButton data={matchedCards} />
-        <CardTable
-          matchedCards={matchedCards}
-          userCardList={userCardList}
-          />
-          </>
+      {matchedCards.length>0? (
+        <CardTable matchedCards={matchedCards} userCardList={userCardList} />
+      ):(
+        <Loading />
       )}
     </div>
   );
@@ -123,10 +127,10 @@ const CardMatcher=() => {
 
 export default CardMatcher
 
-async function fetchCardData( url ) {
-  const response=await fetch( url );
-  const data=await response.json();
-  return data.data;
-}
+
+
+  
+
+
 
 

@@ -43,7 +43,7 @@ body {
         max-width: 100%;
       }
 
-      .brandname {
+      #brandname {
         content: url('https://iili.io/HHoNXWB.webp');
         max-height: 60px;
         max-width: 100%;

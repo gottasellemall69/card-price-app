@@ -35,12 +35,12 @@ export default function NavBar() {
 
   return (
     <>
-      <header className="pulse mx-auto align-middle w-full p-2 mb-2">
+      <header className="bg-gradient-to-l from-indigo via-indigo to-indigo via-red mx-auto align-middle max-w-full p-2 mb-2 flex-wrap">
         <div className="h-auto items-center pt-2 pb-4 text-center font-medium text-white sm:mb-0">
           <div id="slogo" className="mx-auto h-16 w-16 overflow-hidden rounded-full border border-zinc-50 text-center align-middle sm:inline-block"></div>
-          <blockquote className="brandname inline flex-wrap align-middle text-3xl font-extrabold -tracking-wider antialiased"></blockquote>
+          <blockquote id="brandname" className="inline flex-wrap align-middle text-3xl font-extrabold -tracking-wider antialiased"></blockquote>
         </div>
-      <nav className="mx-auto font-semibold hidden sm:hidden" id="mobile-menu" style={{ display: 'none' }}>
+      <nav className="mx-auto text-center font-semibold hidden sm:hidden" id="mobile-menu" style={{ display: 'none' }}>
           <div className="mx-auto place-content-center grid grid-cols-auto flex-wrap w-full gap-y-5 py-3">
             <Link href="/" title="Home" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 text-xl whitespace-nowrap text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Home</Link>
             <Link href="/YugiohPage" title="Check Yu-Gi-Oh! prices" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Yu-Gi-Oh! TCG Prices</Link>
