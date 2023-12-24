@@ -1,8 +1,9 @@
 // @/components/Yugioh/CardTable.js
 import React,{ Suspense,useCallback } from 'react';
 import Image from 'next/image';
+import Loading from "../loading";
 
-const CardTable = ({ matchedCards,userCardList}) => {
+const CardTable=( {matchedCards,userCardList} ) => {
   const getLocalImagePath=useCallback( ( cardId ) => {
     const idString=String( cardId );
     return `/yugiohImages/${ idString }.jpg`;
@@ -10,7 +11,7 @@ const CardTable = ({ matchedCards,userCardList}) => {
 
   return (
     <div className="mt-4">
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<p><Loading /></p>}>
         {matchedCards.length>0? (
           <table className="border-collapse w-full">
             <thead>

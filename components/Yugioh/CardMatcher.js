@@ -77,7 +77,9 @@ const CardMatcher=() => {
     setResultCount( matchedResults.length );
   },[userInput,cardData] );
   const memoizedMatchCards=useMemo( () => matchCards,[matchCards] );
-
+  const isLoading=!cardData&&!cardError;
+  const isTablePopulated=matchedCards.length>0;
+  
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
@@ -101,31 +103,34 @@ const CardMatcher=() => {
         onChange={( e ) => setUserInput( e.target.value )}>
 
       </textarea>
-
+      
       <button
         name="yugiohCardButton"
         className="relative bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
         onClick={memoizedMatchCards}>
         Search Cards
       </button>
-      <DownloadCSVButton data={matchedCards} />
+      {isTablePopulated&&<DownloadCSVButton data={matchedCards} />}
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&(
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">
           {resultCount} result(s) found
         </p>
       )}
-
+      
       {matchedCards.length>0? (
-        <CardTable matchedCards={matchedCards} userCardList={userCardList} />
-      ):(
-        <Loading />
-      )}
+        <CardTable
+          matchedCards={matchedCards}
+          userCardList={userCardList}
+          isLoading={isLoading}
+          isTablePopulated={isTablePopulated} // Pass the new prop
+        />
+      ):[]}
     </div>
   );
 };
 
-export default CardMatcher
+export default CardMatcher;
 
 
 

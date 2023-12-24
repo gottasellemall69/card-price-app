@@ -15,7 +15,7 @@ const DownloadCSVButton=( {data} ) => {
     link.href=URL.createObjectURL( blob );
     link.download='card_data.csv';
     link.click();
-  };;
+  };
 
   return (
     <button
@@ -24,6 +24,6 @@ const DownloadCSVButton=( {data} ) => {
       Download CSV
     </button>
   );
-};;
+};
 
 export default DownloadCSVButton;

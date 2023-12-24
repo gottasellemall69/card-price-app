@@ -3,6 +3,7 @@ import React from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import NavBar from '@/components/Navigation/NavBar.js';
+import {SpeedInsights} from "@vercel/speed-insights/next";
 
 const CardMatcher = dynamic( () => import( '@/components/Yugioh/CardMatcher' ),{ ssr: false } );
 
@@ -18,6 +19,7 @@ const YugiohPage=() => {
       </Head>
         <NavBar />
         <CardMatcher />
+      <SpeedInsights />
     </>
   );
 };
