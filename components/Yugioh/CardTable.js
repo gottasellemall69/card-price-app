@@ -11,7 +11,7 @@ const CardTable=( {matchedCards,userCardList} ) => {
 
   return (
     <div className="mt-4">
-      <Suspense fallback={<p><Loading /></p>}>
+      
         {matchedCards.length>0? (
           <table className="border-collapse w-full">
             <thead>
@@ -73,9 +73,8 @@ const CardTable=( {matchedCards,userCardList} ) => {
               </tbody>
           </table>
       ):(
-        <p>No matched cards found.</p>
-      )}
-      </Suspense>
+          <Suspense fallback={<p><Loading /></p>} />
+        )}
     </div>
   );
 };

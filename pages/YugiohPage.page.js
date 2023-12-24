@@ -1,5 +1,5 @@
 // @/pages/YugiohPage.page.js
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import NavBar from '@/components/Navigation/NavBar.js';
@@ -8,6 +8,10 @@ import {SpeedInsights} from "@vercel/speed-insights/next";
 const CardMatcher = dynamic( () => import( '@/components/Yugioh/CardMatcher' ),{ ssr: false } );
 
 const YugiohPage=() => {
+  const [loaded,setLoaded]=useState( false );
+  useEffect( () => {
+    setLoaded( true );
+  },[] );
   return (
     <>
       <Head>
@@ -18,7 +22,7 @@ const YugiohPage=() => {
         <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
       </Head>
         <NavBar />
-        <CardMatcher />
+      {loaded&&<CardMatcher />} 
       <SpeedInsights />
     </>
   );

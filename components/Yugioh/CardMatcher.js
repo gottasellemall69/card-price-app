@@ -1,17 +1,17 @@
+'use client'
 // @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
 import CardTable from './CardTable';
 import DownloadCSVButton from './DownloadCSVButton'; // Import the new component
-import Loading from "../loading";
-
-const CardMatcher=() => {
-  const [userInput,setUserInput]=useState( '' );
-  async function fetchCardData( url ) {
+  
+async function fetchCardData( url ) {
   const response=await fetch( url );
   const data=await response.json();
   return data.data;
-  }
+}
+const CardMatcher=() => {
+  const [userInput,setUserInput]=useState( localStorage.getItem( 'userInput' )||'' );
   const [validationError,setValidationError]=useState( '' );
   const [matchedCards,setMatchedCards]=useState( [] );
   const [userCardList,setUserCardList]=useState( [] );
@@ -77,10 +77,16 @@ const CardMatcher=() => {
     setResultCount( matchedResults.length );
   },[userInput,cardData] );
   const memoizedMatchCards=useMemo( () => matchCards,[matchCards] );
+  const handleUserInputChange = useCallback((event) => {
+    const value = event.target.value;
+    setUserInput(value);
+    localStorage.setItem('userInput', value); // Store user input in local storage
+  }, []);
   const isLoading=!cardData&&!cardError;
   const isTablePopulated=matchedCards.length>0;
   
   return (
+    <>
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
       <p className="mt-4 w-fit text-center sm:text-left mx-auto sm:mx-0">
@@ -100,7 +106,7 @@ const CardMatcher=() => {
         className="w-full h-48 p-2 border border-gray-300 mb-2 text-black resize-none"
         placeholder="Paste card list here..."
         value={userInput}
-        onChange={( e ) => setUserInput( e.target.value )}>
+        onChange={handleUserInputChange}>
 
       </textarea>
       
@@ -110,7 +116,11 @@ const CardMatcher=() => {
         onClick={memoizedMatchCards}>
         Search Cards
       </button>
-      {isTablePopulated&&<DownloadCSVButton data={matchedCards} />}
+        {isTablePopulated&&
+        <DownloadCSVButton
+          matchedCards={matchedCards}
+          userCardList={userCardList} />}
+        
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&(
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">
@@ -126,7 +136,8 @@ const CardMatcher=() => {
           isTablePopulated={isTablePopulated} // Pass the new prop
         />
       ):[]}
-    </div>
+      </div>
+      </>
   );
 };
 

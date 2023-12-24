@@ -1,3 +1,4 @@
+'use client'
 // @/components/Sports/SportsTableComponent.js
 import React,{useEffect,useState,Suspense,useMemo} from 'react';
 

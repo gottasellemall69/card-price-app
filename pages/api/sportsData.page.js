@@ -1,3 +1,4 @@
+'use client'
 // @/pages/api/sportsData.page.js
 async function fetchSportsData(url) {
   const response=await fetch(url);

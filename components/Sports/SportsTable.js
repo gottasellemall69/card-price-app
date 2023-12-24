@@ -1,3 +1,4 @@
+'use client'
 // @/components/Sports/SportsTable.js
 import dynamic from 'next/dynamic';
 import React,{Suspense,useEffect,useState,useMemo,useCallback} from 'react';
