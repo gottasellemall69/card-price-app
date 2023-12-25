@@ -23,8 +23,8 @@ function SportsTableComponent( {data} ) {
               item.products.map((product,productIndex) => (
               <tr key={`${index}-${productIndex}`}>
                   <td className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white table-cell">{product["productName"]}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white md:table-cell">{product["consoleUri"]}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white sm:table-cell">{product["price1"]}</td>
+                  <td aria-hidden="true" className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white md:table-cell">{product["consoleUri"]}</td>
+                  <td aria-hidden="true" className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white sm:table-cell">{product["price1"]}</td>
                   <td className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm text-white table-cell">{product["price3"]}</td>
                   <td className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm font-medium table-cell">{product["price2"]}</td>
                 </tr>

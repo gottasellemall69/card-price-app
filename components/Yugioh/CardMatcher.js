@@ -1,4 +1,3 @@
-'use client'
 // @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
@@ -116,11 +115,7 @@ const CardMatcher=() => {
         onClick={memoizedMatchCards}>
         Search Cards
       </button>
-        {isTablePopulated&&
-        <DownloadCSVButton
-          matchedCards={matchedCards}
-          userCardList={userCardList} />}
-        
+        {isTablePopulated&&<DownloadCSVButton matchedCards={matchedCards} userCardList={userCardList} />}
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&(
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">
@@ -129,12 +124,7 @@ const CardMatcher=() => {
       )}
       
       {matchedCards.length>0? (
-        <CardTable
-          matchedCards={matchedCards}
-          userCardList={userCardList}
-          isLoading={isLoading}
-          isTablePopulated={isTablePopulated} // Pass the new prop
-        />
+        <CardTable  matchedCards={matchedCards} userCardList={userCardList} />
       ):[]}
       </div>
       </>
