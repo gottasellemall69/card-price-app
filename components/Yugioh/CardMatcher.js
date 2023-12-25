@@ -11,7 +11,6 @@ async function fetchCardData( url ) {
   return data.data;
 }
 const CardMatcher=() => {
-  const [userSubmittedList,setUserSubmittedList]=useState( [] );
   const [userInput,setUserInput]=useState( localStorage.getItem( 'userInput' )||'' );
   const [validationError,setValidationError]=useState( '' );
   const [matchedCards,setMatchedCards]=useState( [] );
@@ -120,7 +119,7 @@ const CardMatcher=() => {
         {isTablePopulated&&
         <DownloadCSVButton
           matchedCards={matchedCards}
-         />}
+          userCardList={userCardList} />}
         
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&(
