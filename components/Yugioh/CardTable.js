@@ -68,7 +68,7 @@ const CardTable=( {matchedCards,userCardList} ) => {
                       <td aria-hidden="true" className="border border-gray-800 p-2 whitespace- hidden text-sm text-white sm:table-cell">{relevantSet?.set_rarity}</td>
                       <td aria-hidden="true" className="border border-gray-800 p-2 whitespace-pre-wrap hidden text-sm text-white sm:table-cell">{relevantSet?.set_edition}</td>
                       <td className="border flex-col border-gray-800 p-2 text-sm font-medium text-white">
-                        {relevantSet?.set_price}
+                        {card?.card_prices?.[0]?.ebay_price}
                       </td>
                     </tr>
                   );

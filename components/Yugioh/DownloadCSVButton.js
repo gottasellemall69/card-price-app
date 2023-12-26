@@ -1,9 +1,12 @@
-const DownloadCSVButton = ({ matchedCards,userCardList }) => {
+
+const DownloadCSVButton = ({ matchedCards, userCardList }) => {
   const downloadCSV = () => {
     const csvHeader = "Name,Desc,Number,Set,Rarity,Edition,Set Price";
     const csvData = matchedCards.map((card) => {
       const cardName = card?.name || '';
-      const cardDesc = card?.desc || '';
+      const cardDesc=card?.desc||'';
+      const escapedDesc=cardDesc.replace( /"/g,'""' ); // Replace double quotes with two double quotes
+      const quotedDesc=`"${ escapedDesc }"`;
       const userCard = userCardList.find((entry) =>
         entry.toLowerCase().includes(cardName.toLowerCase())
       );
@@ -14,7 +17,9 @@ const DownloadCSVButton = ({ matchedCards,userCardList }) => {
         userCard.toLowerCase().includes(set.set_edition?.toLowerCase())
       );
 
-      return `${cardName},${cardDesc},${relevantSet?.set_code || ''},${relevantSet?.set_name || ''},${relevantSet?.set_rarity || ''},${relevantSet?.set_edition || ''},${relevantSet?.set_price ? relevantSet?.set_price.toLocaleString() : ''}`;
+      const ebayPrice = userCard&&card?.card_prices?.[0]?.ebay_price || '';
+
+      return `${cardName},${quotedDesc},${relevantSet?.set_code || ''},${relevantSet?.set_name || ''},${relevantSet?.set_rarity || ''},${relevantSet?.set_edition || ''},${ebayPrice}`;
     }).join("\n");
 
     const csvContent = `${csvHeader}\n${csvData}`;
