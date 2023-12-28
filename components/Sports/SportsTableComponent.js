@@ -1,6 +1,7 @@
 'use client'
 // @/components/Sports/SportsTableComponent.js
 import React,{useEffect,useState,Suspense,useMemo} from 'react';
+import Loading from "../loading";
 
 function SportsTableComponent( {data} ) {
   const [sportsData,setSportsData]=useState( data );
@@ -16,25 +17,24 @@ function SportsTableComponent( {data} ) {
   console.log( 'sportsData:',memoizedSportsData );
   return (
     <>
-      <Suspense fallback={<p>Loading...</p>}>
+      
       {memoizedSportsData? (
-          <tbody className="mx-auto max-w-full">
+          <tbody className="mx-auto w-11/12">
             {sportsData.map((item,index) => (
               item.products.map((product,productIndex) => (
               <tr key={`${index}-${productIndex}`}>
-                  <td className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white table-cell">{product["productName"]}</td>
-                  <td aria-hidden="true" className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white md:table-cell">{product["consoleUri"]}</td>
-                  <td aria-hidden="true" className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white sm:table-cell">{product["price1"]}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm text-white table-cell">{product["price3"]}</td>
-                  <td className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm font-medium table-cell">{product["price2"]}</td>
+                  <td scope="row" className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white">{product["productName"]}</td>
+                  <td scope="row" className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white md:table-cell">{product["consoleUri"]}</td>
+                  <td scope="row" className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white sm:table-cell">{product["price1"]}</td>
+                  <td scope="row" className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm text-white">{product["price3"]}</td>
+                  <td scope="row" className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm font-medium table-cell">{product["price2"]}</td>
                 </tr>
               ))
             ))}
           </tbody>
-      ):(
-        <p>No data available</p>
+      ):(<Suspense fallback={<Loading />} />
       )}
-      </Suspense>
+      
       </>
   );
 }

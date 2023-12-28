@@ -1,3 +1,4 @@
+'use client'
 // @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
@@ -124,8 +125,7 @@ const CardMatcher=() => {
       )}
       
       {matchedCards.length>0? (
-          <CardTable matchedCards={matchedCards} userCardList={userCardList} isLoading={isLoading} isTablePopulated={isTablePopulated} />
-      ):[]}
+          <CardTable matchedCards={matchedCards} userCardList={userCardList} isLoading={isLoading} isTablePopulated={isTablePopulated} />        ):[]}
       </div>
       </>
   );
