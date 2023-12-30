@@ -4,6 +4,7 @@ import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
 import CardTable from './CardTable';
 import DownloadCSVButton from './DownloadCSVButton'; // Import the new component
+import Pagination from '../Pagination';
   
 async function fetchCardData( url ) {
   const response=await fetch( url );
@@ -16,6 +17,9 @@ const CardMatcher=() => {
   const [matchedCards,setMatchedCards]=useState( [] );
   const [userCardList,setUserCardList]=useState( [] );
   const [resultCount,setResultCount]=useState( 0 );
+  const [currentPage,setCurrentPage]=useState( 1 );
+  const itemsPerPage=50;
+  const handlePageClick=( newPage ) => setCurrentPage( newPage );
   // Use SWR to fetch and cache card data
   const {data: cardData,error: cardError}=useSWR(
     'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
@@ -38,7 +42,7 @@ const CardMatcher=() => {
     } );
 
     if( !isValid ) {
-      setValidationError( 'Each entry must contain at least the name of the card and either the card number or the name of the set.' );
+      setValidationError( 'Each entry must contain the name of the card and the card number, card edition, and the name of the set.' );
       return;
     }
 
@@ -124,19 +128,15 @@ const CardMatcher=() => {
         </p>
       )}
       
-      {matchedCards.length>0? (
-          <CardTable matchedCards={matchedCards} userCardList={userCardList} isLoading={isLoading} isTablePopulated={isTablePopulated} />        ):[]}
+        {matchedCards.length>0? (
+          <>
+            <CardTable matchedCards={matchedCards.slice( ( currentPage-1 )*itemsPerPage,currentPage*itemsPerPage )} userCardList={userCardList} isLoading={isLoading} isTablePopulated={isTablePopulated} />
+            <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={matchedCards.length} handlePageClick={handlePageClick} scroll={false} />
+          </>
+        ):[]}
       </div>
-      </>
+    </>
   );
 };
 
 export default CardMatcher;
-
-
-
-  
-
-
-
-

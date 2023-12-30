@@ -1,4 +1,3 @@
-import { next } from 'next';
 import { NextResponse } from 'next/server';
 const allowedOrigins=[
   'http://localhost:3000',

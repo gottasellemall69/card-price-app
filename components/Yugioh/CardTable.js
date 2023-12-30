@@ -1,6 +1,6 @@
 import React,{useCallback} from 'react';
 import Image from 'next/image';
-import Pagination from '../Pagination';
+
 
 const CardTable=( {matchedCards,userCardList} ) => {
   const getLocalImagePath=useCallback( ( cardId ) => {
@@ -8,7 +8,7 @@ const CardTable=( {matchedCards,userCardList} ) => {
     return `/yugiohImages/${ idString }.jpg`;
   },[] );
   const currentPage=1;
-  const itemsPerPage=100;
+  const itemsPerPage=50;
   const startIndex=( currentPage-1 )*itemsPerPage;
   const endIndex=startIndex+itemsPerPage;
 
@@ -16,7 +16,7 @@ const CardTable=( {matchedCards,userCardList} ) => {
 
   return (
     <>
-      <div className="mt-4" style={{maxHeight: '500px',overflowY: 'auto'}}>
+      <div className="mt-4" style={{maxHeight: '750px',overflowY: 'auto'}}>
         {cardsToRender.length>0? (
           <table className="border-collapse max-w-full w-fit mx-auto">
               <thead>
@@ -85,7 +85,7 @@ const CardTable=( {matchedCards,userCardList} ) => {
           <p>No matched cards found.</p>
         )}
       </div>
-      <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={matchedCards.length} />
+      
     </>
   );
 };

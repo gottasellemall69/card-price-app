@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
         <Head />
-      <body>
+      <body className="mx-auto w-full p-2 min-h-screen">
         <Main />
         <NextScript />
       </body>

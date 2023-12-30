@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import React,{useEffect,useState,useMemo,useCallback} from 'react';
 import CardSetButtons from './CardSetButtons';
-import Loading from "../loading";
 const SportsTableComponent=dynamic( () => import( './SportsTableComponent' ),{ssr: false} );
 
 function SportsTable() {
