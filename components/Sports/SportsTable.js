@@ -4,11 +4,9 @@ import dynamic from 'next/dynamic';
 import React,{useEffect,useState,useMemo,useCallback} from 'react';
 import CardSetButtons from './CardSetButtons';
 const SportsTableComponent=dynamic( () => import( './SportsTableComponent' ),{ssr: false} );
-
 function SportsTable() {
   const [sportsData,setSportsData]=useState( null );
   const [selectedCardSet,setSelectedCardSet]=useState( '' );
-
   const fetchData=useCallback( async () => {
     try {
       const response=await fetch( `/api/sportsData?cardSet=${ selectedCardSet }` );
@@ -22,16 +20,13 @@ function SportsTable() {
       console.error( 'Error fetching data:',error );
     }
   },[selectedCardSet] );
-
   useEffect( () => {
     fetchData();
   },[fetchData] );
-
   const memoizedCardSets=useMemo(
     () => ['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox','1990 Fleer','1991 Fleer'],
     []
   );
-
   return (
     <>
         <span>
@@ -52,12 +47,9 @@ function SportsTable() {
                     className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter table-cell">PSA 10</th>
                 </tr>
               </thead>
-
                 {sportsData&&<SportsTableComponent data={sportsData} />}
-
             </table>
     </>
   );
 }
-
 export default SportsTable;

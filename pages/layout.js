@@ -1,7 +1,7 @@
 // pages/layout.js
 import { Html,Head,Main,NextScript } from 'next/document';
 
-export default function Document() {
+export default function RootLayout() {
   return (
     <Html lang="en">
         <Head />

@@ -1,18 +1,17 @@
-import React from 'react';
+import React from "react";
 import Head from 'next/head';
 import Link from 'next/link';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const Home=() => {
+const Home=({metaTags}) => {
   return (
     <>
       <Head>
-        <title>Card Price App</title>
-        <meta name="description" content="Enter list of TCG cards, get data back" />
-        <meta name="keywords" content="javascript,nextjs,price-tracker,trading-card-game,tailwindcss" />
-        <meta name="charset" content="UTF-8" />
+        <title>{metaTags.title}</title>
+        <meta name="description" content={metaTags.description} />
+        <meta name="charset" content={metaTags.charset} />
+        <meta name="keywords" content={metaTags.keywords} />
         <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
-
       </Head>
         <div className="mx-auto max-w-full p-5 text-center place-content-center align-middle justify-center">
           <h2 className="text-4xl font-bold tracking-tight mt-24 text-white sm:text-6xl">Welcome...</h2>
@@ -33,5 +32,19 @@ const Home=() => {
     </>
   );
 };
+export async function getStaticProps() {
+  // Fetch data for meta tags
+  const metaTags={
+    title: 'Yu-Gi-Oh! Prices',
+    description: 'Get Yu-Gi-Oh! card prices',
+    charset: 'UTF-8',
+    keywords: 'javascript,nextjs,price-tracker,trading-card-game,tailwindcss'
+  };
 
+  return {
+    props: {
+      metaTags,
+    },
+  };
+}
 export default Home;

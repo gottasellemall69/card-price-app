@@ -1,5 +1,4 @@
 // @/components/Navigation/NavBar.js
-
 import React,{ useEffect } from 'react';
 import Link from 'next/link';
 

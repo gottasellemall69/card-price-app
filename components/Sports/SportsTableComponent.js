@@ -2,22 +2,17 @@
 // @/components/Sports/SportsTableComponent.js
 import React,{useEffect,useState,Suspense,useMemo} from 'react';
 import Loading from "../loading";
-
 function SportsTableComponent( {data} ) {
   const [sportsData,setSportsData]=useState( data );
-
   useEffect( () => {
     if( data ) {
       setSportsData( data );
     }
   },[data] );
-
   const memoizedSportsData=useMemo( () => sportsData,[sportsData] );
-
   console.log( 'sportsData:',memoizedSportsData );
   return (
     <>
-      
       {memoizedSportsData? (
           <tbody className="mx-auto w-11/12">
             {sportsData.map((item,index) => (
@@ -34,9 +29,7 @@ function SportsTableComponent( {data} ) {
           </tbody>
       ):(<Suspense fallback={<Loading />} />
       )}
-      
       </>
   );
 }
-
 export default SportsTableComponent;
