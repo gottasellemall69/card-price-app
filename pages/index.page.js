@@ -43,7 +43,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      metaTags,
+      metaTags
     },
   };
 }

@@ -32,7 +32,7 @@ function SportsTable() {
         <span>
           <CardSetButtons cardSets={memoizedCardSets} onSelectCardSet={setSelectedCardSet} />
       </span>
-      <table className='w-11/12 mx-auto'>
+      <table className='w-11/12 mx-auto h-2/3'>
               <thead>
                 <tr>
                   <th scope="col"

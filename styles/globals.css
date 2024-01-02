@@ -106,7 +106,7 @@ body {
       /* Mobile menu animation */
       #mobile-menu {
         animation-name: slide-down;
-        animation-duration: 0.29s;
+        animation-duration: 300ms;
         animation-timing-function: ease-linear;
 
       }
@@ -125,7 +125,7 @@ body {
 
       .mobile-menu.hidden {
         transform: translateY(-70%);
-        transition: transform 0.28s ease-linear;
+        transition: transform 300ms ease-linear;
         content-visibility: auto;
       }
 
