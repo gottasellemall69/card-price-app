@@ -4,79 +4,79 @@ import useSWR from 'swr';
 import CardTable from './CardTable';
 import DownloadCSVButton from './DownloadCSVButton';
 import Pagination from '../Pagination';
-async function fetchCardData( url ) {
-  const response=await fetch( url );
+async function fetchCardData(url) {
+  const response=await fetch(url);
   const data=await response.json();
   return data.data;
 }
-const CardMatcher=( {initialUserInput,initialCardData} ) => {
-  const [userInput,setUserInput]=useState( localStorage.getItem( 'userInput' )||'' );
-  const [validationError,setValidationError]=useState( '' );
-  const [matchedCards,setMatchedCards]=useState( [] );
-  const [userCardList,setUserCardList]=useState( [] );
-  const [resultCount,setResultCount]=useState( 0 );
-  const [currentPage,setCurrentPage]=useState( 1 );
+const CardMatcher=() => {
+  const [userInput,setUserInput]=useState(localStorage.getItem('userInput')||'');
+  const [validationError,setValidationError]=useState('');
+  const [matchedCards,setMatchedCards]=useState([]);
+  const [userCardList,setUserCardList]=useState([]);
+  const [resultCount,setResultCount]=useState(0);
+  const [currentPage,setCurrentPage]=useState(1);
   const itemsPerPage=50;
-  const handlePageClick=useCallback( ( newPage ) => {
-    setCurrentPage( newPage );
-  } );
+  const handlePageClick=useCallback((newPage) => {
+    setCurrentPage(newPage);
+  });
   const {data: cardData,error: cardError}=useSWR(
     'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
     fetchCardData
   );
-  useEffect( () => {
-    if( cardError ) {
-      console.error( 'Error fetching card data:',cardError );
+  useEffect(() => {
+    if(cardError) {
+      console.error('Error fetching card data:',cardError);
     }
-  },[cardError] );
-  const matchCards=useCallback( () => {
-    const userCardList=userInput.split( '\n' ).map( entry => entry.trim().toLowerCase() );
-    setUserCardList( userCardList );
-    const isValid=userCardList.every( entry => {
-      const [name,numberOrSet,edition]=entry.split( ',' ).map( item => item.trim() );
-      return name&&( !numberOrSet||numberOrSet.toLowerCase()==='set' )&&
-        ( !edition||edition.toLowerCase()==='edition' );
-    } );
-    if( !isValid ) {
-      setValidationError( 'Each entry must contain the name of the card and the card number, card edition, and the name of the set.' );
+  },[cardError]);
+  const matchCards=useCallback(() => {
+    const userCardList=userInput.split('\n').map(entry => entry.trim().toLowerCase());
+    setUserCardList(userCardList);
+    const isValid=userCardList.every(entry => {
+      const [name,numberOrSet,edition]=entry.split(',').map(item => item.trim());
+      return name&&(!numberOrSet||numberOrSet.toLowerCase()==='set')&&
+        (!edition||edition.toLowerCase()==='edition');
+    });
+    if(!isValid) {
+      setValidationError('Each entry must contain the name of the card and the card number, card edition, and the name of the set.');
       return;
     }
-    setValidationError( '' );
-    const matchedResults=cardData.filter( card => {
+    setValidationError('');
+    const matchedResults=cardData.filter(card => {
       const cardName=card.name.toLowerCase();
-      const cardSets=( card.card_sets||[] ).map( set => ( {
+      const cardSets=(card.card_sets||[]).map(set => ({
         set_name: set.set_name.toLowerCase(),
         set_code: set.set_code.toLowerCase(),
         set_edition: set.set_edition.toLowerCase(),
         set_rarity: set.set_rarity.toLowerCase(),
         price: set.set_price.toLocaleString()
-      } ) );
-      return userCardList.some( entry => {
-        const [name,numberOrSet,edition]=entry.split( ',' ).map( item => item.trim().toLowerCase() );
+      }));
+      return userCardList.some(entry => {
+        const [name,numberOrSet,edition]=entry.split(',').map(item => item.trim().toLowerCase());
         return (
-          name.includes( cardName )||
-          ( numberOrSet==='set'&&
-            cardSets.some( set => {
+          name.includes(cardName)||
+          (numberOrSet==='set'&&
+            cardSets.some(set => {
               return (
-                set.set_name.includes( name )||
-                set.set_code.includes( numberOrSet )||
-                set.set_edition.includes( edition )||
-                set.set_rarity.includes( edition )||
-                set.price.includes( edition )
+                set.set_name.includes(name)||
+                set.set_code.includes(numberOrSet)||
+                set.set_edition.includes(edition)||
+                set.set_rarity.includes(edition)||
+                set.price.includes(edition)
               );
-            } ) )
+            }))
         );
-      } );
-    } );
-    setMatchedCards( matchedResults );
-    setResultCount( matchedResults.length );
-  },[userInput,cardData] );
-  const memoizedMatchCards=useMemo( () => matchCards,[matchCards] );
-  const handleUserInputChange=useCallback( ( event ) => {
+      });
+    });
+    setMatchedCards(matchedResults);
+    setResultCount(matchedResults.length);
+  },[userInput,cardData]);
+  const memoizedMatchCards=useMemo(() => matchCards,[matchCards]);
+  const handleUserInputChange=useCallback((event) => {
     const value=event.target.value;
-    setUserInput( value );
-    localStorage.setItem( 'userInput',value );
-  },[] );
+    setUserInput(value);
+    localStorage.setItem('userInput',value);
+  },[]);
   const isLoading=!cardData&&!cardError;
   const isTablePopulated=matchedCards.length>0;
   return (
@@ -112,15 +112,15 @@ const CardMatcher=( {initialUserInput,initialCardData} ) => {
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">{resultCount} result(s) found</p>}
       {matchedCards.length>0&&
         <>
-        <CardTable
-          matchedCards={matchedCards.slice( ( currentPage-1 )*itemsPerPage,currentPage*itemsPerPage )}
-          userCardList={userCardList}
-          isLoading={isLoading}
-          isTablePopulated={isTablePopulated} />
+          <CardTable
+            matchedCards={matchedCards.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
+            userCardList={userCardList}
+            isLoading={isLoading}
+            isTablePopulated={isTablePopulated} />
           <Pagination
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
-            totalItems={matchedCards.length}
+            totalItems={matchedCards?.length}
             handlePageClick={handlePageClick} />
         </>}
     </div>
@@ -128,9 +128,8 @@ const CardMatcher=( {initialUserInput,initialCardData} ) => {
 };
 export async function getStaticProps() {
   // Fetch initial data for the CardMatcher component
-  const initialUserInput=localStorage.getItem( 'userInput' )||'';
-  const cardData=await fetchCardData( 'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true' );
-
+  const initialUserInput=localStorage.getItem('userInput')||'';
+  const cardData=await fetchCardData('https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true');
   return {
     props: {
       initialUserInput,

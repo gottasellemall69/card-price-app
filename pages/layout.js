@@ -1,10 +1,10 @@
 // pages/layout.js
-import { Html,Head,Main,NextScript } from 'next/document';
+import {Html,Head,Main,NextScript} from 'next/document';
 
 export default function RootLayout() {
   return (
     <Html lang="en">
-        <Head />
+      <Head />
       <body className="mx-auto w-full p-2 min-h-screen">
         <Main />
         <NextScript />
