@@ -47,7 +47,7 @@ function SportsTable() {
               className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter table-cell">PSA 10</th>
           </tr>
         </thead>
-        {sportsData&&<SportsTableComponent data={sportsData} />}
+        <SportsTableComponent data={sportsData} />
       </table>
     </>
   );

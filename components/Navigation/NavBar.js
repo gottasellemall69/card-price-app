@@ -1,7 +1,6 @@
 // @/components/Navigation/NavBar.js
 import React,{useEffect} from 'react';
 import Link from 'next/link';
-
 export default function NavBar() {
   useEffect(() => {
     function hideMenuOnResize() {
@@ -18,7 +17,6 @@ export default function NavBar() {
       window.removeEventListener("resize",hideMenuOnResize);
     };
   },[]);
-
   const MenuToggle=() => {
     const menu=document.getElementById("mobile-menu");
     if(menu.style.display==="none") {
@@ -41,16 +39,16 @@ export default function NavBar() {
         </div>
         <nav className="mx-auto text-center font-semibold hidden sm:hidden" id="mobile-menu" style={{display: 'none'}}>
           <div className="mx-auto place-items-center grid grid-cols-auto flex-wrap w-full gap-y-5 py-3">
-            <Link href="/" title="Home" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 text-xl whitespace-nowrap text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Home</Link>
-            <Link href="/YugiohPage" title="Check Yu-Gi-Oh! prices" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Yu-Gi-Oh! TCG Prices</Link>
-            <Link href="/SportsPage" title="Check sports cards prices" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Sports Card Prices</Link>
+            <Link passHref href="/" title="Home" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 text-xl whitespace-nowrap text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Home</Link>
+            <Link passHref href="/YugiohPage" title="Check Yu-Gi-Oh! prices" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Yu-Gi-Oh! TCG Prices</Link>
+            <Link passHref href="/SportsPage" title="Check sports cards prices" rel="noopener" className="w-fit text-center rounded-md py-1 px-4 whitespace-nowrap text-xl text-white hover:transition duration-500 hover:bg-white hover:text-black lg:px-6">Sports Card Prices</Link>
           </div>
         </nav>
 
         <nav aria-hidden="true" className="mx-auto text-center place-content-evenly font-semibold hidden sm:flex sm:flex-wrap">
-          <Link href="/" title="Home" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Home</Link>
-          <Link href="/YugiohPage" title="Check Yu-Gi-Oh! prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Yu-Gi-Oh! TCG Prices</Link>
-          <Link href="/SportsPage" title="Check sports cards prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Sports Card Prices</Link>
+          <Link passHref href="/" title="Home" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Home</Link>
+          <Link passHref href="/YugiohPage" title="Check Yu-Gi-Oh! prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Yu-Gi-Oh! TCG Prices</Link>
+          <Link passHref href="/SportsPage" title="Check sports cards prices" rel="noopener" className="link link-underline link-underline-black rounded-md py-1 px-5 text-xl text-white">Sports Card Prices</Link>
         </nav>
         <button aria-hidden="true" className="sm:hidden block absolute top-2 right-2 p-2 rounded-full bg-white text-indigo-600 z-50" onClick={MenuToggle}>
           <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24" id="menu-icon">

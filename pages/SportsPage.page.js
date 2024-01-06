@@ -6,7 +6,7 @@ import {SpeedInsights} from "@vercel/speed-insights/next";
 import NavBar from '@/components/Navigation/NavBar.js';
 const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ssr: false});
 
-const SportsPage=({metaTags}) => {
+const SportsPage=({metaTags,sportsData}) => {
   return (
     <>
       <Head>
@@ -25,7 +25,7 @@ const SportsPage=({metaTags}) => {
           className='underline hover:cursor-pointer'> https://www.sportscardspro.com
         </a>
       </p>
-      <SportsTable />
+      <SportsTable sportsData={sportsData} />
       <SpeedInsights />
     </>
   );

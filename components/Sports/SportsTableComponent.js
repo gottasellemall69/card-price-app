@@ -10,7 +10,6 @@ function SportsTableComponent({data}) {
     }
   },[data]);
   const memoizedSportsData=useMemo(() => sportsData,[sportsData]);
-  console.log('sportsData:',memoizedSportsData);
   return (
     <>
       {memoizedSportsData? (
