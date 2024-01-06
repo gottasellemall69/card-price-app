@@ -59,11 +59,12 @@ const CardTable=( {matchedCards,userCardList} ) => {
                   <tr key={index}>
                     <td className="hidden xl:table-cell">
                       <Image
+                        unoptimized
                         src={getLocalImagePath( card.id )}
                         alt={`Card Image - ${ card.name }`}
                         loading="lazy"
-                        width={300}
-                        height={250}
+                        width={200}
+                        height={150}
                         className="w-full h-full max-w-96 mx-auto object-center place-self-center object-cover sm:object-scale-down"
                       />
                     </td>
