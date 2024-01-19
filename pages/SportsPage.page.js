@@ -4,9 +4,9 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import NavBar from '@/components/Navigation/NavBar.js';
-const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ssr: false});
+const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ssr: true});
 
-const SportsPage=({metaTags,sportsData}) => {
+const SportsPage=({metaTags}) => {
   return (
     <>
       <Head>
@@ -25,7 +25,7 @@ const SportsPage=({metaTags,sportsData}) => {
           className='underline hover:cursor-pointer'> https://www.sportscardspro.com
         </a>
       </p>
-      <SportsTable sportsData={sportsData} />
+      <SportsTable />
       <SpeedInsights />
     </>
   );

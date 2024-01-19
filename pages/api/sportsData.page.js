@@ -97,7 +97,6 @@ function getSportsUrls(cardSet) {
         "https://www.sportscardspro.com/console/basketball-cards-1991-fleer?sort=model-number&exclude-variants=true&rookies-only=false&cursor=400&format=json",
       ];
     default:
-      return [];
-  }
+      return [];  }
 }
 
