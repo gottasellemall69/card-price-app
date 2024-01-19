@@ -1,9 +1,10 @@
+'use client';
 // @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
 import CardTable from './CardTable';
 import DownloadCSVButton from './DownloadCSVButton';
-import Pagination from '../Pagination';
+import YugiohPagination from './YugiohPagination';
 async function fetchCardData(url) {
   const response=await fetch(url);
   const data=await response.json();
@@ -33,7 +34,7 @@ const CardMatcher=() => {
     const userCardList=userInput.split('\n').map(entry => entry.trim().toLowerCase());
     setUserCardList(userCardList);
     const isValid=userCardList.every(entry => {
-      const [name,numberOrSet,edition]=entry.split(',').map(item => item.trim());
+      const [name,numberOrSet,edition]=entry.split('\n').map(item => item.trim());
       return name&&(!numberOrSet||numberOrSet.toLowerCase()==='set')&&
         (!edition||edition.toLowerCase()==='edition');
     });
@@ -51,17 +52,17 @@ const CardMatcher=() => {
         set_rarity: set.set_rarity.toLowerCase(),
         price: set.set_price.toLocaleString()
       }));
-      return userCardList.some(entry => {
-        const [name,numberOrSet,edition]=entry.split(',').map(item => item.trim().toLowerCase());
+      return userCardList.find(entry => {
+        const [name,numberOrSet,edition]=entry.split('\n').map(item => item.trim().toLowerCase());
         return (
           name.includes(cardName)||
           (numberOrSet==='set'&&
-            cardSets.some(set => {
+            cardSets.every(set => {
               return (
-                set.set_name.includes(name)||
-                set.set_code.includes(numberOrSet)||
-                set.set_edition.includes(edition)||
-                set.set_rarity.includes(edition)||
+                set.set_name.includes(name)&&
+                set.set_code.includes(numberOrSet)&&
+                set.set_edition.includes(edition)&&
+                set.set_rarity.includes(edition)&&
                 set.price.includes(edition)
               );
             }))
@@ -95,7 +96,7 @@ const CardMatcher=() => {
         <p>Time Wizard 1st Edition Metal Raiders MRD-065</p>
       </span>
       <textarea
-        name="userInput"
+        id="userInput"
         className="w-full h-48 p-2 border border-gray-300 mb-2 text-black resize-none"
         placeholder="Paste card list here..."
         value={userInput}
@@ -110,26 +111,27 @@ const CardMatcher=() => {
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">{resultCount} result(s) found</p>}
-      {matchedCards.length>0&&
+
+      {matchedCards.length>0&&(
         <>
           <CardTable
             matchedCards={matchedCards.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
             userCardList={userCardList}
             isLoading={isLoading}
             isTablePopulated={isTablePopulated} />
-          <Pagination
+          <YugiohPagination
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
             totalItems={matchedCards?.length}
             handlePageClick={handlePageClick} />
-        </>}
+        </>
+      )}
     </div>
   );
 };
 export async function getStaticProps() {
   // Fetch initial data for the CardMatcher component
   const initialUserInput=localStorage.getItem('userInput')||'';
-  const cardData=await fetchCardData('https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true');
   return {
     props: {
       initialUserInput,

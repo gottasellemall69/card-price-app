@@ -1,23 +1,28 @@
 // @/components/Yugioh/DownloadCSVButton.js
 const DownloadCSVButton=({matchedCards,userCardList}) => {
   const downloadCSV=() => {
-    const csvHeader="Name,Desc,Number,Set,Rarity,Edition,Set Price";
     const csvData=matchedCards.map((card) => {
-      const cardName=card?.name||'';
-      const cardDesc=card?.desc||'';
-      const escapedDesc=cardDesc.replace(/"/g,'""'); // Replace double quotes with two double quotes
+      const cardName=card?.name||"";
+      const cardDesc=card?.desc||"";
+      const escapedDesc=cardDesc.replace(/"/g,'""');
       const quotedDesc=`"${escapedDesc}"`;
       const userCard=userCardList.find((entry) =>
         entry.toLowerCase().includes(cardName.toLowerCase())
       );
+      const ebayPrice=userCard&&card?.card_prices?.[0]?.ebay_price;
       const relevantSet=userCard&&card.card_sets?.find((set) =>
         userCard.toLowerCase().includes(set.set_name?.toLowerCase())&&
         userCard.toLowerCase().includes(set.set_code?.toLowerCase())&&
         userCard.toLowerCase().includes(set.set_edition?.toLowerCase())
       );
-      const ebayPrice=userCard&&card?.card_prices?.[0]?.ebay_price||'';
-      return `${cardName},${quotedDesc},${relevantSet?.set_code||''},${relevantSet?.set_name||''},${relevantSet?.set_rarity||''},${relevantSet?.set_edition||''},${ebayPrice}`;
+      const setCode=relevantSet?.set_code||"";
+      const setName=relevantSet?.set_name||"";
+      const setRarity=relevantSet?.set_rarity||"";
+      const setEdition=relevantSet?.set_edition||"";
+      return `"${cardName}",${quotedDesc},${setCode},${setName},${setRarity},${setEdition},${ebayPrice}`;
     }).join("\n");
+
+    const csvHeader="Name,Desc,Set Code,Set Name,Rarity,Edition,Set Price";
     const csvContent=`${csvHeader}\n${csvData}`;
     const element=document.createElement('a');
     const file=new Blob([csvContent],{type: 'text/csv'});

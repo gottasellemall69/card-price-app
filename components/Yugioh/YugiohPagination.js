@@ -1,28 +1,24 @@
 // @/components/Pagination.js
 
-const Pagination=({currentPage,itemsPerPage,totalItems,handlePageClick}) => {
+const YugiohPagination=({currentPage,itemsPerPage,totalItems,handlePageClick}) => {
   const totalPages=Math.ceil(totalItems/itemsPerPage);
   return (
     <div className="my-2 mx-auto w-full flex items-center justify-between border-t border-gray-200 bg-transparent backdrop filter px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <button onClick={() => handlePageClick(currentPage-1)} disabled={currentPage===1}>
-          <div
-
-            className="relative inline-flex items-center rounded-md border border-gray-300 bg-transparent backdrop filter px-4 py-2 text-sm font-medium text-white text-shadow hover:text-black hover:bg-white">
+          <div className="relative inline-flex items-center rounded-md border border-gray-300 bg-transparent backdrop filter px-4 py-2 text-sm font-medium text-white text-shadow hover:text-black hover:bg-white">
             Previous
           </div>
         </button>
-        <div className="mx-auto w-full hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div className="mx-auto w-full sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm text-white text-shadow">
+            <p className=" text-center mx-auto text-sm text-white text-shadow">
               {`Page ${currentPage} of ${totalPages}`}
             </p>
           </div>
         </div>
         <button onClick={() => handlePageClick(currentPage+1)} disabled={currentPage===totalPages}>
-          <div
-
-            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-transparent backdrop filter px-4 py-2 text-sm font-medium text-white text-shadow hover:text-black hover:bg-white">
+          <div className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-transparent backdrop filter px-4 py-2 text-sm font-medium text-white text-shadow hover:text-black hover:bg-white">
             Next
           </div>
         </button>
@@ -36,9 +32,7 @@ const Pagination=({currentPage,itemsPerPage,totalItems,handlePageClick}) => {
         <div>
           <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
             <button onClick={() => handlePageClick(currentPage-1)} disabled={currentPage===1}>
-              <div
-
-                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:text-black hover:bg-white focus:z-20 focus:outline-offset-0">
+              <div className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:text-black hover:bg-white focus:z-20 focus:outline-offset-0">
                 <span className="sr-only">Previous</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +53,7 @@ const Pagination=({currentPage,itemsPerPage,totalItems,handlePageClick}) => {
                 hover:text-black hover:bg-white focus:z-20 focus:outline-offset-0`} />
             ))} />
             <button onClick={() => handlePageClick(currentPage+1)} disabled={currentPage===totalPages}>
-              <div
-                className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:text-black hover:bg-white focus:z-20 focus:outline-offset-0">
+              <div className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:text-black hover:bg-white focus:z-20 focus:outline-offset-0">
                 <span className="sr-only">Next</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -80,4 +73,4 @@ const Pagination=({currentPage,itemsPerPage,totalItems,handlePageClick}) => {
   );
 };
 
-export default Pagination;
+export default YugiohPagination;
