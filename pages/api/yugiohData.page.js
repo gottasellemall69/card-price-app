@@ -1,6 +1,4 @@
 // @/pages/api/yugiohData.js
-import fetch from 'node-fetch';
-
 export default async function handler(req,res) {
   try {
     const apiUrl='https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true';
