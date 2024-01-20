@@ -1,17 +1,14 @@
-'use client';
-// @/components/Yugioh/CardTable.js
 import React,{useCallback} from 'react';
 import Image from 'next/image';
 
 const CardTable=({matchedCards,userCardList}) => {
-  const getLocalImagePath=useCallback((cardId) => {
-    const idString=String(cardId);
-    return `/yugiohImages/${idString}.jpg`;
-  },[]);
+  const getLocalImagePath=useCallback((cardId) => `/yugiohImages/${String(cardId)}.jpg`,[]);
+
   const currentPage=1; // Set the current page value as needed
   const itemsPerPage=50;
   const startIndex=(currentPage-1)*itemsPerPage;
   const cardsToRender=matchedCards?.slice(startIndex,startIndex+itemsPerPage);
+
   return (
     <>
       <div className="mt-4" style={{maxHeight: '750px',overflowY: 'auto'}}>

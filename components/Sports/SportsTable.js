@@ -1,17 +1,22 @@
-'use client';
 // @/components/Sports/SportsTable.js
 import React,{useEffect,useState,useMemo,useCallback} from 'react';
 import CardSetButtons from './CardSetButtons';
-import SportsCSVButton from "./SportsCSVButton";
+import SportsCSVButton from './SportsCSVButton';
+import SportsPagination from './SportsPagination';
+
 function SportsTable() {
   const [sportsData,setSportsData]=useState(null);
   const [selectedCardSet,setSelectedCardSet]=useState('');
+  const [currentPage,setCurrentPage]=useState(1);
+  const itemsPerPage=10; // Adjust as needed
+
   const fetchData=useCallback(async () => {
     try {
       const response=await fetch(`/api/sportsData?cardSet=${selectedCardSet}`);
       if(response.ok) {
         const data=await response.json();
         setSportsData(data);
+        setCurrentPage(1); // Reset to first page when data changes
       } else {
         console.error('Failed to fetch data from the API');
       }
@@ -19,9 +24,11 @@ function SportsTable() {
       console.error('Error fetching data:',error);
     }
   },[selectedCardSet]);
+
   useEffect(() => {
     fetchData();
   },[fetchData]);
+
   const memoizedCardSets=useMemo(
     () => [
       '1975 Topps',
@@ -35,20 +42,22 @@ function SportsTable() {
       '1991 Proline Portraits',
       '1991 Wild Card',
       '1991 Wild Card College Draft Picks'
-    ],[]
+    ],
+    []
   );
+
+  const handlePageChange=(page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
-      <div className="min-h-full container mx-auto w-full overflow-x-hidden" style={{maxHeight: '750px',overflowY: 'auto'}}>
-        <div className="flex-row space-x-10">
-          <CardSetButtons
-            cardSets={memoizedCardSets}
-            onSelectCardSet={setSelectedCardSet} />
-          <SportsCSVButton
-            sportsData={sportsData} />
-        </div>
-        <table className='mx-auto box-content w-full mb-10'>
+      <div className="place-content-start justify-start align-baseline place-self-start flex-row space-x-10">
+        <CardSetButtons cardSets={memoizedCardSets} onSelectCardSet={setSelectedCardSet} />
+        <SportsCSVButton sportsData={sportsData} />
+      </div>
+      <div className="min-h-full container mx-auto w-full overflow-x-hidden">
+        <table className="mx-auto box-content w-full mb-10" style={{maxHeight: '750px',overflowY: 'auto'}}>
           <thead>
             <tr>
               <th scope="col"
@@ -97,6 +106,7 @@ function SportsTable() {
             </tbody>
           }
         </table>
+        <SportsPagination sportsData={sportsData} itemsPerPage={itemsPerPage} onPageChange={handlePageChange} />
       </div>
     </>
   );

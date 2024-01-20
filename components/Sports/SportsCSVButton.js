@@ -1,3 +1,4 @@
+// @/components/Sports/SportsCSVButton.js
 import React from 'react';
 
 const SportsCSVButton=({sportsData}) => {
@@ -30,7 +31,8 @@ const SportsCSVButton=({sportsData}) => {
       <button
         name="SportsCSVButton"
         className="bg-white border border-zinc-500 font-bold px-2 py-1 m-1 mx-auto rounded cursor-pointer text-black hover:bg-black hover:text-white"
-        onClick={downloadCSV}>
+        onClick={downloadCSV}
+      >
         Download CSV
       </button>
     )

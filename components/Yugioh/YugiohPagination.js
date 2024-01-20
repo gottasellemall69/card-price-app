@@ -1,7 +1,7 @@
-// @/components/Pagination.js
-
+// @/components/Yugioh/YugiohPagination.js
 const YugiohPagination=({currentPage,itemsPerPage,totalItems,handlePageClick}) => {
   const totalPages=Math.ceil(totalItems/itemsPerPage);
+
   return (
     <div className="my-2 mx-auto w-full flex items-center justify-between border-t border-gray-200 bg-transparent backdrop filter px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
