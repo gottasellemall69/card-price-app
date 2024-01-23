@@ -1,10 +1,10 @@
 // @/pages/SportsPage.page.js
-import * as React from 'react';
-import {useState} from 'react';
+import React from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import {SpeedInsights} from '@vercel/speed-insights/next';
 import NavBar from '@/components/Navigation/NavBar.js';
+import SportsPagination from '@/components/Sports/SportsPagination';
 const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ssr: false});
 
 const SportsPage=({metaTags,sportsData}) => {
@@ -31,6 +31,7 @@ const SportsPage=({metaTags,sportsData}) => {
           </a>
         </p>
         <SportsTable sportsData={sportsData} />
+        <SportsPagination />
         <SpeedInsights />
       </main>
     </>

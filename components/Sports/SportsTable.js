@@ -1,63 +1,62 @@
+'use client';
 // @/components/Sports/SportsTable.js
 import React,{useEffect,useState,useMemo,useCallback} from 'react';
 import CardSetButtons from './CardSetButtons';
-import SportsCSVButton from './SportsCSVButton';
-import SportsPagination from './SportsPagination';
-
+import SportsCSVButton from "./SportsCSVButton";
+/**
+ * Renders a table displaying sports data.
+ * 
+ * @returns {JSX.Element} The SportsTable component.
+ */
 function SportsTable() {
   const [sportsData,setSportsData]=useState(null);
-  const [selectedCardSet,setSelectedCardSet]=useState('');
-  const [currentPage,setCurrentPage]=useState(1);
-  const itemsPerPage=10; // Adjust as needed
+  const [cardSet,setSelectedCardSet]=useState();
+  const cursor=0;
+  const fetchDataCallback=useCallback(async function() {
 
-  const fetchData=useCallback(async () => {
     try {
-      const response=await fetch(`/api/sportsData?cardSet=${selectedCardSet}`);
+      const response=await fetch(`/api/[sportsData]?cardSet=${cardSet}&cursor=${cursor}`);
       if(response.ok) {
         const data=await response.json();
         setSportsData(data);
-        setCurrentPage(1); // Reset to first page when data changes
       } else {
         console.error('Failed to fetch data from the API');
       }
     } catch(error) {
       console.error('Error fetching data:',error);
     }
-  },[selectedCardSet]);
-
+  },[cardSet]);
   useEffect(() => {
-    fetchData();
-  },[fetchData]);
-
+    fetchDataCallback();
+  },[fetchDataCallback]);
   const memoizedCardSets=useMemo(
     () => [
-      '1975 Topps',
+      '1975 Topps NBA',
       '1989 NBA Hoops',
       '1990 NBA Hoops',
-      '1990 Skybox',
-      '1990 Fleer',
-      '1991 Fleer',
-      '1990 Pro Set',
-      '1991 Pro Set',
-      '1991 Proline Portraits',
-      '1991 Wild Card',
-      '1991 Wild Card College Draft Picks'
-    ],
-    []
+      '1990 NBA Skybox',
+      '1990 NBA Fleer',
+      '1991 NBA Fleer',
+      '1990 NFL Pro Set',
+      '1991 NFL Pro Set',
+      '1991 NFL Proline Portraits',
+      '1991 NFL Wild Card',
+      '1991 NFL Wild Card College Draft Picks'
+    ],[]
   );
-
-  const handlePageChange=(page) => {
-    setCurrentPage(page);
-  };
 
   return (
     <>
-      <div className="place-content-start justify-start align-baseline place-self-start flex-row space-x-10">
-        <CardSetButtons cardSets={memoizedCardSets} onSelectCardSet={setSelectedCardSet} />
-        <SportsCSVButton sportsData={sportsData} />
-      </div>
-      <div className="min-h-full container mx-auto w-full overflow-x-hidden">
-        <table className="mx-auto box-content w-full mb-10" style={{maxHeight: '750px',overflowY: 'auto'}}>
+
+      <div className="place-content-start relative min-h-full container mx-auto w-full overflow-x-hidden" style={{maxHeight: '750px',overflowY: 'auto'}}>
+        <div className="place-content-baseline flex-row space-x-10 mx-auto">
+          <CardSetButtons
+            cardSets={memoizedCardSets}
+            onSelectCardSet={setSelectedCardSet} />
+          <SportsCSVButton
+            sportsData={sportsData} />
+        </div>
+        <table className='mx-auto box-content w-full mb-10'>
           <thead>
             <tr>
               <th scope="col"
@@ -106,7 +105,6 @@ function SportsTable() {
             </tbody>
           }
         </table>
-        <SportsPagination sportsData={sportsData} itemsPerPage={itemsPerPage} onPageChange={handlePageChange} />
       </div>
     </>
   );

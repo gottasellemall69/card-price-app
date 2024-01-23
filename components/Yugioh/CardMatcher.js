@@ -24,6 +24,7 @@ const CardMatcher=() => {
     setCurrentPage(newPage);
   },[]);
 
+  // Use swr to fetch the data
   const {data: cardData,error: cardError}=useSWR(
     'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
     fetchCardData
@@ -36,11 +37,11 @@ const CardMatcher=() => {
   },[cardError]);
 
   const matchCards=useCallback(() => {
-    const userCardList=userInput.split('\n').map(entry => entry.trim().toLowerCase());
+    const userCardList=userInput.split('\n').map((entry) => entry.trim().toLowerCase());
     setUserCardList(userCardList);
 
-    const isValid=userCardList.every(entry => {
-      const [name,numberOrSet,edition]=entry.split('\n').map(item => item.trim());
+    const isValid=userCardList.every((entry) => {
+      const [name,numberOrSet,edition]=entry.split('\n').map((item) => item.trim());
       return name&&(!numberOrSet||numberOrSet.toLowerCase()==='set')&&
         (!edition||edition.toLowerCase()==='edition');
     });
@@ -52,35 +53,36 @@ const CardMatcher=() => {
 
     setValidationError('');
 
-    const matchedResults=cardData.filter(card => {
+    const matchedResults=cardData?.filter((card) => {
       const cardName=card.name.toLowerCase();
-      const cardSets=(card.card_sets||[]).map(set => ({
+      const cardSets=(card.card_sets||[]).map((set) => ({
         set_name: set.set_name.toLowerCase(),
         set_code: set.set_code.toLowerCase(),
         set_edition: set.set_edition.toLowerCase(),
         set_rarity: set.set_rarity.toLowerCase(),
-        price: set.set_price.toLocaleString()
+        price: set.set_price.toLocaleString(),
       }));
 
-      return userCardList.find(entry => {
-        const [name,numberOrSet,edition]=entry.split('\n').map(item => item.trim().toLowerCase());
+      return userCardList.find((entry) => {
+        const [name,numberOrSet,edition]=entry.split('\n').map((item) => item.trim().toLowerCase());
+
         return (
           name.includes(cardName)||
           (numberOrSet==='set'&&
-            cardSets.every(set => (
+            cardSets.every((set) =>
               set.set_name.includes(name)&&
               set.set_code.includes(numberOrSet)&&
               set.set_edition.includes(edition)&&
               set.set_rarity.includes(edition)&&
               set.price.includes(edition)
-            ))
+            )
           )
         );
       });
     });
 
     setMatchedCards(matchedResults);
-    setResultCount(matchedResults.length);
+    setResultCount(matchedResults?.length);
   },[userInput,cardData]);
 
   const memoizedMatchCards=useMemo(() => matchCards,[matchCards]);
@@ -130,6 +132,8 @@ const CardMatcher=() => {
         userCardList={userCardList}
         isLoading={isLoading}
         isTablePopulated={isTablePopulated}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
       />
       <YugiohPagination
         currentPage={currentPage}
@@ -146,7 +150,8 @@ export async function getStaticProps() {
   return {
     props: {
       initialUserInput,
-      initialCardData: cardData||null,
+      // It's better to set initialCardData to null if cardData is not available yet
+      initialCardData: null,
     },
   };
 }
