@@ -2,10 +2,16 @@
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
 import CardTable from './CardTable';
+<<<<<<< HEAD
 import YugiohCSVButton from './YugiohCSVButton';
 import YugiohPagination from './YugiohPagination';
 
 const fetchCardData=async (url) => {
+=======
+import DownloadCSVButton from './DownloadCSVButton';
+import Pagination from '../Pagination';
+async function fetchCardData(url) {
+>>>>>>> parent of 451ef90 (hh)
   const response=await fetch(url);
   const data=await response.json();
   return data.data;
@@ -39,9 +45,14 @@ const CardMatcher=() => {
   const matchCards=useCallback(() => {
     const userCardList=userInput.split('\n').map((entry) => entry.trim().toLowerCase());
     setUserCardList(userCardList);
+<<<<<<< HEAD
 
     const isValid=userCardList.every((entry) => {
       const [name,numberOrSet,edition]=entry.split('\n').map((item) => item.trim());
+=======
+    const isValid=userCardList.every(entry => {
+      const [name,numberOrSet,edition]=entry.split(',').map(item => item.trim());
+>>>>>>> parent of 451ef90 (hh)
       return name&&(!numberOrSet||numberOrSet.toLowerCase()==='set')&&
         (!edition||edition.toLowerCase()==='edition');
     });
@@ -62,6 +73,7 @@ const CardMatcher=() => {
         set_rarity: set.set_rarity.toLowerCase(),
         price: set.set_price.toLocaleString(),
       }));
+<<<<<<< HEAD
 
       return userCardList.find((entry) => {
         const [name,numberOrSet,edition]=entry.split('\n').map((item) => item.trim().toLowerCase());
@@ -77,6 +89,22 @@ const CardMatcher=() => {
               set.price.includes(edition)
             )
           )
+=======
+      return userCardList.some(entry => {
+        const [name,numberOrSet,edition]=entry.split(',').map(item => item.trim().toLowerCase());
+        return (
+          name.includes(cardName)||
+          (numberOrSet==='set'&&
+            cardSets.some(set => {
+              return (
+                set.set_name.includes(name)||
+                set.set_code.includes(numberOrSet)||
+                set.set_edition.includes(edition)||
+                set.set_rarity.includes(edition)||
+                set.price.includes(edition)
+              );
+            }))
+>>>>>>> parent of 451ef90 (hh)
         );
       });
     });
@@ -112,7 +140,7 @@ const CardMatcher=() => {
         <p>Time Wizard 1st Edition Metal Raiders MRD-065</p>
       </span>
       <textarea
-        id="userInput"
+        name="userInput"
         className="w-full h-48 p-2 border border-gray-300 mb-2 text-black resize-none"
         placeholder="Paste card list here..."
         value={userInput}
@@ -127,6 +155,7 @@ const CardMatcher=() => {
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">{resultCount} result(s) found</p>}
+<<<<<<< HEAD
       <CardTable
         matchedCards={matchedCards.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
         userCardList={userCardList}
@@ -141,12 +170,28 @@ const CardMatcher=() => {
         totalItems={matchedCards?.length}
         handlePageClick={handlePageClick}
       />
+=======
+      {matchedCards.length>0&&
+        <>
+          <CardTable
+            matchedCards={matchedCards.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
+            userCardList={userCardList}
+            isLoading={isLoading}
+            isTablePopulated={isTablePopulated} />
+          <Pagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            totalItems={matchedCards?.length}
+            handlePageClick={handlePageClick} />
+        </>}
+>>>>>>> parent of 451ef90 (hh)
     </div>
   );
 };
 export async function getStaticProps() {
   // Fetch initial data for the CardMatcher component
   const initialUserInput=localStorage.getItem('userInput')||'';
+  const cardData=await fetchCardData('https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true');
   return {
     props: {
       initialUserInput,
