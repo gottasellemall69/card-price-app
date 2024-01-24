@@ -21,6 +21,7 @@
 *.pem
 .aider*
 .gpteng
+.morph
 
 # debug
 npm-debug.log*
@@ -39,6 +40,6 @@ yarn-error.log*
 next-env.d.ts
 
 /.vercel/
-/public/yugiohImages/*
+/public/yugiohImages*
 middleware.js
 prompt

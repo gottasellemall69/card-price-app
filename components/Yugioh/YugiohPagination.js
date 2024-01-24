@@ -1,3 +1,4 @@
+'use client';
 // @/components/Yugioh/YugiohPagination.js
 /**
  * Renders a pagination component for a Yugioh card list.
