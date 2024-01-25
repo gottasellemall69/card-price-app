@@ -31,7 +31,7 @@ const CardMatcher=() => {
     if(cardError) {
       console.error('Error fetching card data:',cardError);
     }
-  },[cardData,cardError]);
+  },[cardError]);
   const matchCards=useCallback(() => {
     const userCardList=userInput.split('\n').map((entry) => entry.trim().toLowerCase());
     setUserCardList(userCardList);
