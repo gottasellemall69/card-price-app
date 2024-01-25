@@ -24,7 +24,7 @@ const CardMatcher=() => {
 
   // Use swr to fetch the data
   const {data: cardData,error: cardError}=useSWR(
-    '/api/Yugioh/[yugiohData]',
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
     fetchCardData
   );
   useEffect(() => {

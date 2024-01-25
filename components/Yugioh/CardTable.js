@@ -101,7 +101,7 @@ const CardTable=({matchedCards,userCardList}) => {
             })}
           </tbody>
         </table>
-      ):([])}
+      ):[]}
     </div>
   );
 };
