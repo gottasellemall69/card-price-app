@@ -24,7 +24,7 @@ const CardMatcher=() => {
 
   // Use swr to fetch the data
   const {data: cardData,error: cardError}=useSWR(
-    '/api/Yugioh/[...yugiohData]?tcgplayer_data=true',
+    '/api/Yugioh/[yugiohData]',
     fetchCardData
   );
   useEffect(() => {
@@ -82,7 +82,7 @@ const CardMatcher=() => {
     localStorage.setItem('userInput',value);
   },[]);
   const isLoading=!cardData&&!cardError;
-  const isTablePopulated=matchedCards.length>0;
+  const isTablePopulated=matchedCards?.length>0;
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
@@ -115,10 +115,10 @@ const CardMatcher=() => {
       {resultCount>0&&
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">{resultCount} result(s) found</p>}
 
-      {matchedCards.length>0&&(
+      {matchedCards?.length>0&&(
         <>
           <CardTable
-            matchedCards={matchedCards.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
+            matchedCards={matchedCards?.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
             userCardList={userCardList}
             isLoading={isLoading}
             isTablePopulated={isTablePopulated} />

@@ -1,5 +1,6 @@
+'use client';
 // @/components/Yugioh/CardTable.js
-import {useCallback} from 'react';
+import React,{useCallback} from 'react';
 import Image from 'next/image';
 
 const CardTable=({matchedCards,userCardList}) => {
