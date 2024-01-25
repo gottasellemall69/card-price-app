@@ -13,8 +13,8 @@ async function fetchCardData(url) {
 const CardMatcher=() => {
   const [userInput,setUserInput]=useState(localStorage.getItem('userInput')||'');
   const [validationError,setValidationError]=useState('');
-  const [matchedCards,setMatchedCards]=useState();
-  const [userCardList,setUserCardList]=useState();
+  const [matchedCards,setMatchedCards]=useState([]);
+  const [userCardList,setUserCardList]=useState([]);
   const [resultCount,setResultCount]=useState(0);
   const [currentPage,setCurrentPage]=useState(1);
   const itemsPerPage=50;
@@ -24,7 +24,7 @@ const CardMatcher=() => {
 
   // Use swr to fetch the data
   const {data: cardData,error: cardError}=useSWR(
-    '/api/Yugioh/[...yugiohData]',
+    '/api/Yugioh/[...yugiohData]?tcgplayer_data=true',
     fetchCardData
   );
   useEffect(() => {
@@ -46,8 +46,7 @@ const CardMatcher=() => {
       return;
     }
     setValidationError('');
-
-    const matchedResults=cardData?.filter((card) => {
+    const matchedResults=cardData?.filter(card => {
       const cardName=card.name.toLowerCase();
       const cardSets=(card.card_sets||[]).map((set) => ({
         set_name: set.set_name.toLowerCase(),
@@ -83,7 +82,7 @@ const CardMatcher=() => {
     localStorage.setItem('userInput',value);
   },[]);
   const isLoading=!cardData&&!cardError;
-  const isTablePopulated=matchedCards?.length>0;
+  const isTablePopulated=matchedCards.length>0;
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
@@ -115,20 +114,21 @@ const CardMatcher=() => {
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">{resultCount} result(s) found</p>}
-      <CardTable
-        matchedCards={matchedCards?.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
-        userCardList={userCardList}
-        isLoading={isLoading}
-        isTablePopulated={isTablePopulated}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-      />
-      <YugiohPagination
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        totalItems={matchedCards?.length}
-        handlePageClick={handlePageClick}
-      />
+
+      {matchedCards.length>0&&(
+        <>
+          <CardTable
+            matchedCards={matchedCards.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
+            userCardList={userCardList}
+            isLoading={isLoading}
+            isTablePopulated={isTablePopulated} />
+          <YugiohPagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            totalItems={matchedCards?.length}
+            handlePageClick={handlePageClick} />
+        </>
+      )}
     </div>
   );
 };
