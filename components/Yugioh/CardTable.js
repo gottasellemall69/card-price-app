@@ -100,9 +100,7 @@ const CardTable=({matchedCards,userCardList}) => {
             })}
           </tbody>
         </table>
-      ):(
-        <p>No matched cards found.</p>
-      )}
+      ):([])}
     </div>
   );
 };
