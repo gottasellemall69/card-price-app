@@ -7,9 +7,10 @@ import SportsCSVButton from './SportsCSVButton';
 const SportsTable=() => {
   const [sportsData,setSportsData]=useState(null);
   const [selectedCardSet,setSelectedCardSet]=useState('');
+  const cursor=0;
   const fetchData=useCallback(async () => {
     try {
-      const response=await fetch(`/api/Sports/sportsData?cardSet=${selectedCardSet}`);
+      const response=await fetch(`/api/Sports/sportsData?cardSet=${selectedCardSet}&cursor=${cursor,`+`,Number}`);
       if(response.ok) {
         const data=await response.json();
         setSportsData(data);
@@ -24,77 +25,80 @@ const SportsTable=() => {
     fetchData();
   },[fetchData]);
   const memoizedCardSets=useMemo(
-    () => ['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox','1990 Fleer','1991 Fleer'],
+    () => ['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox','1990 Fleer','1991 Fleer','1990 Pro Set','1991 Pro Set','1991 Proline Portraits','1991 Wild Card','1991 Wild Card College Draft Picks'],
     []
   );
   return (
     <>
-      <span className='flex flex-wrap flex-row'>
-        <CardSetButtons
-          cardSets={memoizedCardSets}
-          onSelectCardSet={setSelectedCardSet} />
-        <SportsCSVButton
-          sportsData={sportsData} />
-      </span>
-      <table className="mx-auto w-11/12 mb-10">
-        <thead>
-          <tr>
-            <th scope="col"
-              className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">
-              Product Name
-            </th>
-            <th scope="col"
-              className="sticky top-0 z-10 hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter md:table-cell">
-              Set
-            </th>
-            <th scope="col"
-              className="sticky top-0 z-10  hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter sm:table-cell">
-              Ungraded
-            </th>
-            <th scope="col"
-              className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">
-              PSA 9
-            </th>
-            <th scope="col"
-              className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter table-cell">
-              PSA 10
-            </th>
-          </tr>
-        </thead>
-        {sportsData&&
-          <tbody className="mx-auto h-1/2">
-            {sportsData.map((item,index) => (
-              item.products.map((product,productIndex) => (
-                <tr key={`${index}-${productIndex}`}>
-                  <td scope="row" className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white">
-                    {product["productName"]}
-                  </td>
-                  <td
-                    scope="row"
-                    className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white md:table-cell">
-                    {product["consoleUri"]}
-                  </td>
-                  <td
-                    scope="row"
-                    className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white sm:table-cell">
-                    {product["price1"]}
-                  </td>
-                  <td
-                    scope="row"
-                    className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm text-white">
-                    {product["price3"]}
-                  </td>
-                  <td
-                    scope="row"
-                    className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm font-medium table-cell">
-                    {product["price2"]}
 
-                  </td>
-                </tr>
-              ))
-            ))}
-          </tbody>}
-      </table>
+      <div className="mx-auto w-full mb-10 overflow-x-hidden max-h-fit " >
+        <div className='flex flex-row w-full text-nowrap place-items-baseline'>
+          <CardSetButtons
+            cardSets={memoizedCardSets}
+            onSelectCardSet={setSelectedCardSet} />
+          <SportsCSVButton
+            sportsData={sportsData} />
+        </div>
+        <table className="mb-10 mx-auto container w-11/12" >
+
+          <thead>
+            <tr>
+              <th scope="col"
+                className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">
+                Product Name
+              </th>
+              <th scope="col"
+                className="sticky top-0 z-10 hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter md:table-cell">
+                Set
+              </th>
+              <th scope="col"
+                className="sticky top-0 z-10  hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter sm:table-cell">
+                Ungraded
+              </th>
+              <th scope="col"
+                className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">
+                PSA 9
+              </th>
+              <th scope="col"
+                className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter table-cell">
+                PSA 10
+              </th>
+            </tr>
+          </thead>
+          {sportsData&&
+            <tbody className="mx-auto">
+              {sportsData.map((item,index) => (
+                item.products.map((product,productIndex) => (
+                  <tr key={`${index}-${productIndex}`}>
+                    <td scope="row" className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white">
+                      {product["productName"]}
+                    </td>
+                    <td
+                      scope="row"
+                      className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white md:table-cell">
+                      {product["consoleUri"]}
+                    </td>
+                    <td
+                      scope="row"
+                      className="border border-gray-800 p-2 whitespace-nowrap hidden text-center sm:text-left text-sm text-white sm:table-cell">
+                      {product["price1"]}
+                    </td>
+                    <td
+                      scope="row"
+                      className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm text-white">
+                      {product["price3"]}
+                    </td>
+                    <td
+                      scope="row"
+                      className="border border-gray-800 p-2 whitespace-nowrap text-center sm:text-left text-sm font-medium table-cell">
+                      {product["price2"]}
+                    </td>
+                  </tr>
+                ))
+              ))}
+            </tbody>}
+        </table>
+      </div>
     </>
   );
 };

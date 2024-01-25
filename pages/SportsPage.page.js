@@ -25,7 +25,8 @@ const SportsPage=({metaTags}) => {
           className='underline hover:cursor-pointer'> https://www.sportscardspro.com
         </a>
       </p>
-      <SportsTable />
+      <SportsTable
+      />
       <SpeedInsights />
     </>
   );

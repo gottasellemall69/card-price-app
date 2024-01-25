@@ -132,17 +132,5 @@ const CardMatcher=() => {
     </div>
   );
 };
-export async function getStaticProps() {
-  // Fetch initial data for the CardMatcher component
-  const initialUserInput=localStorage.getItem('userInput')||'';
-  const cardData=await fetchCardData('https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true');
-  return {
-    props: {
-      initialUserInput,
-      // It's better to set initialCardData to null if cardData is not available yet
-      initialCardData: null,
-    },
-  };
-}
 
 export default CardMatcher;
