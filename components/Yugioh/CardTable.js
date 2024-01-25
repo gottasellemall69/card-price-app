@@ -8,7 +8,6 @@ const CardTable=({matchedCards,userCardList}) => {
   const itemsPerPage=50;
   const startIndex=(currentPage-1)*itemsPerPage;
   const cardsToRender=matchedCards?.slice(startIndex,startIndex+itemsPerPage);
-
   return (
     <div className="mt-4" style={{maxHeight: '750px',overflowY: 'auto'}}>
       {cardsToRender?.length>0? (

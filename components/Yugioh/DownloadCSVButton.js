@@ -1,5 +1,5 @@
-// @/components/Yugioh/YugiohCSVButton.js
-const YugiohCSVButton=({matchedCards,userCardList}) => {
+// @/components/Yugioh/DownloadCSVButton.js
+const DownloadCSVButton=({matchedCards,userCardList}) => {
   const downloadCSV=() => {
     const csvHeader="Name,Desc,Number,Set,Rarity,Edition,Set Price";
     const csvData=matchedCards.map((card) => {
@@ -27,14 +27,13 @@ const YugiohCSVButton=({matchedCards,userCardList}) => {
     element.click();
     document.body.removeChild(element);
   };
-
   return (
     <button
-      name="YugiohCSVButton"
+      name="DownloadCSVButton"
       className="relative float-right bg-white text-black font-bold m-1 px-2 py-1 rounded border border-zinc-400 hover:bg-black hover:text-white"
       onClick={downloadCSV}>
       Download CSV
     </button>
   );
 };
-export default YugiohCSVButton;
+export default DownloadCSVButton;

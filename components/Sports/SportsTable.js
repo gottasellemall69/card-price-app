@@ -4,12 +4,12 @@ import React,{useEffect,useState,useMemo,useCallback} from 'react';
 import CardSetButtons from './CardSetButtons';
 import SportsCSVButton from './SportsCSVButton';
 
-const SportsTable = () => {
+const SportsTable=() => {
   const [sportsData,setSportsData]=useState(null);
   const [selectedCardSet,setSelectedCardSet]=useState('');
   const fetchData=useCallback(async () => {
     try {
-      const response=await fetch(`/api/sportsData?cardSet=${selectedCardSet}`);
+      const response=await fetch(`/api/Sports/sportsData?cardSet=${selectedCardSet}`);
       if(response.ok) {
         const data=await response.json();
         setSportsData(data);
@@ -28,43 +28,43 @@ const SportsTable = () => {
     []
   );
   return (
-  <>
-    <span className='flex flex-wrap flex-row'>
-      <CardSetButtons
-        cardSets={memoizedCardSets}
-        onSelectCardSet={setSelectedCardSet}/>
-      <SportsCSVButton
-        sportsData={sportsData} />
-    </span>
-    <table className="mx-auto w-11/12 mb-10">
+    <>
+      <span className='flex flex-wrap flex-row'>
+        <CardSetButtons
+          cardSets={memoizedCardSets}
+          onSelectCardSet={setSelectedCardSet} />
+        <SportsCSVButton
+          sportsData={sportsData} />
+      </span>
+      <table className="mx-auto w-11/12 mb-10">
         <thead>
           <tr>
             <th scope="col"
               className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">
-                Product Name
+              Product Name
             </th>
             <th scope="col"
               className="sticky top-0 z-10 hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter md:table-cell">
-                Set
+              Set
             </th>
             <th scope="col"
               className="sticky top-0 z-10  hidden border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter sm:table-cell">
-                Ungraded
+              Ungraded
             </th>
             <th scope="col"
               className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg font-black text-white whitespace-nowrap backdrop-blur backdrop-filter">
-                PSA 9
+              PSA 9
             </th>
             <th scope="col"
               className="sticky top-0 z-10 border-b border-gray-300 bg-transparent bg-opacity-75 outline-1 outline-black p-1 text-center sm:text-left text-lg text-white whitespace-nowrap font-black backdrop-blur backdrop-filter table-cell">
-                PSA 10
+              PSA 10
             </th>
           </tr>
         </thead>
         {sportsData&&
           <tbody className="mx-auto h-1/2">
-            {sportsData.map((item, index) => (
-              item.products.map((product, productIndex) => (
+            {sportsData.map((item,index) => (
+              item.products.map((product,productIndex) => (
                 <tr key={`${index}-${productIndex}`}>
                   <td scope="row" className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white">
                     {product["productName"]}
@@ -97,5 +97,5 @@ const SportsTable = () => {
       </table>
     </>
   );
-}
+};
 export default SportsTable;

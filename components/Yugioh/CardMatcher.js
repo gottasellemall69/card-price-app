@@ -1,16 +1,15 @@
+'use client';
 // @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
 import CardTable from './CardTable';
-import YugiohCSVButton from './YugiohCSVButton';
+import DownloadCSVButton from './DownloadCSVButton';
 import YugiohPagination from './YugiohPagination';
-
-const fetchCardData=async (url) => {
+async function fetchCardData(url) {
   const response=await fetch(url);
   const data=await response.json();
   return data.data;
-};
-
+}
 const CardMatcher=() => {
   const [userInput,setUserInput]=useState(localStorage.getItem('userInput')||'');
   const [validationError,setValidationError]=useState('');
@@ -19,7 +18,6 @@ const CardMatcher=() => {
   const [resultCount,setResultCount]=useState(0);
   const [currentPage,setCurrentPage]=useState(1);
   const itemsPerPage=50;
-
   const handlePageClick=useCallback((newPage) => {
     setCurrentPage(newPage);
   },[]);
@@ -29,13 +27,11 @@ const CardMatcher=() => {
     '/api/Yugioh/[yugiohData]?tcgplayer_data=true',
     fetchCardData
   );
-
   useEffect(() => {
     if(cardError) {
       console.error('Error fetching card data:',cardError);
     }
   },[cardError]);
-
   const matchCards=useCallback(() => {
     const userCardList=userInput.split('\n').map((entry) => entry.trim().toLowerCase());
     setUserCardList(userCardList);
@@ -45,12 +41,10 @@ const CardMatcher=() => {
       return name&&(!numberOrSet||numberOrSet.toLowerCase()==='set')&&
         (!edition||edition.toLowerCase()==='edition');
     });
-
     if(!isValid) {
       setValidationError('Each entry must contain the name of the card and the card number, card edition, and the name of the set.');
       return;
     }
-
     setValidationError('');
 
     const matchedResults=cardData?.filter((card) => {
@@ -79,22 +73,17 @@ const CardMatcher=() => {
         );
       });
     });
-
     setMatchedCards(matchedResults);
     setResultCount(matchedResults?.length);
   },[userInput,cardData]);
-
   const memoizedMatchCards=useMemo(() => matchCards,[matchCards]);
-
   const handleUserInputChange=useCallback((event) => {
     const value=event.target.value;
     setUserInput(value);
     localStorage.setItem('userInput',value);
   },[]);
-
   const isLoading=!cardData&&!cardError;
   const isTablePopulated=matchedCards.length>0;
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center sm:text-left mx-auto">Card Prices: Yu-Gi-Oh!</h1>
@@ -122,7 +111,7 @@ const CardMatcher=() => {
         onClick={memoizedMatchCards}>
         Search Cards
       </button>
-      {isTablePopulated&&<YugiohCSVButton matchedCards={matchedCards} userCardList={userCardList} />}
+      {isTablePopulated&&<DownloadCSVButton matchedCards={matchedCards} userCardList={userCardList} />}
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">{resultCount} result(s) found</p>}
