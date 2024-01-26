@@ -11,7 +11,7 @@ const SportsCSVButton=({sportsData}) => {
         const price3=product["price3"]||'';
         const price2=product["price2"]||'';
 
-        return `${productName},${consoleUri},${price1},${price3},${price2}`;
+        return `"${productName}","${consoleUri}","${price1}","${price3}","${price2}"`;
       })
     ).join("\n");
 

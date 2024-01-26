@@ -1,27 +1,34 @@
-'use client';
-// @/pages/api/sportsData.page.js
-async function fetchSportsData(url) {
-  const response=await fetch(url);
-  if(!response.ok) {
-    throw new Error(`Failed to fetch data from ${url}`);
-  }
-  return response.json();
-}
+// @/pages/api/Sports/sportsData.page.js
 
-export default async function handler(req,res) {
+// Import necessary dependencies
+import fetch from 'node-fetch';
+
+// Function to fetch data from a provided URL
+const fetchData=async (url) => {
   try {
-    const cardSet=req.query.cardSet||''; // New line to get the card set from query parameters
-    const sportsUrls=getSportsUrls(cardSet); // Use a function to generate URLs based on the card set
-    const dataPromises=sportsUrls.map(fetchSportsData);
-    const sportsData=await Promise.all(dataPromises);
-    res.status(200).json(sportsData);
+    const response=await fetch(url);
+    const data=await response.json();
+    return data;
   } catch(error) {
-    console.error('Error fetching data:',error);
-    res.status(500).json({error: 'Internal Server Error'});
+    throw new Error(error.message);
   }
-}
+};
 
+// Function to fetch sports data from multiple URLs
+const fetchSportsData=async (req,res) => {
+  try {
+    const sportsUrls=getSportsUrls(); // Call the getSportsUrls function to get the list of URLs
+    const fetchPromises=sportsUrls.map((url) => fetchData(url)); // Fetch data from each URL concurrently
+    const sportsData=await Promise.all(fetchPromises); // Wait for all promises to resolve
+    res.status(200).json(sportsData); // Respond with the fetched data
+  } catch(error) {
+    res.status(500).json({error: error.message}); // Respond with an error message if fetching fails
+  }
+};
+
+// Function to get the list of sports URLs based on the card set
 function getSportsUrls(cardSet) {
+  const cardSet=req.query.cardSet; // Retrieve the card set from the request query
   const cursor=0;
   // Modify this function to return the appropriate URLs based on the selected card set
   // Example: For '1990 Hoops', return URLs for 1990 Hoops cards
@@ -163,3 +170,4 @@ function getSportsUrls(cardSet) {
   }
 }
 
+export default fetchSportsData;
