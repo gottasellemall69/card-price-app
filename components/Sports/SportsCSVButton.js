@@ -1,3 +1,4 @@
+// @/components/Sports/SportsCSVButton.js
 import React from 'react';
 
 const SportsCSVButton=({sportsData}) => {
@@ -11,7 +12,7 @@ const SportsCSVButton=({sportsData}) => {
         const price3=product["price3"]||'';
         const price2=product["price2"]||'';
 
-        return `"${productName}","${consoleUri}","${price1}","${price3}","${price2}"`;
+        return `"${productName}",${consoleUri},"${price1}","${price3}","${price2}"`;
       })
     ).join("\n");
 
@@ -29,8 +30,9 @@ const SportsCSVButton=({sportsData}) => {
     sportsData&&sportsData.length>0&&(
       <button
         name="SportsCSVButton"
-        className=" relative self-baseline w-fit px-2 py-2 m-2 float-right bg-white text-black font-bold rounded border border-zinc-400 hover:bg-black hover:text-white"
-        onClick={downloadCSV}>
+        className="bg-white border border-zinc-500 font-bold px-2 py-1 m-1 mx-auto rounded cursor-pointer text-black hover:bg-black hover:text-white"
+        onClick={downloadCSV}
+      >
         Download CSV
       </button>
     )

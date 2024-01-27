@@ -1,9 +1,9 @@
 import React from 'react';
 
-function CardSetButtons({cardSet,onSelectCardSet}) {
+function CardSetButtons({cardSets,onSelectCardSet}) {
   return (
     <select onChange={(e) => onSelectCardSet(e.target.value)}>
-      {cardSet.map((cardSet) => (
+      {cardSets?.map((cardSet) => (
         <option key={cardSet} value={cardSet}>
           {cardSet}
         </option>
