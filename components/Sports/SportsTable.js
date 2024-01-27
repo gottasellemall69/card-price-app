@@ -25,7 +25,7 @@ const SportsTable=() => {
     fetchData();
   },[fetchData]);
   const memoizedCardSets=useMemo(
-    () => ['1975 Topps','1989 NBA Hoops','1990 NBA Hoops','1990 Skybox','1990 Fleer','1991 Fleer','1990 Pro Set','1991 Pro Set','1991 Proline Portraits','1991 Wild Card','1991 Wild Card College Draft Picks'],
+    () => ['1975 NBA Topps','1989 NBA Hoops','1990 NBA Hoops','1990 NBA Skybox','1990 NBA Fleer','1991 NBA Fleer','1990 NFL Pro Set','1991 NFL Pro Set','1991 NFL Proline Portraits','1991 NFL Wild Card','1991 NFL Wild Card College Draft Picks','1989 MLB Topps','1989 MLB Donruss','1991 MLB Fleer'],
     []
   );
   return (

@@ -1,5 +1,5 @@
 // @/components/Yugioh/DownloadCSVButton.js
-const DownloadCSVButton=({matchedCards,userCardList}) => {
+const DownloadYugiohCSVButton=({matchedCards,userCardList}) => {
   const downloadCSV=() => {
     const csvHeader="Name,Desc,Number,Set,Rarity,Edition,Set Price";
     const csvData=matchedCards.map((card) => {
@@ -36,4 +36,4 @@ const DownloadCSVButton=({matchedCards,userCardList}) => {
     </button>
   );
 };
-export default DownloadCSVButton;
+export default DownloadYugiohCSVButton;

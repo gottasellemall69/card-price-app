@@ -2,15 +2,15 @@
 // @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
 import useSWR from 'swr';
-import CardTable from './CardTable';
-import DownloadCSVButton from './DownloadCSVButton';
+import DownloadYugiohCSVButton from './DownloadYugiohCSVButton';
 import YugiohPagination from './YugiohPagination';
+import YugiohCardTable from "./YugiohCardTable";
 async function fetchCardData(url) {
   const response=await fetch(url);
   const data=await response.json();
   return data.data;
 }
-const CardMatcher=() => {
+const YugiohCardMatcher=() => {
   const [userInput,setUserInput]=useState(localStorage.getItem('userInput')||'');
   const [validationError,setValidationError]=useState('');
   const [matchedCards,setMatchedCards]=useState([]);
@@ -110,14 +110,14 @@ const CardMatcher=() => {
         onClick={memoizedMatchCards}>
         Search Cards
       </button>
-      {isTablePopulated&&<DownloadCSVButton matchedCards={matchedCards} userCardList={userCardList} />}
+      {isTablePopulated&&<DownloadYugiohCSVButton matchedCards={matchedCards} userCardList={userCardList} />}
       {validationError&&<p className="text-red-500 mb-2">{validationError}</p>}
       {resultCount>0&&
         <p className="text-sm text-center sm:text-left mx-auto sm:mx-0 mb-2">{resultCount} result(s) found</p>}
 
       {matchedCards?.length>0&&(
         <>
-          <CardTable
+          <YugiohCardTable
             matchedCards={matchedCards?.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
             userCardList={userCardList}
             isLoading={isLoading}
@@ -133,4 +133,4 @@ const CardMatcher=() => {
   );
 };
 
-export default CardMatcher;
+export default YugiohCardMatcher;
