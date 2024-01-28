@@ -1,16 +1,30 @@
 'use client';
 // @/components/Sports/SportsTable.js
-import React,{useEffect,useState,useMemo,useCallback} from 'react';
+import React,{useEffect,useState,useMemo} from 'react';
 import CardSetButtons from './CardSetButtons';
 import SportsCSVButton from './SportsCSVButton';
+import SportsPagination from './SportsPagination';
 
-const SportsTable=() => {
-  const [sportsData,setSportsData]=useState(null);
-  const [selectedCardSet,setSelectedCardSet]=useState('');
-  const cursor=0;
-  const fetchData=useCallback(async () => {
+const SportsTable=({initialData}) => {
+  const [selectedCardSet,setSelectedCardSet]=useState();
+  const [sportsData,setSportsData]=useState(initialData);
+
+  const memoizedCardSets=useMemo(
+    () => [
+      '1975 NBA Topps','1989 NBA Hoops','1990 NBA Hoops','1990 NBA Skybox','1990 NBA Fleer','1991 NBA Fleer','1990 NFL Pro Set','1991 NFL Pro Set','1991 NFL Proline Portraits','1991 NFL Wild Card','1991 NFL Wild Card College Draft Picks','1989 MLB Topps','1989 MLB Donruss','1991 MLB Fleer'
+    ],
+    []
+  );
+
+  useEffect(() => {
+    if(selectedCardSet) {
+      fetchSportsData(selectedCardSet);
+    }
+  },[selectedCardSet]);
+
+  async function fetchSportsData(cardSet) {
     try {
-      const response=await fetch(`/api/Sports/sportsData?cardSet=${selectedCardSet}&cursor=${cursor}`);
+      const response=await fetch(`/api/Sports/[sportsData]?cardSet=${cardSet}`);
       if(response.ok) {
         const data=await response.json();
         setSportsData(data);
@@ -20,14 +34,8 @@ const SportsTable=() => {
     } catch(error) {
       console.error('Error fetching data:',error);
     }
-  },[selectedCardSet]);
-  useEffect(() => {
-    fetchData();
-  },[fetchData]);
-  const memoizedCardSets=useMemo(
-    () => ['1975 NBA Topps','1989 NBA Hoops','1990 NBA Hoops','1990 NBA Skybox','1990 NBA Fleer','1991 NBA Fleer','1990 NFL Pro Set','1991 NFL Pro Set','1991 NFL Proline Portraits','1991 NFL Wild Card','1991 NFL Wild Card College Draft Picks','1989 MLB Topps','1989 MLB Donruss','1991 MLB Fleer'],
-    []
-  );
+  }
+
   return (
     <>
       <div className="p-2 text-nowrap space-y-5 sm:space-y-0 space-x-0 sm:space-x-10 flex flex-col sm:flex-row">
@@ -67,9 +75,9 @@ const SportsTable=() => {
             </th>
           </tr>
         </thead>
-        {sportsData&&
-          <tbody className="mx-auto overflow-x-clip" style={{maxHeight: '750px',overflowY: 'auto'}}>
-            {sportsData.map((item,index) => (
+        <tbody className="mx-auto overflow-x-clip" style={{maxHeight: '750px',overflowY: 'auto'}}>
+          {sportsData&&
+            sportsData.map((item,index) => (
               item.products.map((product,productIndex) => (
                 <tr key={`${index}-${productIndex}`}>
                   <td scope="row" className="border border-gray-800 p-2 whitespace-wrap text-center sm:text-left text-sm font-medium text-white">
@@ -99,9 +107,21 @@ const SportsTable=() => {
                 </tr>
               ))
             ))}
-          </tbody>}
+        </tbody>
       </table>
+      <SportsPagination />
     </>
   );
 };
+
+export async function getStaticProps() {
+  const cursor=0;
+  const response=await fetch(`/api/Sports/[sportsData]?cardSet=${selectedCardSet}&cursor=${cursor}`);
+  const initialData=await response.json();
+  return {
+    props: {
+      initialData
+    }
+  };
+}
 export default SportsTable;
