@@ -7,7 +7,7 @@ const SportsTable=() => {
   const [sportsData,setSportsData]=useState([]);
   const [selectedCardSet,setSelectedCardSet]=useState(null);
   const [currentPage,setCurrentPage]=useState(1);
-  const pageSize=1; // Replace with your desired page size<br/><br/>
+  const pageSize=1;
 
   const calculateTotalPages=(totalData,pageSize) => {
     return Math.ceil(totalData/pageSize);
@@ -52,7 +52,7 @@ const SportsTable=() => {
     '1991 MLB Fleer',
   ],[]);
 
-  const totalData=sportsData; // Replace with the actual total number of data entries
+  const totalData=sportsData.length;
   const totalPages=calculateTotalPages(totalData,pageSize);
   const startIndex=(currentPage-1)*pageSize;
   const cardsToRender=sportsData?.slice(startIndex,startIndex+pageSize);
@@ -129,12 +129,13 @@ const SportsTable=() => {
           )}
         </tbody>
       </table>
-      <div className="mx-auto container max-w-full flex justify-center">
+      <div className="mx-auto p-2">
         <SportsPagination
           pageSize={pageSize}
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
+          calculateTotalPages={calculateTotalPages}
         />
       </div>
     </>
