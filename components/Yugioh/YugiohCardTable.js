@@ -18,7 +18,7 @@ const YugiohCardTable=({matchedCards,userCardList}) => {
               <th
                 scope="col"
                 aria-hidden="true"
-                className="hidden sticky top-0 z-10 p-2 border-b border-gray-300 bg-stone-500 bg-opacity-20 outline-1 outline-black text-center text-shadow text-lg font-black text-white whitespace-pre backdrop-blur backdrop-filter xl:table-cell">
+                className="hidden sticky top-0 z-10 p-2 border-b border-gray-300 bg-stone-500 bg-opacity-20 outline-1 outline-black text-center text-shadow text-lg font-black text-white backdrop-blur backdrop-filter whitespace-pre xl:table-cell">
               </th>
               <th
                 scope="col"

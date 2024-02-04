@@ -1,3 +1,4 @@
+'use client';
 // @/components/Sports/SportsCSVButton.js
 import React from 'react';
 

@@ -1,3 +1,4 @@
+'use client';
 // @/pages/YugiohPage.page.js
 import React from "react";
 import Head from 'next/head';

@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 const SportsPagination=({currentPage,totalPages,onPageChange}) => {
@@ -15,7 +16,7 @@ const SportsPagination=({currentPage,totalPages,onPageChange}) => {
             </div>
           </button>
         </li>
-        <div className="mx-auto w-fit gap-2 flex flex-row items-center sm:justify-center hidden sm:block">
+        <div className="mx-auto w-fit gap-2 flex flex-row items-center sm:space-y-2 sm:justify-center hidden sm:block">
           {Array.from({length: totalPages},(_,i) => i+1).map((page) => (
             <li
               className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-transparent backdrop-filter px-4 py-2 text-sm font-medium text-white text-shadow hover:text-black hover:bg-white ${currentPage===page? 'bg-white text-black':''

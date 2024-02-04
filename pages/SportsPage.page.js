@@ -1,3 +1,4 @@
+'use client';
 // @/pages/SportsPage.page.js
 import React from 'react';
 import Head from 'next/head';

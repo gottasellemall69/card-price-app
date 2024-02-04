@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 function CardSetButtons({cardSets,onSelectCardSet}) {
