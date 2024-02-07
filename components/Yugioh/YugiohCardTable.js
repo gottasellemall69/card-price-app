@@ -2,6 +2,7 @@
 // @/components/Yugioh/YugiohCardTable.js
 import React,{useCallback} from 'react';
 import Image from 'next/image';
+import Loading from "../loading";
 
 const YugiohCardTable=({matchedCards,userCardList}) => {
   const getLocalImagePath=useCallback((cardId) => `/yugiohImages/${String(cardId)}.jpg`,[]);
@@ -101,7 +102,7 @@ const YugiohCardTable=({matchedCards,userCardList}) => {
             })}
           </tbody>
         </table>
-      ):[]}
+      ):(<Loading />)}
     </div>
   );
 };

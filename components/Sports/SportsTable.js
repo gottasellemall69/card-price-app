@@ -3,17 +3,33 @@ import React,{useEffect,useState,useMemo} from 'react';
 import CardSetButtons from './CardSetButtons';
 import SportsCSVButton from './SportsCSVButton';
 import SportsPagination from './SportsPagination';
-
+/**
+ * Renders a table displaying sports data.
+ */
 const SportsTable=() => {
-  const [sportsData,setSportsData]=useState([]);
+  const [sportsData,setSportsData]=useState(null);
+  const [dataLoaded,setDataLoaded]=useState(false);
   const [selectedCardSet,setSelectedCardSet]=useState(null);
   const [currentPage,setCurrentPage]=useState(1);
   const pageSize=1;
 
+  /**
+   * Calculates the total number of pages based on the total data and page size.
+   * 
+   * @param {number} totalData - The total number of data items.
+   * @param {number} pageSize - The number of data items per page.
+   * @returns {number} The total number of pages.
+   */
   const calculateTotalPages=(totalData,pageSize) => {
     return Math.ceil(totalData/pageSize);
   };
 
+  /**
+   * Fetches sports data from the API based on the selected card set and current page.
+   * 
+   * @param {string} selectedCardSet - The selected card set.
+   * @param {number} currentPage - The current page number.
+   */
   const fetchSportsData=async (selectedCardSet,currentPage) => {
     try {
       const response=await fetch(
@@ -33,6 +49,7 @@ const SportsTable=() => {
   useEffect(() => {
     if(selectedCardSet) {
       fetchSportsData(selectedCardSet,currentPage);
+      setDataLoaded(true);
     }
   },[selectedCardSet,currentPage]);
 
@@ -56,31 +73,36 @@ const SportsTable=() => {
     []
   );
 
-  const totalData=sportsData.length;
+  const totalData=sportsData?.length;
   const totalPages=calculateTotalPages(totalData,pageSize);
   const startIndex=(currentPage-1)*pageSize;
   const cardsToRender=sportsData?.slice(startIndex,startIndex+pageSize);
 
+  /**
+   * Handles the page change event.
+   * 
+   * @param {number} page - The new page number.
+   */
   const onPageChange=(page) => {
     setCurrentPage(page);
   };
 
-
   return (
     <>
+      {/* Card Set Buttons */}
       <div
-        className="p-2 overflow-x-hidden text-nowrap space-y-5 sm:space-y-0 space-x-0 sm:space-x-10 flex flex-col sm:flex-row"
-        style={{maxHeight: '500px',overflowY: 'auto'}}
-      >
-        <div className="justify-start w-fit my-2 relative align-baseline float-left text-black font-black">
+        className="relative place-content-start items-center p-2 overflow-x-hidden text-nowrap space-y-5 sm:space-y-0 space-x-0 sm:space-x-10 flex flex-col sm:flex-row"
+        style={{maxHeight: '300px',overflowY: 'auto'}}>
+        <div className="w-fit my-2 float-left text-black font-black">
           <CardSetButtons cardSets={memoizedCardSets} onSelectCardSet={setSelectedCardSet} />
         </div>
-        <div className="justify-center w-fit my-2 relative align-bottom float-right">
+        <div className="w-fit my-2 float-right">
           <SportsCSVButton sportsData={sportsData} />
         </div>
       </div>
 
-      <table className="mx-auto table container mb-10 overflow-x-hidden">
+      {/* Table */}
+      <table className="mx-auto table container mb-10 overflow-x-hidden" >
         <thead>
           <tr>
             <th
@@ -113,7 +135,6 @@ const SportsTable=() => {
             >
               PSA 10
             </th>
-
           </tr>
         </thead>
         <tbody className="mx-auto overflow-x-hidden">
@@ -150,26 +171,27 @@ const SportsTable=() => {
                 >
                   {product['price2']}
                 </td>
-
               </tr>
             ))
           )}
         </tbody>
       </table>
-      <div className="mx-auto container w-fit sm:space-y-2">
-        <SportsPagination
-          pageSize={pageSize}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-          calculateTotalPages={calculateTotalPages}
-        />
-      </div>
 
+      {/* Pagination */}
+      {dataLoaded&&(
+        <div className="mx-auto container w-fit sm:space-y-2">
+          <SportsPagination
+            pageSize={pageSize}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+            calculateTotalPages={calculateTotalPages}
+          />
+        </div>
+      )}
     </>
   );
 };
-
 export async function getStaticProps(selectedCardSet,page) {
   const response=await fetch(
     `/api/Sports/sportsData?cardSet=${selectedCardSet}&page=${page}`

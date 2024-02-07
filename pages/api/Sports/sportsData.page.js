@@ -11,7 +11,6 @@ export default async function handler(req,res) {
 }
 
 async function fetchSportsData(cardSet) {
-  const cursor=0;
   const sportsUrls=getSportsUrls(cardSet);
   const dataPromises=sportsUrls.map(async (url) => {
     const response=await fetch(url);
