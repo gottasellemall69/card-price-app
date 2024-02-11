@@ -19,7 +19,9 @@ const YugiohPage=({metaTags}) => {
         <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
       </Head>
       <NavBar />
-      <YugiohCardMatcher />
+      <main className="w-full p-2 max-w-screen-2xl mx-auto">
+        <YugiohCardMatcher />
+      </main>
       <SpeedInsights />
     </>
   );

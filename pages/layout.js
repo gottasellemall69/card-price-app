@@ -5,7 +5,7 @@ export default function RootLayout() {
   return (
     <Html lang="en">
       <Head />
-      <body className="mx-auto w-full p-2 min-h-screen">
+      <body className="mx-auto w-full p-2 min-h-screen max-w-screen-2xl">
         <Main />
         <NextScript />
       </body>

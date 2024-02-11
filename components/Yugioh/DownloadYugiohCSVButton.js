@@ -1,7 +1,7 @@
 // @/components/Yugioh/DownloadCSVButton.js
 const DownloadYugiohCSVButton=({matchedCards,userCardList}) => {
   const downloadCSV=() => {
-    const csvHeader="Name,Desc,Number,Set,Rarity,Edition,Set Price";
+    const csvHeader="Name,Desc,Number,Set,Rarity,Edition,Price";
     const csvData=matchedCards.map((card) => {
       const cardName=card?.name||'';
       const cardDesc=card?.desc||'';
@@ -16,7 +16,7 @@ const DownloadYugiohCSVButton=({matchedCards,userCardList}) => {
         userCard.toLowerCase().includes(set.set_edition?.toLowerCase())
       );
       const ebayPrice=userCard&&card?.card_prices?.[0]?.ebay_price||'';
-      return `${cardName},${quotedDesc},${relevantSet?.set_code||''},${relevantSet?.set_name||''},${relevantSet?.set_rarity||''},${relevantSet?.set_edition||''},${ebayPrice}`;
+      return `"${cardName}",${quotedDesc},"${relevantSet?.set_code||''}","${relevantSet?.set_name||''}","${relevantSet?.set_rarity||''}","${relevantSet?.set_edition||''}",${ebayPrice}`;
     }).join("\n");
     const csvContent=`${csvHeader}\n${csvData}`;
     const element=document.createElement('a');

@@ -4,7 +4,7 @@ import React from 'react';
 
 const SportsCSVButton=({sportsData}) => {
   const downloadCSV=() => {
-    const csvHeader="Product Name,Set,Ungraded,PSA 9,PSA 10";
+    const csvHeader="Name,Set,Ungraded,PSA 9,PSA 10";
     const csvData=sportsData.flatMap((item) =>
       item.products.map((product) => {
         const productName=product["productName"]||'';

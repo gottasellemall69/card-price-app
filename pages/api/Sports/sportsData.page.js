@@ -25,8 +25,6 @@ function getSportsUrls(cardSet) {
   const cursor=0;
   // Modify this function to return the appropriate URLs based on the selected card set
   // Example: For '1990 Hoops', return URLs for 1990 Hoops cards
-  // You can use a switch statement or an object mapping
-  // Add more cases as needed for additional card sets
   switch(cardSet) {
     case '1975 NBA Topps':
       return [

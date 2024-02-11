@@ -91,8 +91,8 @@ const SportsTable=() => {
     <>
       {/* Card Set Buttons */}
       <div
-        className="relative place-content-start items-center p-2 overflow-x-hidden text-nowrap space-y-5 sm:space-y-0 space-x-0 sm:space-x-10 flex flex-col sm:flex-row"
-        style={{maxHeight: '300px',overflowY: 'auto'}}>
+        className="items-center p-2 overflow-x-hidden text-nowrap space-y-5 sm:space-y-0 space-x-0 sm:space-x-10 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap"
+      >
         <div className="w-fit my-2 float-left text-black font-black">
           <CardSetButtons cardSets={memoizedCardSets} onSelectCardSet={setSelectedCardSet} />
         </div>
@@ -102,14 +102,14 @@ const SportsTable=() => {
       </div>
 
       {/* Table */}
-      <table className="mx-auto table container mb-10 overflow-x-hidden" >
+      <table className="mx-auto table container mb-2 overflow-x-hidden" style={{maxHeight: '300px',overflowY: 'auto'}}>
         <thead>
           <tr>
             <th
               scope="col"
               className="sticky top-0 z-10 p-2 border-b border-gray-300 bg-stone-500 bg-opacity-20 outline-1 outline-black text-center text-shadow text-lg font-black text-white backdrop-blur backdrop-filter whitespace-nowrap"
             >
-              Product Name
+              Name
             </th>
             <th
               scope="col"
@@ -179,7 +179,7 @@ const SportsTable=() => {
 
       {/* Pagination */}
       {dataLoaded&&(
-        <div className="mx-auto container w-fit sm:space-y-2">
+        <div className="mx-auto container w-fit max-w-full">
           <SportsPagination
             pageSize={pageSize}
             currentPage={currentPage}

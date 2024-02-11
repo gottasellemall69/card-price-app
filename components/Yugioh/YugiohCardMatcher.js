@@ -56,7 +56,7 @@ const YugiohCardMatcher=() => {
         price: set.set_price.toLocaleString(),
       }));
       return userCardList.some(entry => {
-        const [name,numberOrSet,edition]=entry.split(',').map(item => item.trim().toLowerCase());
+        const [name,numberOrSet,edition]=entry.split('\n').map(item => item.trim().toLowerCase());
         return (
           name.includes(cardName)||
           (numberOrSet==='set'&&
@@ -118,11 +118,13 @@ const YugiohCardMatcher=() => {
       {matchedCards?.length>0&&(
         <>
           <YugiohCardTable
+            className="mx-auto w-full"
             matchedCards={matchedCards?.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)}
             userCardList={userCardList}
             isLoading={isLoading}
             isTablePopulated={isTablePopulated} />
           <YugiohPagination
+            className="mx-auto w-full"
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
             totalItems={matchedCards?.length}

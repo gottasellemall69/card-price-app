@@ -1,4 +1,4 @@
-import {NextResponse} from 'next/server';
+/*import {NextResponse} from 'next/server';
 const allowedOrigins=[
   'http://localhost:3000',
   'https://sportscardspro.com',
@@ -50,4 +50,4 @@ export const config={
   api: {
     bodyParser: false,
   },
-};
+};*/

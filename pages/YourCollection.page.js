@@ -39,23 +39,23 @@ const YourCollection=({collection,searchQuery}) => {
               <div className="bg-transparent shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex-shrink-0">
-                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">total value of collection in $</span>
+                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">{/*total value of collection in $*/}</span>
                     <h3 className="text-base font-normal text-white">Total Collection Value</h3>
                   </div>
                   <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
-                    overall gain or loss in %
+                    {/*overall gain or loss in %*/}
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                      <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
                     </svg>
                   </div>
                 </div>
-                <div id="main-chart"></div>
+                <div id="main-chart">graph or something</div>
               </div>
               <div className="bg-transparent shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div className="mb-4 flex items-center justify-between">
                   <div>
                     <h3 className="text-xl font-bold text-white mb-2">Top Rising Cards</h3>
-                    <span className="text-base font-normal text-white">This is a list of the cards that rose the most in value</span>
+                    <span className="text-base font-normal text-white">{/*This is a list of the cards that rose the most in value*/}</span>
                   </div>
                   <div className="flex-shrink-0">
                     <a href="#" className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">View all</a>
@@ -72,7 +72,7 @@ const YourCollection=({collection,searchQuery}) => {
                                 Name
                               </th>
                               <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Current Price
+                                Set
                               </th>
                               <th scope="col" className="p-4 text-left text-xs font-medium text-white uppercase tracking-wider">
                                 Change %
@@ -82,13 +82,13 @@ const YourCollection=({collection,searchQuery}) => {
                           <tbody className="bg-transparent">
                             <tr>
                               <td className="p-4 whitespace-nowrap text-sm font-normal text-white">
-                                <span className="font-semibold">card.name</span>
+                                <span className="font-semibold">cardName{/*card.name*/}</span>
                               </td>
                               <td className="p-4 whitespace-nowrap text-sm font-normal text-white">
-                                card.price
+                                cardSet{/*card.price*/}
                               </td>
                               <td className="p-4 whitespace-nowrap text-sm font-semibold text-white">
-                                card.priceChange
+                                currentPrice/cardPriceChange%{/*card.priceChange*/}
                               </td>
                             </tr>
                           </tbody>
@@ -103,7 +103,7 @@ const YourCollection=({collection,searchQuery}) => {
               <div className="bg-transparent shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">number of cards added within a period of time</span>
+                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">{/*number of cards added within a period of time*/}</span>
                     <h3 className="text-base font-normal text-white">New cards added this week</h3>
                   </div>
                 </div>
@@ -111,13 +111,13 @@ const YourCollection=({collection,searchQuery}) => {
               <div className="bg-transparent shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">5,355</span>
-                    <h3 className="text-base font-normal text-white">Visitors this week</h3>
+                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">{/*sum of the number of cards added recently (past week, for example)*/}</span>
+                    <h3 className="text-base font-normal text-white">Most Valuable Weekly Addition</h3>
                   </div>
                   <div className="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
-                    32.9%
+                    {/*% gain or loss compared to last period (past week, for example)*/}
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                      <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
                     </svg>
                   </div>
                 </div>
@@ -125,13 +125,13 @@ const YourCollection=({collection,searchQuery}) => {
               <div className="bg-transparent shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">385</span>
-                    <h3 className="text-base font-normal text-white">User signups this week</h3>
+                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">{/*sum of the number of _? added recently (past week, for example)*/}</span>
+                    <h3 className="text-base font-normal text-white">Other data point this week</h3>
                   </div>
                   <div className="ml-5 w-0 flex items-center justify-end flex-1 text-red-500 text-base font-bold">
-                    -2.7%
+                    {/*% gain or loss of the number of cards added recently (past week, for example)*/}
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                     </svg>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ const YourCollection=({collection,searchQuery}) => {
                             Neil Sims
                           </p>
                           <p className="text-sm text-white truncate">
-                            <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="17727a767e7b57607e7973646372653974787a">[email&#160;protected]</a>
+
                           </p>
                         </div>
                         <div className="inline-flex items-center text-base font-semibold text-white">
@@ -175,7 +175,6 @@ const YourCollection=({collection,searchQuery}) => {
                             Bonnie Green
                           </p>
                           <p className="text-sm text-white truncate">
-                            <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="d4b1b9b5bdb894a3bdbab0a7a0b1a6fab7bbb9">[email&#160;protected]</a>
                           </p>
                         </div>
                         <div className="inline-flex items-center text-base font-semibold text-white">
@@ -193,7 +192,6 @@ const YourCollection=({collection,searchQuery}) => {
                             Michael Gough
                           </p>
                           <p className="text-sm text-white truncate">
-                            <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="57323a363e3b17203e3933242332257934383a">[email&#160;protected]</a>
                           </p>
                         </div>
                         <div className="inline-flex items-center text-base font-semibold text-white">
@@ -211,7 +209,6 @@ const YourCollection=({collection,searchQuery}) => {
                             Thomes Lean
                           </p>
                           <p className="text-sm text-white truncate">
-                            <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="284d45494144685f41464c5b5c4d5a064b4745">[email&#160;protected]</a>
                           </p>
                         </div>
                         <div className="inline-flex items-center text-base font-semibold text-white">
@@ -229,7 +226,6 @@ const YourCollection=({collection,searchQuery}) => {
                             Lana Byrd
                           </p>
                           <p className="text-sm text-white truncate">
-                            <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="a2c7cfc3cbcee2d5cbccc6d1d6c7d08cc1cdcf">[email&#160;protected]</a>
                           </p>
                         </div>
                         <div className="inline-flex items-center text-base font-semibold text-white">
@@ -241,7 +237,7 @@ const YourCollection=({collection,searchQuery}) => {
                 </div>
               </div>
               <div className="bg-transparent shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-                <h3 className="text-xl leading-none font-bold text-white mb-10">Acquisition Overview</h3>
+                <h3 className="text-xl leading-none font-bold text-white mb-10">Other Cool Stats</h3>
                 <div className="block w-full overflow-x-auto">
                   <table className="items-center w-full bg-transparent border-collapse">
                     <thead>

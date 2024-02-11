@@ -13,7 +13,7 @@ const YugiohCardTable=({matchedCards,userCardList}) => {
   return (
     <div className="mt-4" style={{maxHeight: '750px',overflowY: 'auto'}}>
       {cardsToRender?.length>0? (
-        <table className="border-collapse max-w-full w-fit mx-auto">
+        <table className="border-collapse max-w-full w-full mx-auto">
           <thead>
             <tr>
               <th
@@ -57,7 +57,7 @@ const YugiohCardTable=({matchedCards,userCardList}) => {
               <th
                 scope="col"
                 className="sticky top-0 z-10 p-2 border-b border-gray-300 bg-stone-500 bg-opacity-20 outline-1 outline-black text-center text-shadow text-lg font-black text-white whitespace-pre backdrop-blur backdrop-filter">
-                Set Price
+                Price
               </th>
             </tr>
           </thead>
