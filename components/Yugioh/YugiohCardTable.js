@@ -62,17 +62,15 @@ const YugiohCardTable=({matchedCards,userCardList}) => {
             </tr>
           </thead>
           <tbody>
-            {cardsToRender.map((card,index) => {
+            {cardsToRender?.map((card,index) => {
               const userCard=userCardList.find((entry) =>
                 entry.toLowerCase().includes(card.name.toLowerCase())
               );
-              const relevantSet=
-                userCard&&
-                card.card_sets?.find((set) =>
-                  userCard.toLowerCase().includes(set.set_name?.toLowerCase())&&
-                  userCard.toLowerCase().includes(set.set_code?.toLowerCase())&&
-                  userCard.toLowerCase().includes(set.set_edition?.toLowerCase())
-                );
+              const relevantSet=userCard&&card.card_sets?.find((set) =>
+                userCard.toLowerCase().includes(set.set_name?.toLowerCase())&&
+                userCard.toLowerCase().includes(set.set_code?.toLowerCase())&&
+                userCard.toLowerCase().includes(set.set_edition?.toLowerCase())
+              );
               return (
                 <tr key={index} className="item">
                   <td className="hidden xl:table-cell">
@@ -81,8 +79,8 @@ const YugiohCardTable=({matchedCards,userCardList}) => {
                       src={getLocalImagePath(card.id)}
                       alt={`Card Image - ${card.name}`}
                       loading="lazy"
-                      width={200}
-                      height={200}
+                      width={1600}
+                      height={1600}
                       className="w-auto h-auto max-w-full max-h-96 mx-auto object-center place-self-center object-cover sm:object-scale-down"
                     />
                   </td>

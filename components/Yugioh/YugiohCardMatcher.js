@@ -1,7 +1,7 @@
 'use client';
 // @/components/Yugioh/CardMatcher.js
 import React,{useState,useEffect,useMemo,useCallback} from 'react';
-import useSWR from 'swr';
+import useSWR,{mutate} from 'swr';
 import DownloadYugiohCSVButton from './DownloadYugiohCSVButton';
 import YugiohPagination from './YugiohPagination';
 import YugiohCardTable from "./YugiohCardTable";
@@ -25,7 +25,8 @@ const YugiohCardMatcher=() => {
   // Use swr to fetch the data
   const {data: cardData,error: cardError}=useSWR(
     'https://db.ygoprodeck.com/api/v7/cardinfo.php?tcgplayer_data=true',
-    fetchCardData
+    fetchCardData,
+    {revalidateOnFocus: false}
   );
   useEffect(() => {
     if(cardError) {
@@ -46,6 +47,10 @@ const YugiohCardMatcher=() => {
       return;
     }
     setValidationError('');
+
+    // Invalidate the cache to trigger a re-fetch
+    mutate(cardData);
+
     const matchedResults=cardData?.filter(card => {
       const cardName=card.name.toLowerCase();
       const cardSets=(card.card_sets||[]).map((set) => ({
@@ -75,6 +80,7 @@ const YugiohCardMatcher=() => {
     setMatchedCards(matchedResults);
     setResultCount(matchedResults?.length);
   },[userInput,cardData]);
+
   const memoizedMatchCards=useMemo(() => matchCards,[matchCards]);
   const handleUserInputChange=useCallback((event) => {
     const value=event.target.value;

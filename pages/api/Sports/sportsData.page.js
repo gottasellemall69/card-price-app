@@ -198,7 +198,6 @@ function getSportsUrls(cardSet) {
     case '1991 MLB Fleer':
       return [
         `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor}&format=json`,
-        `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor}&format=json`,
         `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+50}&format=json`,
         `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+100}&format=json`,
         `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+150}&format=json`,
@@ -213,7 +212,7 @@ function getSportsUrls(cardSet) {
         `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+600}&format=json`,
         `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+650}&format=json`,
         `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+700}&format=json`,
-        `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+750}&format=json`
+        `https://www.sportscardspro.com/console/baseball-cards-1991-fleer?sort=model-number&model-number=&rookies-only=false&exclude-variants=false&cursor=${cursor+750}&format=json`,
       ];
     default:
       return [];
