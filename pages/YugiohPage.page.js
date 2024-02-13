@@ -3,8 +3,6 @@
 import React from "react";
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import NavBar from '@/components/Navigation/NavBar';
-import {SpeedInsights} from "@vercel/speed-insights/next";
 
 const YugiohCardMatcher=dynamic(() => import('@/components/Yugioh/YugiohCardMatcher'),{ssr: false});
 
@@ -18,11 +16,7 @@ const YugiohPage=({metaTags}) => {
         <meta name="keywords" content={metaTags.keywords} />
         <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
       </Head>
-      <NavBar />
-      <main className="w-full p-2 max-w-screen-2xl mx-auto">
-        <YugiohCardMatcher />
-      </main>
-      <SpeedInsights />
+      <YugiohCardMatcher />
     </>
   );
 };

@@ -1,0 +1,106 @@
+/* styles.css */
+
+/* Global Styles */
+
+/* Reset CSS */
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+/* Typography */
+body {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Layout */
+
+/* Header Section */
+header {
+  background-color: #333;
+  padding: 20px;
+  color: #fff;
+}
+
+header h1 {
+  font-weight: bold;
+}
+
+/* Chart Section */
+#chart-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+#chart {
+  max-width: 100%;
+}
+
+/* Stats Section */
+#stats-section {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#stats-section div {
+  flex-basis: 30%;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+/* Responsive Styles */
+
+/* Tablet */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+}

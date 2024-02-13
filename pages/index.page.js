@@ -2,7 +2,6 @@
 import React from "react";
 import Head from 'next/head';
 import Link from 'next/link';
-import {SpeedInsights} from "@vercel/speed-insights/next";
 
 const Home=({metaTags}) => {
   return (
@@ -33,15 +32,14 @@ const Home=({metaTags}) => {
           title="Check sports card prices here!">
         </Link>
       </div>
-      <SpeedInsights />
     </>
   );
 };
 export async function getStaticProps() {
   // Fetch data for meta tags
   const metaTags={
-    title: 'Yu-Gi-Oh! Prices',
-    description: 'Get Yu-Gi-Oh! card prices',
+    title: 'Card Prices',
+    description: 'Get card prices',
     charset: 'UTF-8',
     keywords: 'javascript,nextjs,price-tracker,trading-card-game,tailwindcss'
   };

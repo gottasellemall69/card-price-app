@@ -25,7 +25,7 @@ function YugiohPagination({currentPage,itemsPerPage,totalItems,handlePageClick})
             </button>
           </li>
         )}
-        <div className="hidden mx-auto w-fit sm:flex flex-row items-center sm:justify-center">
+        <div className="hidden gap-2 mx-auto w-fit sm:flex flex-row items-center sm:justify-center">
           {Array.from({length: pageCount},(_,i) => i+1).map((pageNumber) => (
             <li className="mx-auto space-x-2 relative inline-flex items-center rounded-md border border-gray-300 bg-transparent backdrop filter px-4 py-2 text-sm font-medium text-white text-shadow hover:text-black hover:bg-white" key={pageNumber} style={{backgroundColor: currentPage===pageNumber? 'white':'',color: currentPage===pageNumber? 'black':''}}>
               <button onClick={() => handlePageClick(pageNumber)}>{pageNumber}</button>

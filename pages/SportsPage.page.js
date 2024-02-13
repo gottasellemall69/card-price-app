@@ -3,13 +3,10 @@
 import React from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import {SpeedInsights} from "@vercel/speed-insights/next";
-import NavBar from '@/components/Navigation/NavBar.js';
 const SportsTable=dynamic(() => import('@/components/Sports/SportsTable.js'),{ssr: false});
 
 const SportsPage=({metaTags}) => {
   return (
-
     <>
       <Head>
         <title>{metaTags.title}</title>
@@ -18,20 +15,16 @@ const SportsPage=({metaTags}) => {
         <meta name="keywords" content={metaTags.keywords} />
         <link rel="canonical" href="https://card-price-app-bjp.vercel.app" />
       </Head>
-      <NavBar />
-      <main className="w-full p-2 max-w-screen-2xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4 p-2 text-center sm:text-left">Sports Card Prices</h1>
-        <p className='text-center sm:text-left text-base text-white p-2'>Select from the list of sets found in the dropdown below to view current prices for a card:</p>
-        <p className='text-center sm:text-left text-sm italic text-white p-2'>
-          All prices are supplied by:
-          <a href="https://www.sportscardspro.com"
-            title='https://www.sportscardspro.com'
-            className='underline hover:cursor-pointer'> https://www.sportscardspro.com
-          </a>
-        </p>
-        <SportsTable />
-      </main>
-      <SpeedInsights />
+      <h1 className="text-4xl font-bold mb-4 p-2 text-center sm:text-left">Sports Card Prices</h1>
+      <p className='text-center sm:text-left text-base text-white p-2'>Select from the list of sets found in the dropdown below to view current prices for a card:</p>
+      <p className='text-center sm:text-left text-sm italic text-white p-2'>
+        All prices are supplied by:
+        <a href="https://www.sportscardspro.com"
+          title='https://www.sportscardspro.com'
+          className='underline hover:cursor-pointer'> https://www.sportscardspro.com
+        </a>
+      </p>
+      <SportsTable />
     </>
   );
 };
