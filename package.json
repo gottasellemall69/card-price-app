@@ -22,7 +22,7 @@
     "react-dom": "^18",
     "react-paginate": "^8.2.0",
     "sharp": "^0.33.2",
-    "swr": "^2.2.4"
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
